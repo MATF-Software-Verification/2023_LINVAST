@@ -1,4 +1,4 @@
-version: 1.0.1-dev-{build}
+version: 1.0.1.{build}
 pull_requests:
   do_not_increment_build_number: true
 branches:
@@ -30,9 +30,24 @@ build_script:
     Write-Host "Commencing build"
     & .\rebuild-all.ps1 -ArtifactLocation "$dir" -Configuration "Release" -VersionSuffix "$BUILD_SUFFIX" -BuildNumber $BUILD_NUMBER 
     
+dotnet_csproj:
+  patch: true
+  file: '**\*.csproj'
+  version: $(appveyor_build_version)
+  package_version: $(appveyor_build_version)
+  assembly_version: $(appveyor_build_version)
+  file_version: $(appveyor_build_version)
+  informational_version: $(appveyor_build_version)
+
 artifacts:
 - path: artifacts\*.nupkg
-#deploy:
-#- provider: NuGet
-#  api_key:
-#    secure: 4L0dvfI87dhYGs3N2uU1QKh6QgSMYVUZifQgCMUlBtJQefKfj+V0QbFEGmAjb/KN
+
+test_script:
+  - cmd: dotnet restore ./LINVAST.Tests/LINVAST.Tests.csproj --verbosity m
+  - cmd: cd LINVAST.Tests
+  - cmd: dotnet test
+
+deploy:
+- provider: NuGet
+  api_key:
+    secure: 4L0dvfI87dhYGs3N2uU1QKh6QgSMYVUZifQgCMUlBtJQefKfj+V0QbFEGmAjb/KN

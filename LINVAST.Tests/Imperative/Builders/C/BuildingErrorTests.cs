@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using LINVAST.Exceptions;
+using LINVAST.Imperative;
 using LINVAST.Imperative.Builders.C;
 using LINVAST.Nodes;
 using LINVAST.Tests.Imperative.Builders.Common;
@@ -13,7 +14,7 @@ namespace LINVAST.Tests.Imperative.Builders.C
         [Test]
         public void SourceNotFoundTest()
         {
-            Assert.Throws<FileNotFoundException>(() => IASTFactory.BuildFromFile("404.c"));
+            Assert.Throws<FileNotFoundException>(() => new ImperativeASTFactory().BuildFromFile("404.c"));
         }
 
         [Test]
