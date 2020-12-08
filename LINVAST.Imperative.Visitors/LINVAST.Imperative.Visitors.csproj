@@ -1,5 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
+  <Import Project="../LINVAST.targets" />
+
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <Nullable>enable</Nullable>
@@ -24,7 +26,6 @@
 
   <ItemGroup>
     <None Include="..\README.md">
-      <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
   </ItemGroup>
