@@ -12,7 +12,6 @@
 		<GeneratePackageOnBuild>False</GeneratePackageOnBuild>
 		<Authors>Ivan Ristović</Authors>
 		<Company>Ivan Ristović</Company>
-		<PackageLicenseUrl>https://github.com/LINVAST/LINVAST/blob/master/LICENSE</PackageLicenseUrl>
 		<PackageProjectUrl>https://github.com/LINVAST/LINVAST</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/LINVAST/LINVAST</RepositoryUrl>
 		<RepositoryType>Git</RepositoryType>
