@@ -3,6 +3,13 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <Nullable>enable</Nullable>
+    <Authors>Ivan Ristović</Authors>
+    <Description>Language-invariant AST visitors.</Description>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Copyright>Ivan Ristović</Copyright>
+    <PackageLicenseFile>README.md</PackageLicenseFile>
+    <PackageProjectUrl>https://github.com/LINVAST/LINVAST</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/LINVAST/LINVAST</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,6 +20,13 @@
   <ItemGroup>
     <ProjectReference Include="..\LINVAST.Imperative\LINVAST.Imperative.csproj" />
     <ProjectReference Include="..\LINVAST\LINVAST.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
