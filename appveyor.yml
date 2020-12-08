@@ -32,7 +32,7 @@ build_script:
     
 artifacts:
 - path: artifacts\*.nupkg
-deploy:
-- provider: NuGet
-  api_key:
-    secure: 4L0dvfI87dhYGs3N2uU1QKh6QgSMYVUZifQgCMUlBtJQefKfj+V0QbFEGmAjb/KN
+#deploy:
+#- provider: NuGet
+#  api_key:
+#    secure: 4L0dvfI87dhYGs3N2uU1QKh6QgSMYVUZifQgCMUlBtJQefKfj+V0QbFEGmAjb/KN
