@@ -11,6 +11,7 @@
     <Copyright>Ivan Ristović</Copyright>
     <PackageProjectUrl>https://github.com/LINVAST/LINVAST</PackageProjectUrl>
     <RepositoryUrl>https://github.com/LINVAST/LINVAST</RepositoryUrl>
+    <Version>1.1.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -21,12 +22,6 @@
   <ItemGroup>
     <ProjectReference Include="..\LINVAST.Imperative\LINVAST.Imperative.csproj" />
     <ProjectReference Include="..\LINVAST\LINVAST.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="..\README.md">
-      <PackagePath></PackagePath>
-    </None>
   </ItemGroup>
 
 </Project>

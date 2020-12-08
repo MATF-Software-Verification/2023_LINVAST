@@ -11,6 +11,7 @@
     <Copyright>Ivan Ristović</Copyright>
     <RepositoryUrl>https://github.com/LINVAST/LINVAST</RepositoryUrl>
     <PackageProjectUrl>https://github.com/LINVAST/LINVAST</PackageProjectUrl>
+    <Version>1.1.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -23,12 +24,6 @@
     <PackageReference Include="Serilog" Version="2.10.0" />
     <PackageReference Include="System.Collections.Immutable" Version="5.0.0" />
     <PackageReference Include="System.Linq" Version="4.3.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="..\LICENSE">
-      <PackagePath></PackagePath>
-    </None>
   </ItemGroup>
 
 </Project>

@@ -11,6 +11,7 @@
     <Copyright>Ivan Ristović</Copyright>
     <RepositoryUrl>https://github.com/LINVAST/LINVAST</RepositoryUrl>
     <PackageProjectUrl>https://github.com/LINVAST/LINVAST</PackageProjectUrl>
+    <Version>1.1.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -22,12 +23,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\LINVAST\LINVAST.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="..\LICENSE">
-      <PackagePath></PackagePath>
-    </None>
   </ItemGroup>
 
 </Project>

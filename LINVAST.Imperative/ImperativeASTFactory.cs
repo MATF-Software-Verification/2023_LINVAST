@@ -7,19 +7,21 @@ using LINVAST.Builders;
 using LINVAST.Exceptions;
 using LINVAST.Nodes;
 
-namespace LINVAST
+namespace LINVAST.Imperative
 {
-    public static class ASTFactory
+    public sealed class ImperativeASTFactory : IASTFactory
     {
-        public static ASTNode BuildFromFile(string path)
+        public ASTNode BuildFromFile(string path)
         {
             var fi = new FileInfo(path);
             string code = File.ReadAllText(path);
 
             IEnumerable<Type> builderTypes = Assembly
-                .GetAssembly(typeof(ASTFactory))
+                .GetAssembly(typeof(ImperativeASTFactory))
                 .GetExportedTypes()
-                .Where(t => t.GetCustomAttributes<ASTBuilderAttribute>().Any(a => a.FileExtension == fi.Extension))
+                .Where(t => t.GetCustomAttributes<ASTBuilderAttribute>()
+                             .Any(a => string.Equals(a.FileExtension, fi.Extension, StringComparison.InvariantCultureIgnoreCase))
+                )
                 ;
             if (!builderTypes.Any())
                 throw new UnsupportedLanguageException();

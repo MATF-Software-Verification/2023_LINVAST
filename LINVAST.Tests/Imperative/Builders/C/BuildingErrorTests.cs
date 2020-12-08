@@ -13,7 +13,7 @@ namespace LINVAST.Tests.Imperative.Builders.C
         [Test]
         public void SourceNotFoundTest()
         {
-            Assert.Throws<FileNotFoundException>(() => ASTFactory.BuildFromFile("404.c"));
+            Assert.Throws<FileNotFoundException>(() => IASTFactory.BuildFromFile("404.c"));
         }
 
         [Test]
