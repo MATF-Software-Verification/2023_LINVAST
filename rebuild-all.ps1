@@ -12,13 +12,7 @@ param
     [string] $VersionSuffix,
 
     [parameter(Mandatory = $false)]
-    [int] $BuildNumber = -1,
-    
-    [parameter(Mandatory = $false)]
-    [string] $DocsPath,
-    
-    [parameter(Mandatory = $false)]
-    [string] $DocsPackageName
+    [int] $BuildNumber = -1
 )
 
 if ($Configuration -ne "Debug" -and $Configuration -ne "Release")
@@ -48,23 +42,6 @@ if ($LastExitCode -ne 0)
     Write-Host "Build failed with code $LastExitCode"
     $host.SetShouldExit($LastExitCode)
     Exit $LastExitCode
-}
-
-if ($DocsPath -and $DocsPackageName)
-{
-    Write-Host "Building documentation"
-    & .\rebuild-docs.ps1 -DocsPath "$DocsPath" -OutputPath "$ArtifactLocation" -PackageName "$DocsPackageName"
-    
-    if ($LastExitCode -ne 0)
-    {
-        Write-Host "Documentation build failed with code $LastExitCode"
-        $host.SetShouldExit($LastExitCode)
-        Exit $LastExitCode
-    }
-}
-else
-{
-    Write-Host "Not building documentation"
 }
 
 Exit 0
