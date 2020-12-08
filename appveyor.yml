@@ -27,19 +27,9 @@ build_script:
     Write-Host "Build: $BUILD_NUMBER / Branch: $BRANCH"
     Write-Host "Artifacts will be placed in: $dir"
 
-    # Check if this is a PR
-    if (-not $Env:APPVEYOR_PULL_REQUEST_NUMBER)
-    {
-        # Rebuild documentation
-        Write-Host "Commencing complete build"
-        & .\rebuild-all.ps1 -ArtifactLocation "$dir" -Configuration "Release" -VersionSuffix "$BUILD_SUFFIX" -BuildNumber $BUILD_NUMBER -DocsPath ".\docs" -DocsPackageName "dsharpplus-docs"
-    }
-    else
-    {
-        # Skip documentation
-        Write-Host "Building from PR ($Env:APPVEYOR_PULL_REQUEST_NUMBER); skipping docs build"
-        & .\rebuild-all.ps1 -ArtifactLocation "$dir" -Configuration "Release" -VersionSuffix "$BUILD_SUFFIX" -BuildNumber $BUILD_NUMBER 
-    }
+    Write-Host "Commencing build"
+    & .\rebuild-all.ps1 -ArtifactLocation "$dir" -Configuration "Release" -VersionSuffix "$BUILD_SUFFIX" -BuildNumber $BUILD_NUMBER 
+    
 artifacts:
 - path: artifacts\*.nupkg
 - path: artifacts\linvast-docs.tar.xz
