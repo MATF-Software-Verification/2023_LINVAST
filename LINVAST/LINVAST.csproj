@@ -6,7 +6,6 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <Nullable>enable</Nullable>
-    <Version>1.0.0</Version>
     <Authors>Ivan Ristović</Authors>
     <Description>Language-invariant AST library with extendible and intuitive interfaces.</Description>
     <Copyright>Ivan Ristović</Copyright>
