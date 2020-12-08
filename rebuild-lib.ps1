@@ -103,11 +103,11 @@ function Build-All([string] $target_dir_path, [string] $version_suffix, [string]
     }
     elseif (-not $build_number_string)
     {
-        & dotnet pack -v minimal -c "$bcfg" --version-suffix "$version_suffix" --no-build -o "$target_dir" --include-symbols | Out-Host
+        & dotnet pack -v minimal -c "$bcfg" --version-suffix "$version_suffix" --no-build -o "$target_dir" | Out-Host
     }
     else
     {
-        & dotnet pack -v minimal -c "$bcfg" --version-suffix "$version_suffix" -p:BuildNumber="$build_number_string" --no-build -o "$target_dir" --include-symbols | Out-Host
+        & dotnet pack -v minimal -c "$bcfg" --version-suffix "$version_suffix" -p:BuildNumber="$build_number_string" --no-build -o "$target_dir" | Out-Host
     }
     if ($LastExitCode -ne 0)
     {
