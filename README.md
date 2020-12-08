@@ -18,9 +18,59 @@ LINVAST is a set of libraries which provide common AST API for many programming 
 
 ## Examples
 
-Concrete examples on how to use LINVAST as a standalone CLI tool can be seen [here](https://github.com/LINVAST/CLI/).
+### Using LINVAST in your own codebase
+
+```cs
+// Creating AST
+LINVAST.ASTNode ast = new LINVAST.Imperative.ImperativeASTFactory().BuildFromFile("my_src_path");
+
+// Copying AST - AST is immutable
+LINVAST.ASTNode copy = ast.Copy();
+
+// Common operators are overridden
+if (ast == copy) {
+	// Prints code in C-like syntax
+	Console.WriteLine(ast.GetText());
+}
+
+// Each AST node has direct children property
+LINVAST.ASTNode child = ast.Children[1];
+LINVAST.ASTNode replacement = copy.Children[2];
+
+// Substitution, returns new AST
+LINVAST.ASTNode subCopy = copy.Substitute(child, replacement);
+
+// JSON serialization
+string json = ast.ToJson(compact: false);
+
+// Views - safe cast which throws when cast can't be performed
+using LINVAST.Imperative.Nodes;
+BinaryExprNode expr = ast.Children[4].As<BinaryExprNode>();
+
+// Specific nodes have useful and intuitive properties
+int line = expr.Line
+ExprNode left = expr.LeftOperand;
+OpNode op = expr.Operator;
+ExprNode right = expr.RightOperand;
+
+// Check specific node types
+if (expr is AssignExprNode)
+	var simplifiedExpr = expr.SimplifyComplexAssignment();
+
+// Use provided visitors to perform logic
+using LINVAST.Imperative.Visitors;
+var res = ConstantExpressionEvaluator.TryEvaluateAs<int>(expr);
+
+// Or implement own visitor...
+class MyVisitor<int> : BaseASTVisitor<int>
+{
+	public override int Visit(ExprNode node) { ... }
+}
+```
 
 ### Language-invariant AST examples
+
+Concrete examples on how to use LINVAST as a standalone CLI tool can be seen [here](https://github.com/LINVAST/CLI/).
 
 #### AST generated from C source:
 ```c
