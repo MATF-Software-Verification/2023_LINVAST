@@ -17,7 +17,7 @@ namespace LINVAST
             string code = File.ReadAllText(path);
 
             IEnumerable<Type> builderTypes = Assembly
-                .GetExecutingAssembly()
+                .GetAssembly(typeof(ASTFactory))
                 .GetExportedTypes()
                 .Where(t => t.GetCustomAttributes<ASTBuilderAttribute>().Any(a => a.FileExtension == fi.Extension))
                 ;
