@@ -24,12 +24,18 @@ if ($Configuration -ne "Debug" -and $Configuration -ne "Release")
 function Restore-Environment()
 {
     Write-Host "Restoring environment"
-    Remove-Item ./NuGet.config
+    if (Test-Path ./Nuget.config) 
+    {
+    	Remove-Item ./NuGet.config
+    }
 }
 
 function Prepare-Environment([string] $target_dir_path)
 {
-    Copy-Item ./.nuget/NuGet.config ./
+    if (Test-Path ./.nuget/Nuget.config) 
+    {
+        Copy-Item ./.nuget/NuGet.config ./
+    }
     
     if (Test-Path "$target_dir_path")
     {
