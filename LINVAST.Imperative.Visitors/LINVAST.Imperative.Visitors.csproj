@@ -9,7 +9,6 @@
     <Authors>Ivan Ristović</Authors>
     <Description>Language-invariant AST visitors.</Description>
     <Copyright>Ivan Ristović</Copyright>
-    <PackageLicenseFile>README.md</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/LINVAST/LINVAST</PackageProjectUrl>
     <RepositoryUrl>https://github.com/LINVAST/LINVAST</RepositoryUrl>
   </PropertyGroup>
