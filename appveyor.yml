@@ -32,7 +32,6 @@ build_script:
     
 artifacts:
 - path: artifacts\*.nupkg
-- path: artifacts\linvast-docs.tar.xz
 deploy:
 - provider: NuGet
   api_key:
