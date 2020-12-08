@@ -9,9 +9,7 @@
     <Authors>Ivan Ristović</Authors>
     <Description>Language-invariant AST library for imperative programming languages. Currently supported languages: C, Lua.</Description>
     <Copyright>Ivan Ristović</Copyright>
-    <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <RepositoryUrl>https://github.com/LINVAST/LINVAST</RepositoryUrl>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageProjectUrl>https://github.com/LINVAST/LINVAST</PackageProjectUrl>
   </PropertyGroup>
 

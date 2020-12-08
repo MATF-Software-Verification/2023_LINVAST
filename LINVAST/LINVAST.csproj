@@ -12,8 +12,6 @@
     <Copyright>Ivan Ristović</Copyright>
     <RepositoryUrl>https://github.com/LINVAST/LINVAST</RepositoryUrl>
     <PackageProjectUrl>https://github.com/LINVAST/LINVAST</PackageProjectUrl>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageLicenseFile>LICENSE</PackageLicenseFile>
   </PropertyGroup>
 
   <ItemGroup>

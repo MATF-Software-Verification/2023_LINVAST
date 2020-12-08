@@ -8,7 +8,6 @@
     <Nullable>enable</Nullable>
     <Authors>Ivan Ristović</Authors>
     <Description>Language-invariant AST visitors.</Description>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Copyright>Ivan Ristović</Copyright>
     <PackageLicenseFile>README.md</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/LINVAST/LINVAST</PackageProjectUrl>
