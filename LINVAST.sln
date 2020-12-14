@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LINVAST", "LINVAST\LINVAST.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LINVAST.Imperative.Visitors", "LINVAST.Imperative.Visitors\LINVAST.Imperative.Visitors.csproj", "{22EAF91A-DC0A-465E-A3CA-48365569D88B}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{01521606-74B9-4CBF-9BDD-EED1995FA929}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{AF0653BA-65FB-4DA6-A71B-00EAA400BEEE}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 	EndProjectSection
