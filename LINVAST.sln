@@ -7,9 +7,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LINVAST.Imperative", "LINVA
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LINVAST.Tests", "LINVAST.Tests\LINVAST.Tests.csproj", "{9A4C49CF-D858-446C-86E7-2426D04DEAF4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LINVAST", "LINVAST\LINVAST.csproj", "{3ADF434C-334F-49E1-9158-DE92353222CF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LINVAST", "LINVAST\LINVAST.csproj", "{3ADF434C-334F-49E1-9158-DE92353222CF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LINVAST.Imperative.Visitors", "LINVAST.Imperative.Visitors\LINVAST.Imperative.Visitors.csproj", "{22EAF91A-DC0A-465E-A3CA-48365569D88B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LINVAST.Imperative.Visitors", "LINVAST.Imperative.Visitors\LINVAST.Imperative.Visitors.csproj", "{22EAF91A-DC0A-465E-A3CA-48365569D88B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{01521606-74B9-4CBF-9BDD-EED1995FA929}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
