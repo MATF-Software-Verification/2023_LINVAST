@@ -33,7 +33,8 @@ namespace LINVAST.Tests.Imperative.Builders.Common
                 Assert.That(f.Parameters, Is.Not.Null);
                 Assert.That(f.Parameters, Has.Exactly(@params.Length).Items);
                 Assert.That(f.ParametersNode, Is.Not.Null);
-                Assert.That(f.Parameters.Select(p => (p.Specifiers.TypeName, p.Declarator.Identifier)), Is.EqualTo(@params));
+                Assert.That(f.Parameters, Is.Not.Null);
+                Assert.That(f.Parameters!.Select(p => (p.Specifiers.TypeName, p.Declarator.Identifier)), Is.EqualTo(@params));
             }
             return f;
         }

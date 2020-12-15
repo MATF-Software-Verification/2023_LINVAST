@@ -86,7 +86,7 @@ namespace LINVAST.Tests.Imperative.Builders.Common
             Assert.That(fdecl.IsVariadic, Is.EqualTo(isVariadic));
             if (@params.Any()) {
                 Assert.That(fdecl.Parameters, Is.Not.Null);
-                Assert.That(fdecl.Parameters.Select(p => ExtractParamInfo(p)), Is.EqualTo(@params));
+                Assert.That(fdecl.Parameters!.Select(p => ExtractParamInfo(p)), Is.EqualTo(@params));
             } else {
                 Assert.That(fdecl.Parameters, Is.Null);
             }

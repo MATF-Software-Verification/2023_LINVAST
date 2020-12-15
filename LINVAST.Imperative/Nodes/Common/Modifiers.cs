@@ -81,6 +81,8 @@ namespace LINVAST.Imperative.Nodes.Common
 
             return this.AccessModifiers.Equals(other.AccessModifiers) && this.QualifierFlags.Equals(other.QualifierFlags);
         }
+
+        public override int GetHashCode() => (this.AccessModifiers, this.QualifierFlags).GetHashCode();
     }
 
     public enum AccessModifiers
