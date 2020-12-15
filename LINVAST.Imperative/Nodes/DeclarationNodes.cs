@@ -22,10 +22,15 @@ namespace LINVAST.Imperative.Nodes
     public sealed class DeclSpecsNode : DeclarationNode
     {
         public Modifiers Modifiers { get; }
-        public string TypeName { get; }
 
         [JsonIgnore]
-        public Type? Type { get; }
+        public TypeNameNode TypeNode => this.Children.Single().As<TypeNameNode>();
+
+        [JsonIgnore]
+        public string TypeName => this.TypeNode.TypeName;
+
+        [JsonIgnore]
+        public Type? Type => this.TypeNode.Type;
 
 
         public DeclSpecsNode(int line)
@@ -41,15 +46,9 @@ namespace LINVAST.Imperative.Nodes
         }
 
         public DeclSpecsNode(int line, string specs, string type)
-            : base(line)
+            : base(line, new TypeNameNode(line, type))
         {
             this.Modifiers = Modifiers.Parse(specs);
-            this.TypeName = type.Trim();
-            TypeCode? typeCode = Types.TypeCodeFor(this.TypeName);
-            if (typeCode is null)
-                Log.Warning("Unknown type: {Type}", this.TypeName);
-            else
-                this.Type = Types.ToType(typeCode.Value);
         }
 
 
@@ -82,7 +81,7 @@ namespace LINVAST.Imperative.Nodes
 
     public abstract class DeclNode : DeclarationNode
     {
-        public bool Pointer { get; set; }
+        public int PointerLevel { get; set; }
 
         [JsonIgnore]
         public IdNode IdentifierNode => this.Children.First().As<IdNode>();
@@ -98,10 +97,10 @@ namespace LINVAST.Imperative.Nodes
             : base(line, new[] { identifier }.Concat(children)) { }
 
 
-        public override string GetText() => $"{(this.Pointer ? "*" : "")}{this.IdentifierNode.GetText()}";
+        public override string GetText() => $"{new string('*', this.PointerLevel)}{this.IdentifierNode.GetText()}";
     }
 
-    public sealed class DeclListNode : DeclarationNode
+    public class DeclListNode : DeclarationNode
     {
         [JsonIgnore]
         public IEnumerable<DeclNode> Declarators => this.Children.Cast<DeclNode>();
@@ -112,6 +111,7 @@ namespace LINVAST.Imperative.Nodes
 
         public DeclListNode(int line, params DeclNode[] decls)
             : base(line, decls) { }
+
 
         public override string GetText() => string.Join(", ", this.Children.Select(c => c.GetText()));
     }
@@ -129,7 +129,39 @@ namespace LINVAST.Imperative.Nodes
             : base(line, identifier, initializer) { }
 
 
-        public override string GetText() 
+        public override string GetText()
             => this.Initializer is { } ? $"{base.GetText()} = {this.Initializer.GetText()}" : base.GetText();
+    }
+
+    public sealed class TypeNameListNode : DeclListNode
+    {
+        [JsonIgnore]
+        public IEnumerable<TypeDeclNode> Types => this.Children.Cast<TypeDeclNode>();
+
+
+        public TypeNameListNode(int line, IEnumerable<TypeDeclNode> decls)
+            : base(line, decls) { }
+
+        public TypeNameListNode(int line, params TypeDeclNode[] decls)
+            : base(line, decls) { }
+    }
+
+    public sealed class TypeNameNode : DeclNode
+    {
+        public string TypeName => this.Identifier;
+
+        [JsonIgnore]
+        public Type? Type { get; }
+
+
+        public TypeNameNode(int line, string typeName)
+            : base(line, new IdNode(line, typeName.Trim()))
+        {
+            TypeCode? typeCode = Types.TypeCodeFor(this.TypeName);
+            if (typeCode is null)
+                Log.Warning("Unknown type: {Type}", this.TypeName);
+            else
+                this.Type = Types.ToType(typeCode.Value);
+        }
     }
 }

@@ -143,7 +143,7 @@ namespace LINVAST.Imperative.Nodes
             => base.Equals(other) && this.Identifier.Equals(other.As<IdNode>().Identifier);
     }
 
-    public sealed class FuncCallExprNode : ExprNode
+    public class FuncCallExprNode : ExprNode
     {
         [JsonIgnore]
         public string Identifier => this.Children[0].As<IdNode>().Identifier;
@@ -160,6 +160,15 @@ namespace LINVAST.Imperative.Nodes
 
 
         public override string GetText() => $"{this.Identifier}({this.Arguments?.GetText() ?? ""})";
+    }
+
+    public sealed class ConsExprNode : FuncCallExprNode
+    {
+        public ConsExprNode(int line, IdNode identifier)
+            : base(line, identifier) { }
+
+        public ConsExprNode(int line, IdNode identifier, ExprListNode args)
+            : base(line, identifier, args) { }
     }
 
     public sealed class ArrAccessExprNode : ExprNode

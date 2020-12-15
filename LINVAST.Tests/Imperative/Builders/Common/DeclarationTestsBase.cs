@@ -25,7 +25,8 @@ namespace LINVAST.Tests.Imperative.Builders.Common
             Assert.That(decl.Specifiers.Modifiers.AccessModifiers, Is.EqualTo(access));
             Assert.That(decl.Specifiers.Modifiers.QualifierFlags, Is.EqualTo(qualifiers));
             Assert.That(decl.Specifiers.TypeName, Is.EqualTo(type));
-            Assert.That(decl.Specifiers.Children, Is.Empty);
+            Assert.That(decl.Specifiers.Children.Single(), Is.Not.Null);
+            Assert.That(decl.Specifiers.Children.Single(), Is.InstanceOf<TypeNameNode>());
             return decl;
         }
 
@@ -42,7 +43,7 @@ namespace LINVAST.Tests.Imperative.Builders.Common
             VarDeclNode var = decl.DeclaratorList.Declarators.Single().As<VarDeclNode>();
             Assert.That(var.Parent, Is.EqualTo(decl.DeclaratorList));
             Assert.That(var.Identifier, Is.EqualTo(identifier));
-            Assert.That(var.Children.First().As<IdNode>().Identifier, Is.EqualTo(identifier));
+            Assert.That(var.Children[0].As<IdNode>().Identifier, Is.EqualTo(identifier));
             if (value is { }) {
                 Assert.That(var.Initializer, Is.Not.Null);
                 Assert.That(var.Initializer!.Parent, Is.EqualTo(var));
@@ -115,7 +116,7 @@ namespace LINVAST.Tests.Imperative.Builders.Common
             ArrDeclNode arr = decl.DeclaratorList.Declarators.First().As<ArrDeclNode>();
             Assert.That(arr.Parent, Is.EqualTo(decl.DeclaratorList));
             Assert.That(arr.Identifier, Is.EqualTo(arrName));
-            Assert.That(arr.Children.First().As<IdNode>().Identifier, Is.EqualTo(arrName));
+            Assert.That(arr.Children[0].As<IdNode>().Identifier, Is.EqualTo(arrName));
             if (size is { }) {
                 Assert.That(arr.SizeExpression, Is.Not.Null);
                 Assert.That(arr.SizeExpression!.Parent, Is.EqualTo(arr));

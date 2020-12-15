@@ -22,7 +22,7 @@ namespace LINVAST.Imperative.Builders.C
                 string pointerFreeType = declSpecs.TypeName.Substring(0, declSpecs.TypeName.IndexOf("*"));
                 declSpecs = new DeclSpecsNode(declSpecs.Line, declSpecs.Modifiers.ToString(), pointerFreeType);
                 foreach (DeclNode decl in declList.Declarators)
-                    decl.Pointer = true;
+                    decl.PointerLevel = 1;
             }
             return new DeclStatNode(ctx.Start.Line, declSpecs, declList);
         }
@@ -30,11 +30,8 @@ namespace LINVAST.Imperative.Builders.C
         public override ASTNode VisitDeclarator([NotNull] DeclaratorContext ctx)
         {
             DeclNode decl = this.Visit(ctx.directDeclarator()).As<DeclNode>();
-            if (ctx.pointer() is { }) {
-                if (ctx.pointer().pointer() is { })
-                    throw new NotImplementedException("pointer+");
-                decl.Pointer = true;
-            }
+            if (ctx.pointer() is { })
+                decl.PointerLevel++;
             return decl;
         }
 

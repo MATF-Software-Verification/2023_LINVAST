@@ -31,7 +31,6 @@ namespace LINVAST.Imperative.Builders.Java
     using DFA = Antlr4.Runtime.Dfa.DFA;
 
     [System.CodeDom.Compiler.GeneratedCode("ANTLR", "4.9")]
-    [System.CLSCompliant(false)]
     public partial class JavaLexer : Lexer
     {
         protected static DFA[] decisionToDFA;

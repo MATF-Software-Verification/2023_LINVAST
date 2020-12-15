@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
-using LINVAST.Imperative.Nodes.Common;
 using LINVAST.Nodes;
 using Newtonsoft.Json;
 
@@ -15,7 +14,10 @@ namespace LINVAST.Imperative.Nodes
         public bool IsVariadic => this.ParametersNode?.IsVariadic ?? false;
 
         [JsonIgnore]
-        public FuncParamsNode? ParametersNode => this.Children.ElementAtOrDefault(1) as FuncParamsNode ?? null;
+        public TypeNameListNode TemplateArgs => this.Children[1].As<TypeNameListNode>();
+
+        [JsonIgnore]
+        public FuncParamsNode? ParametersNode => this.Children.ElementAtOrDefault(2) as FuncParamsNode ?? null;
 
         [JsonIgnore]
         public BlockStatNode? Definition => this.Children.Last() as BlockStatNode ?? null;
@@ -28,19 +30,30 @@ namespace LINVAST.Imperative.Nodes
             : base(line, identifier) { }
 
         public FuncDeclNode(int line, IdNode identifier, FuncParamsNode @params)
-            : base(line, identifier, @params) { }
+            : base(line, identifier, new TypeNameListNode(line), @params) { }
 
         public FuncDeclNode(int line, IdNode identifier, BlockStatNode body)
-            : base(line, identifier, body) { }
+            : base(line, identifier, new TypeNameListNode(line), body) { }
 
         public FuncDeclNode(int line, IdNode identifier, FuncParamsNode @params, BlockStatNode body)
-            : base(line, identifier, @params, body) { }
+            : base(line, identifier, new TypeNameListNode(line), @params, body) { }
+
+        public FuncDeclNode(int line, IdNode identifier, TypeNameListNode templateArgs, FuncParamsNode @params)
+            : base(line, identifier, templateArgs, @params) { }
+
+        public FuncDeclNode(int line, IdNode identifier, TypeNameListNode templateArgs, BlockStatNode body)
+            : base(line, identifier, templateArgs, body) { }
+
+        public FuncDeclNode(int line, IdNode identifier, TypeNameListNode templateArgs, FuncParamsNode @params, BlockStatNode body)
+            : base(line, identifier, templateArgs, @params, body) { }
 
 
         public override string GetText()
         {
             var sb = new StringBuilder();
             sb.Append(base.GetText()).Append('(');
+            if (this.TemplateArgs is { })
+                sb.Append('<').AppendJoin(',', this.TemplateArgs.Types).Append('>');
             if (this.ParametersNode is { })
                 sb.Append(this.ParametersNode.GetText());
             sb.Append(')');

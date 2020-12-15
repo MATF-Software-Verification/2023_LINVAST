@@ -36,7 +36,6 @@ namespace LINVAST.Imperative.Builders.Java
     /// </summary>
     [System.CodeDom.Compiler.GeneratedCode("ANTLR", "4.9")]
     [System.Diagnostics.DebuggerNonUserCode]
-    [System.CLSCompliant(false)]
     public partial class JavaBaseListener : IJavaListener
     {
         /// <summary>

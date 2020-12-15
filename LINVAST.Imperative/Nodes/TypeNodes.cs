@@ -12,27 +12,27 @@ namespace LINVAST.Imperative.Nodes
         public IEnumerable<DeclStatNode> Declarations => this.Children.Skip(3).Cast<DeclStatNode>();
 
         [JsonIgnore]
-        public IdListNode TemplateVariables => this.Children[1].As<IdListNode>();
+        public IdListNode TemplateParameters => this.Children[1].As<IdListNode>();
 
         [JsonIgnore]
         public IdListNode BaseTypes => this.Children[2].As<IdListNode>();
 
 
-        public TypeDeclNode(int line, IdNode identifier, IdListNode templateVars, IdListNode baseTypes, IEnumerable<DeclStatNode> declarations)
-            : base(line, identifier, new ASTNode[] { templateVars, baseTypes }.Concat(declarations)) { }
+        public TypeDeclNode(int line, IdNode identifier, IdListNode templateParams, IdListNode baseTypes, IEnumerable<DeclStatNode> declarations)
+            : base(line, identifier, new ASTNode[] { templateParams, baseTypes }.Concat(declarations)) { }
 
-        public TypeDeclNode(int line, IdNode identifier, IdListNode templateVars, IdListNode baseTypes, params DeclStatNode[] declarations)
-            : base(line, identifier, new ASTNode[] { templateVars, baseTypes }.Concat(declarations)) { }
+        public TypeDeclNode(int line, IdNode identifier, IdListNode templateParams, IdListNode baseTypes, params DeclStatNode[] declarations)
+            : base(line, identifier, new ASTNode[] { templateParams, baseTypes }.Concat(declarations)) { }
 
 
         public override string GetText()
         {
             var sb = new StringBuilder();
             sb.Append(this.Identifier);
-            if (this.TemplateVariables.Expressions.Any())
-                sb.Append('<').AppendJoin(',', this.TemplateVariables.Expressions).Append('>');
+            if (this.TemplateParameters.Expressions.Any())
+                sb.Append('<').AppendJoin(',', this.TemplateParameters.Expressions).Append('>');
             if (this.BaseTypes.Expressions.Any())
-                sb.Append(" : ").AppendJoin(',', this.TemplateVariables.Expressions);
+                sb.Append(" : ").AppendJoin(',', this.TemplateParameters.Expressions);
             sb.AppendLine();
             sb.Append(" { ").AppendJoin('\n', this.Declarations).AppendLine(" }");
             return sb.ToString();

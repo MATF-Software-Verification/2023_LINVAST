@@ -31,7 +31,6 @@ namespace LINVAST.Imperative.Builders.Java
     /// <see cref="JavaParser"/>.
     /// </summary>
     [System.CodeDom.Compiler.GeneratedCode("ANTLR", "4.9")]
-    [System.CLSCompliant(false)]
     public interface IJavaListener : IParseTreeListener
     {
         /// <summary>

@@ -35,7 +35,6 @@ namespace LINVAST.Imperative.Builders.Java
     /// <typeparam name="Result">The return type of the visit operation.</typeparam>
     [System.CodeDom.Compiler.GeneratedCode("ANTLR", "4.9")]
     [System.Diagnostics.DebuggerNonUserCode]
-    [System.CLSCompliant(false)]
     public partial class JavaBaseVisitor<Result> : AbstractParseTreeVisitor<Result>, IJavaVisitor<Result>
     {
         /// <summary>

@@ -32,7 +32,6 @@ namespace LINVAST.Imperative.Builders.Java
     /// </summary>
     /// <typeparam name="Result">The return type of the visit operation.</typeparam>
     [System.CodeDom.Compiler.GeneratedCode("ANTLR", "4.9")]
-    [System.CLSCompliant(false)]
     public interface IJavaVisitor<Result> : IParseTreeVisitor<Result>
     {
         /// <summary>
