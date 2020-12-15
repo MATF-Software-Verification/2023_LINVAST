@@ -20,7 +20,7 @@ namespace LINVAST.Tests.Imperative.Builders.Lua
         public void FunctionTest()
         {
             SourceNode tu = this.AssertTranslationUnit(@"function two() return 2 end");
-            Assert.That(tu.Children.Single(), Is.InstanceOf<FuncDefNode>());
+            Assert.That(tu.Children.Single(), Is.InstanceOf<FuncNode>());
         }
 
 

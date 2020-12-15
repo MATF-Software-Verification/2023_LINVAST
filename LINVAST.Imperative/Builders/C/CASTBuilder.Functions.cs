@@ -17,7 +17,10 @@ namespace LINVAST.Imperative.Builders.C
                 decl = new FuncDeclNode(fname.Line, fname);
             FuncDeclNode fdecl = decl.As<FuncDeclNode>();
             BlockStatNode body = this.Visit(ctx.compoundStatement()).As<BlockStatNode>();
-            return new FuncDefNode(ctx.Start.Line, declSpecs, fdecl, body);
+            FuncDeclNode fdef = fdecl.ParametersNode is { }
+                ? new FuncDeclNode(fdecl.Line, fdecl.IdentifierNode, fdecl.ParametersNode, body)
+                : new FuncDeclNode(fdecl.Line, fdecl.IdentifierNode, body);
+            return new FuncNode(ctx.Start.Line, declSpecs, fdef);
         }
 
         public override ASTNode VisitParameterTypeList([NotNull] ParameterTypeListContext ctx)

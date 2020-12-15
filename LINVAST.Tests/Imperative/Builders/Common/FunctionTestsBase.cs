@@ -8,7 +8,7 @@ namespace LINVAST.Tests.Imperative.Builders.Common
 {
     internal abstract class FunctionTestsBase : ASTBuilderTestBase
     {
-        protected FuncDefNode AssertFunctionSignature(string src,
+        protected FuncNode AssertFunctionSignature(string src,
                                                                  int line,
                                                                  string fname,
                                                                  string returnType = "void",
@@ -17,15 +17,15 @@ namespace LINVAST.Tests.Imperative.Builders.Common
                                                                  QualifierFlags qualifiers = QualifierFlags.None,
                                                                  params (string Type, string Identifier)[] @params)
         {
-            FuncDefNode f = this.GenerateAST(src).As<FuncDefNode>();
+            FuncNode f = this.GenerateAST(src).As<FuncNode>();
             this.AssertChildrenParentProperties(f);
-            this.AssertChildrenParentProperties(f.Definition);
+            Assert.That(f.Definition, Is.Not.Null);
+            this.AssertChildrenParentProperties(f.Definition!);
             Assert.That(f, Is.Not.Null);
             Assert.That(f.Line, Is.EqualTo(line));
-            Assert.That(f.Declarator, Is.Not.Null);
-            Assert.That(f.Declarator.Parent, Is.EqualTo(f));
-            Assert.That(f.Keywords.AccessModifiers, Is.EqualTo(access));
-            Assert.That(f.Keywords.QualifierFlags, Is.EqualTo(qualifiers));
+            Assert.That(f.Declarator.Parent!.Parent, Is.EqualTo(f));
+            Assert.That(f.Modifiers.AccessModifiers, Is.EqualTo(access));
+            Assert.That(f.Modifiers.QualifierFlags, Is.EqualTo(qualifiers));
             Assert.That(f.Identifier, Is.EqualTo(fname));
             Assert.That(f.ReturnTypeName, Is.EqualTo(returnType));
             Assert.That(f.IsVariadic, Is.EqualTo(isVariadic));
@@ -41,8 +41,9 @@ namespace LINVAST.Tests.Imperative.Builders.Common
 
         protected void AssertReturnValue(string code, object? expected)
         {
-            FuncDefNode fnode = this.GenerateAST(code).As<FuncDefNode>();
-            JumpStatNode node = fnode.Definition.Children.Last().As<JumpStatNode>();
+            FuncNode fnode = this.GenerateAST(code).As<FuncNode>();
+            Assert.That(fnode.Definition, Is.Not.Null);
+            JumpStatNode node = fnode.Definition!.Children.Last().As<JumpStatNode>();
 
             Assert.That(node.GotoLabel, Is.Null);
             if (expected is null) {

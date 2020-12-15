@@ -249,7 +249,7 @@ namespace LINVAST.Tests.Nodes
         [Test]
         public void FunctionDefenitionEqualityTest()
         {
-            ASTNode ast1 = new FuncDefNode(
+            ASTNode ast1 = new FuncNode(
                 1,
                 new DeclSpecsNode(2, "public static", "void"),
                 new FuncDeclNode(
@@ -262,11 +262,11 @@ namespace LINVAST.Tests.Nodes
                             new DeclSpecsNode(3, "const", "time_t"),
                             new ArrDeclNode(3, new IdNode(3, "arr"))
                         )
-                    )
-                ),
-                new BlockStatNode(3, new JumpStatNode(4, new LitExprNode(4, "2", "u")))
+                    ),
+                    new BlockStatNode(3, new JumpStatNode(4, new LitExprNode(4, "2", "u")))
+                )
             );
-            ASTNode ast2 = new FuncDefNode(
+            ASTNode ast2 = new FuncNode(
                 1,
                 new DeclSpecsNode(3, "public static", "void"),
                 new FuncDeclNode(
@@ -279,9 +279,9 @@ namespace LINVAST.Tests.Nodes
                             new DeclSpecsNode(5, "const", "time_t"),
                             new ArrDeclNode(6, new IdNode(6, "arr"))
                         )
-                    )
-                ),
-                new BlockStatNode(7, new JumpStatNode(8, new LitExprNode(8, "2", "u")))
+                    ),
+                    new BlockStatNode(7, new JumpStatNode(8, new LitExprNode(8, "2", "u")))
+                )
             );
             AssertNodes(ast1, ast2, eq: true);
         }
@@ -289,7 +289,7 @@ namespace LINVAST.Tests.Nodes
         [Test]
         public void FunctionDefenitionDifferenceTest1()
         {
-            ASTNode ast1 = new FuncDefNode(
+            ASTNode ast1 = new FuncNode(
                 1,
                 new DeclSpecsNode(2, "public static", "void"),
                 new FuncDeclNode(
@@ -302,11 +302,11 @@ namespace LINVAST.Tests.Nodes
                             new DeclSpecsNode(3, "", "time_t"),
                             new ArrDeclNode(3, new IdNode(3, "arr"))
                         )
-                    )
-                ),
-                new BlockStatNode(3, new JumpStatNode(4, new LitExprNode(4, "2", "u")))
+                    ),
+                    new BlockStatNode(3, new JumpStatNode(4, new LitExprNode(4, "2", "u")))
+                )
             );
-            ASTNode ast2 = new FuncDefNode(
+            ASTNode ast2 = new FuncNode(
                 1,
                 new DeclSpecsNode(3, "public static", "void"),
                 new FuncDeclNode(
@@ -319,9 +319,9 @@ namespace LINVAST.Tests.Nodes
                             new DeclSpecsNode(5, "const", "time_t"),
                             new ArrDeclNode(6, new IdNode(6, "arr"))
                         )
-                    )
-                ),
-                new BlockStatNode(7, new JumpStatNode(8, new LitExprNode(8, "2", "u")))
+                    ),
+                    new BlockStatNode(7, new JumpStatNode(8, new LitExprNode(8, "2", "u")))
+                )
             );
             AssertNodes(ast1, ast2, eq: false);
         }
@@ -329,7 +329,7 @@ namespace LINVAST.Tests.Nodes
         [Test]
         public void FunctionDefenitionDifferenceTest2()
         {
-            ASTNode ast1 = new FuncDefNode(
+            ASTNode ast1 = new FuncNode(
                 1,
                 new DeclSpecsNode(2, "public static", "void"),
                 new FuncDeclNode(
@@ -342,11 +342,11 @@ namespace LINVAST.Tests.Nodes
                             new DeclSpecsNode(3, "const", "time_t"),
                             new VarDeclNode(3, new IdNode(3, "arr"))
                         )
-                    )
-                ),
-                new BlockStatNode(3, new JumpStatNode(4, new LitExprNode(4, "2", "u")))
+                    ),
+                    new BlockStatNode(3, new JumpStatNode(4, new LitExprNode(4, "2", "u")))
+                )
             );
-            ASTNode ast2 = new FuncDefNode(
+            ASTNode ast2 = new FuncNode(
                 1,
                 new DeclSpecsNode(3, "public static", "void"),
                 new FuncDeclNode(
@@ -359,9 +359,9 @@ namespace LINVAST.Tests.Nodes
                             new DeclSpecsNode(5, "const", "time_t"),
                             new ArrDeclNode(6, new IdNode(6, "arr"))
                         )
-                    )
-                ),
-                new BlockStatNode(7, new JumpStatNode(8, new LitExprNode(8, "2", "u")))
+                    ),
+                    new BlockStatNode(7, new JumpStatNode(8, new LitExprNode(8, "2", "u")))
+                )
             );
             AssertNodes(ast1, ast2, eq: false);
         }
@@ -369,7 +369,7 @@ namespace LINVAST.Tests.Nodes
         [Test]
         public void FunctionDefenitionDifferenceTest3()
         {
-            ASTNode ast1 = new FuncDefNode(
+            ASTNode ast1 = new FuncNode(
                 1,
                 new DeclSpecsNode(2, "public static", "void"),
                 new FuncDeclNode(
@@ -382,11 +382,11 @@ namespace LINVAST.Tests.Nodes
                             new DeclSpecsNode(3, "const", "time_t"),
                             new ArrDeclNode(3, new IdNode(3, "arr"))
                         )
-                    )
-                ),
-                new BlockStatNode(3, new JumpStatNode(4, new LitExprNode(4, "2", "u")))
+                    ),
+                    new BlockStatNode(3, new JumpStatNode(4, new LitExprNode(4, "2", "u")))
+                )
             );
-            ASTNode ast2 = new FuncDefNode(
+            ASTNode ast2 = new FuncNode(
                 1,
                 new DeclSpecsNode(3, "public static", "int"),
                 new FuncDeclNode(
@@ -399,9 +399,9 @@ namespace LINVAST.Tests.Nodes
                             new DeclSpecsNode(5, "const", "time_t"),
                             new ArrDeclNode(6, new IdNode(6, "arr"))
                         )
-                    )
-                ),
-                new BlockStatNode(7, new JumpStatNode(8, new LitExprNode(8, "2", "l")))
+                    ),
+                    new BlockStatNode(7, new JumpStatNode(8, new LitExprNode(8, "2", "l")))
+                )
             );
             AssertNodes(ast1, ast2, eq: false);
         }
@@ -409,7 +409,7 @@ namespace LINVAST.Tests.Nodes
         [Test]
         public void FunctionDefenitionDifferenceTest4()
         {
-            ASTNode ast1 = new FuncDefNode(
+            ASTNode ast1 = new FuncNode(
                 1,
                 new DeclSpecsNode(2, "public static", "void"),
                 new FuncDeclNode(
@@ -422,11 +422,11 @@ namespace LINVAST.Tests.Nodes
                             new DeclSpecsNode(3, "", "time_t"),
                             new ArrDeclNode(3, new IdNode(3, "arr"))
                         )
-                    )
-                ),
-                new BlockStatNode(3, new JumpStatNode(4, new LitExprNode(4, "2", "u")))
+                    ),
+                    new BlockStatNode(3, new JumpStatNode(4, new LitExprNode(4, "2", "u")))
+                )
             );
-            ASTNode ast2 = new FuncDefNode(
+            ASTNode ast2 = new FuncNode(
                 1,
                 new DeclSpecsNode(3, "public static", "void"),
                 new FuncDeclNode(
@@ -439,9 +439,9 @@ namespace LINVAST.Tests.Nodes
                             new DeclSpecsNode(5, "const", "time_t"),
                             new ArrDeclNode(6, new IdNode(6, "arr"))
                         )
-                    )
-                ),
-                new BlockStatNode(7, new JumpStatNode(8, new LitExprNode(8, "2", "u")), new EmptyStatNode(10))
+                    ),
+                    new BlockStatNode(7, new JumpStatNode(8, new LitExprNode(8, "2", "u")), new EmptyStatNode(10))
+                )
             );
             AssertNodes(ast1, ast2, eq: false);
         }

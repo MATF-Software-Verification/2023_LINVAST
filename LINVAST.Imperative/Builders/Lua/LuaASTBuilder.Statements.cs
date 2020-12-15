@@ -70,12 +70,12 @@ namespace LINVAST.Imperative.Builders.Lua
                     return new EmptyStatNode(ctx.Start.Line); // TODO
                 case "function":
                     IdNode fname = this.Visit(ctx.funcname()).As<IdNode>();
-                    LambdaFuncExprNode fdef = this.Visit(ctx.funcbody()).As<LambdaFuncExprNode>();
-                    FuncDeclNode fdecl = fdef.ParametersNode is null
-                        ? new FuncDeclNode(ctx.Start.Line, fname)
-                        : new FuncDeclNode(ctx.Start.Line, fname, fdef.ParametersNode);
+                    LambdaFuncExprNode lam = this.Visit(ctx.funcbody()).As<LambdaFuncExprNode>();
+                    FuncDeclNode fdef = lam.ParametersNode is null
+                        ? new FuncDeclNode(ctx.Start.Line, fname, lam.Definition)
+                        : new FuncDeclNode(ctx.Start.Line, fname, lam.ParametersNode, lam.Definition);
                     var fdeclSpecs = new DeclSpecsNode(ctx.Start.Line);
-                    return new FuncDefNode(ctx.Start.Line, fdeclSpecs, fdecl, fdef.Definition);
+                    return new FuncNode(ctx.Start.Line, fdeclSpecs, fdef);
                 case "local":
                     if (ctx.children[1].GetText().Equals("function", StringComparison.InvariantCultureIgnoreCase))
                         return new EmptyStatNode(ctx.Start.Line);  // TODO

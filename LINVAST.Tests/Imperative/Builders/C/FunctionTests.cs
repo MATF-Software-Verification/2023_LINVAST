@@ -54,19 +54,20 @@ namespace LINVAST.Tests.Imperative.Builders.C
         [Test]
         public void SimpleDefinitionTest()
         {
-            FuncDefNode f = this.AssertFunctionSignature(@"
+            FuncNode f = this.AssertFunctionSignature(@"
                 unsigned int f(int x) { 
                     return x;
                 }", 
                 2, "f", "unsigned int", @params: ("int", "x")
             );
-            Assert.That(f.Definition.Children.Single(), Is.InstanceOf<JumpStatNode>());
+            Assert.That(f.Definition, Is.Not.Null);
+            Assert.That(f.Definition!.Children.Single(), Is.InstanceOf<JumpStatNode>());
         }
 
         [Test]
         public void ComplexDefinitionTest()
         {
-            FuncDefNode f = this.AssertFunctionSignature(@"
+            FuncNode f = this.AssertFunctionSignature(@"
                 float f(const unsigned int x, ...) {
                     int z = 4;
                     return 3.0;
@@ -74,7 +75,8 @@ namespace LINVAST.Tests.Imperative.Builders.C
                 2, "f", "float", isVariadic: true, @params: ("unsigned int", "x")
             );
             Assert.That(f.IsVariadic, Is.True);
-            Assert.That(f.Definition.Children, Has.Exactly(2).Items);
+            Assert.That(f.Definition, Is.Not.Null);
+            Assert.That(f.Definition!.Children, Has.Exactly(2).Items);
             Assert.That(f.ParametersNode, Is.Not.Null);
             Assert.That(f.IsVariadic);
             Assert.That(f.Parameters?.First().Specifiers.Modifiers.QualifierFlags, Is.EqualTo(QualifierFlags.Const));

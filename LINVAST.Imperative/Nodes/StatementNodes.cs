@@ -41,22 +41,24 @@ namespace LINVAST.Imperative.Nodes
         public DeclSpecsNode Specifiers => this.Children.ElementAt(0).As<DeclSpecsNode>();
         [JsonIgnore]
         public DeclListNode DeclaratorList => this.Children.ElementAt(1).As<DeclListNode>();
+        [JsonIgnore]
+        public Modifiers Modifiers => this.Specifiers.Modifiers;
 
 
         public DeclStatNode(int line, DeclSpecsNode declSpecs, DeclListNode declList)
             : base(line, declSpecs, declList) { }
     }
 
-    public abstract class CompStatNode : StatNode
+    public abstract class ComplexStatNode : StatNode
     {
-        protected CompStatNode(int line, IEnumerable<ASTNode> children)
+        protected ComplexStatNode(int line, IEnumerable<ASTNode> children)
             : base(line, children) { }
 
-        protected CompStatNode(int line, params ASTNode[] children)
+        protected ComplexStatNode(int line, params ASTNode[] children)
             : base(line, children) { }
     }
 
-    public sealed class BlockStatNode : CompStatNode
+    public sealed class BlockStatNode : ComplexStatNode
     {
         public BlockStatNode(int line, IEnumerable<ASTNode> children)
             : base(line, children) { }
@@ -78,7 +80,7 @@ namespace LINVAST.Imperative.Nodes
             : base(line, expr) { }
     }
 
-    public sealed class IfStatNode : CompStatNode
+    public sealed class IfStatNode : ComplexStatNode
     {
         [JsonIgnore]
         public ExprNode Condition => this.Children[0].As<ExprNode>();
@@ -164,7 +166,7 @@ namespace LINVAST.Imperative.Nodes
             => base.Equals(other) && this.Label.Equals((other as LabeledStatNode)?.Label);
     }
 
-    public abstract class IterStatNode : CompStatNode
+    public abstract class IterStatNode : ComplexStatNode
     {
         [JsonIgnore]
         public ExprNode Condition => this.Children[0].As<ExprNode>();

@@ -40,7 +40,7 @@ namespace LINVAST.Imperative.Visitors
         public virtual TResult Visit(ForStatNode node) => this.VisitChildren(node);
         public virtual TResult Visit(FuncCallExprNode node) => this.VisitChildren(node);
         public virtual TResult Visit(FuncDeclNode node) => this.VisitChildren(node);
-        public virtual TResult Visit(FuncDefNode node) => this.VisitChildren(node);
+        public virtual TResult Visit(FuncNode node) => this.VisitChildren(node);
         public virtual TResult Visit(FuncParamNode node) => this.VisitChildren(node);
         public virtual TResult Visit(FuncParamsNode node) => this.VisitChildren(node);
         public virtual TResult Visit(IdNode node) => this.VisitChildren(node);

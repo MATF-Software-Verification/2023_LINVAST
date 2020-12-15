@@ -48,11 +48,11 @@ namespace LINVAST.Imperative.Builders.Pseudo
                     var fdeclSpecs = new DeclSpecsNode(ctx.Start.Line, GetTypeName());
                     var fname = new IdNode(ctx.Start.Line, ctx.NAME().GetText());
                     FuncParamsNode? fparams = ctx.parlist() is null ? null : this.Visit(ctx.parlist()).As<FuncParamsNode>();
-                    FuncDeclNode fdecl = fparams is null 
-                        ? new FuncDeclNode(ctx.Start.Line, fname) 
-                        : new FuncDeclNode(ctx.Start.Line, fname, fparams);
                     BlockStatNode body = this.Visit(ctx.block()).As<BlockStatNode>();
-                    return new FuncDefNode(ctx.Start.Line, fdeclSpecs, fdecl, body);
+                    FuncDeclNode fdef = fparams is null 
+                        ? new FuncDeclNode(ctx.Start.Line, fname, body) 
+                        : new FuncDeclNode(ctx.Start.Line, fname, fparams, body);
+                    return new FuncNode(ctx.Start.Line, fdeclSpecs, fdef);
                 default:
                     throw new SyntaxErrorException("Invalid statement");
             }

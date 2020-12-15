@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Text;
 using LINVAST.Imperative.Nodes.Common;
 using LINVAST.Nodes;
 using Newtonsoft.Json;
@@ -17,6 +18,9 @@ namespace LINVAST.Imperative.Nodes
         public FuncParamsNode? ParametersNode => this.Children.ElementAtOrDefault(1) as FuncParamsNode ?? null;
 
         [JsonIgnore]
+        public BlockStatNode? Definition => this.Children.Last() as BlockStatNode ?? null;
+
+        [JsonIgnore]
         public IEnumerable<FuncParamNode>? Parameters => this.ParametersNode?.Parameters;
 
 
@@ -26,9 +30,26 @@ namespace LINVAST.Imperative.Nodes
         public FuncDeclNode(int line, IdNode identifier, FuncParamsNode @params)
             : base(line, identifier, @params) { }
 
+        public FuncDeclNode(int line, IdNode identifier, BlockStatNode body)
+            : base(line, identifier, body) { }
+
+        public FuncDeclNode(int line, IdNode identifier, FuncParamsNode @params, BlockStatNode body)
+            : base(line, identifier, @params, body) { }
+
 
         public override string GetText()
-            => $"{base.GetText()}({this.ParametersNode?.GetText() ?? ""})";
+        {
+            var sb = new StringBuilder();
+            sb.Append(base.GetText()).Append('(');
+            if (this.ParametersNode is { })
+                sb.Append(this.ParametersNode.GetText());
+            sb.Append(')');
+            if (this.Definition is { })
+                sb.Append(this.Definition.GetText());
+            else
+                sb.Append(';');
+            return sb.ToString();
+        }
     }
 
     public sealed class LambdaFuncExprNode : ExprNode
@@ -60,22 +81,19 @@ namespace LINVAST.Imperative.Nodes
             => $"lambda ({this.ParametersNode?.GetText() ?? ""}): {this.Definition.GetText()}";
     }
 
-    public sealed class FuncDefNode : StatNode
+    public sealed class FuncNode : DeclStatNode
     {
         [JsonIgnore]
-        public DeclSpecsNode Specifiers => this.Children[0].As<DeclSpecsNode>();
+        public FuncDeclNode Declarator => this.Children[1].As<DeclListNode>().Declarators.Single().As<FuncDeclNode>();
 
         [JsonIgnore]
-        public FuncDeclNode Declarator => this.Children[1].As<FuncDeclNode>();
+        public BlockStatNode? Definition => this.Declarator.Definition;
 
         [JsonIgnore]
-        public BlockStatNode Definition => this.Children[2].As<BlockStatNode>();
-
-        [JsonIgnore]
-        public string ReturnTypeName => this.Children[0].As<DeclSpecsNode>().TypeName;
+        public string ReturnTypeName => this.Specifiers.TypeName;
         
         [JsonIgnore]
-        public Type? ReturnType => this.Children[0].As<DeclSpecsNode>().Type;
+        public Type? ReturnType => this.Specifiers.Type;
         
         [JsonIgnore]
         public string Identifier => this.Declarator.Identifier;
@@ -84,24 +102,21 @@ namespace LINVAST.Imperative.Nodes
         public bool IsVariadic => this.Declarator.IsVariadic;
 
         [JsonIgnore]
-        public Modifiers Keywords => this.Specifiers.Modifiers;
-
-        [JsonIgnore]
         public FuncParamsNode? ParametersNode => this.Declarator.ParametersNode;
         
         [JsonIgnore]
         public IEnumerable<FuncParamNode>? Parameters => this.ParametersNode?.Parameters;
 
 
-        public FuncDefNode(int line, DeclSpecsNode declSpecs, FuncDeclNode decl, BlockStatNode body)
-            : base(line, declSpecs, decl, body)
+        public FuncNode(int line, DeclSpecsNode declSpecs, FuncDeclNode decl)
+            : base(line, declSpecs, new DeclListNode(line, decl))
         {
 
         }
 
 
         public override string GetText()
-            => $"{this.Keywords} {this.ReturnTypeName} {this.Declarator.GetText()} {this.Definition.GetText()}";
+            => $"{this.Modifiers} {this.Declarator.GetText()}";
     }
 
     public sealed class FuncParamsNode : DeclarationNode
