@@ -149,7 +149,12 @@ namespace LINVAST.Imperative.Nodes
         public string Identifier => this.Children[0].As<IdNode>().Identifier;
 
         [JsonIgnore]
-        public ExprListNode? Arguments => this.Children.ElementAtOrDefault(1)?.As<ExprListNode>();
+        public TypeNameListNode? TemplateArguments => this.Children.ElementAtOrDefault(1)?.As<TypeNameListNode>();
+
+        [JsonIgnore]
+        public ExprListNode? Arguments 
+            => this.Children.Count > 2 ? this.Children[2].As<ExprListNode>()
+                                       : this.Children.ElementAtOrDefault(1) as ExprListNode;
 
 
         public FuncCallExprNode(int line, IdNode identifier)
@@ -158,8 +163,14 @@ namespace LINVAST.Imperative.Nodes
         public FuncCallExprNode(int line, IdNode identifier, ExprListNode args)
             : base(line, identifier, args) { }
 
+        public FuncCallExprNode(int line, IdNode identifier, TypeNameListNode templateArgs)
+            : base(line, identifier, templateArgs) { }
 
-        public override string GetText() => $"{this.Identifier}({this.Arguments?.GetText() ?? ""})";
+        public FuncCallExprNode(int line, IdNode identifier, TypeNameListNode templateArgs, ExprListNode args)
+            : base(line, identifier, templateArgs, args) { }
+
+
+        public override string GetText() => $"{this.Identifier}<{(this.TemplateArguments?.GetText() ?? "")}>({this.Arguments?.GetText() ?? ""})";
     }
 
     public sealed class ConsExprNode : FuncCallExprNode
@@ -169,6 +180,12 @@ namespace LINVAST.Imperative.Nodes
 
         public ConsExprNode(int line, IdNode identifier, ExprListNode args)
             : base(line, identifier, args) { }
+
+        public ConsExprNode(int line, IdNode identifier, TypeNameListNode templateArgs)
+            : base(line, identifier, templateArgs) { }
+
+        public ConsExprNode(int line, IdNode identifier, TypeNameListNode templateArgs, ExprListNode args)
+            : base(line, identifier, templateArgs, args) { }
     }
 
     public sealed class ArrAccessExprNode : ExprNode
