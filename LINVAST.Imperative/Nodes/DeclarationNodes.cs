@@ -51,6 +51,18 @@ namespace LINVAST.Imperative.Nodes
             this.Modifiers = Modifiers.Parse(specs);
         }
 
+        public DeclSpecsNode(int line, TypeNameNode type)
+            : this(line, "", type)
+        {
+
+        }
+
+        public DeclSpecsNode(int line, string specs, TypeNameNode type)
+            : base(line, type)
+        {
+            this.Modifiers = Modifiers.Parse(specs);
+        }
+
 
         public override string GetText()
         {
@@ -151,17 +163,34 @@ namespace LINVAST.Imperative.Nodes
         public string TypeName => this.Identifier;
 
         [JsonIgnore]
+        public IEnumerable<IdNode> TemplateArguments => this.Children.Skip(1).Cast<IdNode>();
+
+        [JsonIgnore]
         public Type? Type { get; }
 
 
-        public TypeNameNode(int line, string typeName)
-            : base(line, new IdNode(line, typeName.Trim()))
+        public TypeNameNode(int line, string typeName, params IdNode[] templateArgs)
+            : this(line, typeName, templateArgs.AsEnumerable()) { }
+
+        public TypeNameNode(int line, string typeName, IEnumerable<IdNode> templateArgs)
+            : base(line, new IdNode(line, typeName.Trim()), templateArgs)
         {
             TypeCode? typeCode = Types.TypeCodeFor(this.TypeName);
             if (typeCode is null)
                 Log.Warning("Unknown type: {Type}", this.TypeName);
             else
                 this.Type = Types.ToType(typeCode.Value);
+        }
+
+
+        public override string GetText()
+        {
+            if (!this.TemplateArguments.Any())
+                return this.TypeName;
+
+            var sb = new StringBuilder(this.TypeName);
+            sb.Append('<').AppendJoin(", ", this.TemplateArguments).Append('>');
+            return sb.ToString();
         }
     }
 }
