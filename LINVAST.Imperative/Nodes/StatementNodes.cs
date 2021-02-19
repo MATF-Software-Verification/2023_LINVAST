@@ -39,8 +39,10 @@ namespace LINVAST.Imperative.Nodes
     {
         [JsonIgnore]
         public DeclSpecsNode Specifiers => this.Children.ElementAt(0).As<DeclSpecsNode>();
+
         [JsonIgnore]
         public DeclListNode DeclaratorList => this.Children.ElementAt(1).As<DeclListNode>();
+
         [JsonIgnore]
         public Modifiers Modifiers => this.Specifiers.Modifiers;
 

@@ -88,7 +88,7 @@ namespace LINVAST.Imperative.Nodes
             return this.Type is { } ? this.Type.Equals(decl?.Type) : this.TypeName.Equals(decl?.TypeName);
         }
 
-        public override int GetHashCode() => (base.GetHashCode(), this.Modifiers, this.TypeName).GetHashCode();
+        public override int GetHashCode() => HashCode.Combine(base.GetHashCode(), this.Modifiers, this.TypeName);
     }
 
     public abstract class DeclNode : DeclarationNode
