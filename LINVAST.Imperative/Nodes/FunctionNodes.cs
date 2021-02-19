@@ -97,7 +97,7 @@ namespace LINVAST.Imperative.Nodes
     public sealed class FuncNode : DeclStatNode
     {
         [JsonIgnore]
-        public FuncDeclNode Declarator => this.Children[1].As<DeclListNode>().Declarators.Single().As<FuncDeclNode>();
+        public FuncDeclNode Declarator => this.ChildrenWithoutTags.ElementAt(1).As<DeclListNode>().Declarators.Single().As<FuncDeclNode>();
 
         [JsonIgnore]
         public BlockStatNode? Definition => this.Declarator.Definition;
@@ -122,14 +122,14 @@ namespace LINVAST.Imperative.Nodes
 
 
         public FuncNode(int line, DeclSpecsNode declSpecs, FuncDeclNode decl)
-            : base(line, declSpecs, new DeclListNode(line, decl))
-        {
+            : base(line, declSpecs, new DeclListNode(line, decl)) { }
 
-        }
+        public FuncNode(int line, IEnumerable<TagNode> tags, DeclSpecsNode declSpecs, FuncDeclNode decl)
+            : base(line, tags, declSpecs, new DeclListNode(line, decl)) { }
 
 
         public override string GetText()
-            => $"{this.Modifiers} {this.Declarator.GetText()}";
+            => $"{string.Join(' ', this.Tags)} {this.Modifiers} {this.Declarator.GetText()}";
     }
 
     public sealed class FuncParamsNode : DeclarationNode
@@ -138,19 +138,13 @@ namespace LINVAST.Imperative.Nodes
 
         [JsonIgnore]
         public IEnumerable<FuncParamNode> Parameters => this.Children.Cast<FuncParamNode>();
-     
+
 
         public FuncParamsNode(int line, IEnumerable<FuncParamNode> @params)
-            : base(line, @params)
-        {
-
-        }
+            : base(line, @params) { }
 
         public FuncParamsNode(int line, params FuncParamNode[] @params)
-            : base(line, @params)
-        {
-
-        }
+            : base(line, @params) { }
 
 
         public override string GetText() => string.Join(", ", this.Children.Select(c => c.GetText()));
@@ -169,9 +163,6 @@ namespace LINVAST.Imperative.Nodes
 
 
         public FuncParamNode(int line, DeclSpecsNode declSpecs, DeclNode declarator)
-            : base(line, declSpecs, declarator)
-        {
-
-        }
+            : base(line, declSpecs, declarator) { }
     }
 }

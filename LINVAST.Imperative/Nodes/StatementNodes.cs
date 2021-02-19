@@ -38,10 +38,16 @@ namespace LINVAST.Imperative.Nodes
     public class DeclStatNode : SimpleStatNode
     {
         [JsonIgnore]
-        public DeclSpecsNode Specifiers => this.Children.ElementAt(0).As<DeclSpecsNode>();
+        public IEnumerable<ASTNode> ChildrenWithoutTags => this.Children.SkipWhile(e => e is TagNode);
 
         [JsonIgnore]
-        public DeclListNode DeclaratorList => this.Children.ElementAt(1).As<DeclListNode>();
+        public IEnumerable<TagNode> Tags => this.Children.TakeWhile(e => e is TagNode).Cast<TagNode>();
+
+        [JsonIgnore]
+        public DeclSpecsNode Specifiers => this.ChildrenWithoutTags.ElementAt(0).As<DeclSpecsNode>();
+
+        [JsonIgnore]
+        public DeclListNode DeclaratorList => this.ChildrenWithoutTags.ElementAt(1).As<DeclListNode>();
 
         [JsonIgnore]
         public Modifiers Modifiers => this.Specifiers.Modifiers;
@@ -49,6 +55,9 @@ namespace LINVAST.Imperative.Nodes
 
         public DeclStatNode(int line, DeclSpecsNode declSpecs, DeclListNode declList)
             : base(line, declSpecs, declList) { }
+
+        public DeclStatNode(int line, IEnumerable<TagNode> tags, DeclSpecsNode declSpecs, DeclListNode declList)
+            : base(line, tags.Concat(new ASTNode[] { declSpecs, declList })) { }
     }
 
     public abstract class ComplexStatNode : StatNode

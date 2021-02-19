@@ -56,14 +56,21 @@ namespace LINVAST.Imperative.Nodes
     {
         protected string Category { get; }
 
+
         protected TypeNode(int line, string category, DeclSpecsNode specifiers, TypeDeclNode decl)
             : base(line, specifiers, new DeclListNode(line, decl)) 
         {
             this.Category = category;
         }
 
+        protected TypeNode(int line, string category, IEnumerable<TagNode> tags, DeclSpecsNode specifiers, TypeDeclNode decl)
+            : base(line, tags, specifiers, new DeclListNode(line, decl))
+        {
+            this.Category = category;
+        }
 
-        public override string ToString() => $"{this.Specifiers} {this.Category} {this.DeclaratorList}";
+
+        public override string GetText() => $"{string.Join(' ', this.Tags)} {this.Specifiers} {this.Category} {this.DeclaratorList}";
     }
 
     public sealed class ClassNode : TypeNode
@@ -71,25 +78,36 @@ namespace LINVAST.Imperative.Nodes
         public ClassNode(int line, DeclSpecsNode specifiers, TypeDeclNode decl)
             : base(line, "class", specifiers, decl) { }
 
-
-        public override string ToString() => base.ToString();
+        public ClassNode(int line, IEnumerable<TagNode> tags, DeclSpecsNode specifiers, TypeDeclNode decl)
+            : base(line, "class", tags, specifiers, decl) { }
     }
 
     public sealed class StructNode : TypeNode
     {
         public StructNode(int line, DeclSpecsNode specifiers, TypeDeclNode decl)
             : base(line, "struct", specifiers, decl) { }
+
+        public StructNode(int line, IEnumerable<TagNode> tags, DeclSpecsNode specifiers, TypeDeclNode decl)
+            : base(line, "struct", tags, specifiers, decl) { }
     }
 
     public sealed class InterfaceNode : TypeNode
     {
         public InterfaceNode(int line, DeclSpecsNode specifiers, TypeDeclNode decl)
             : base(line, "interface", specifiers, decl) { }
+
+        public InterfaceNode(int line, IEnumerable<TagNode> tags, DeclSpecsNode specifiers, TypeDeclNode decl)
+            : base(line, "interface", tags, specifiers, decl) { }
     }
 
     public sealed class EnumNode : DeclStatNode
     {
         public EnumNode(int line, DeclSpecsNode specifiers, EnumDeclNode decl)
             : base(line, specifiers, new DeclListNode(line, decl)) { }
+
+        public EnumNode(int line, IEnumerable<TagNode> tags, DeclSpecsNode specifiers, EnumDeclNode decl)
+            : base(line, tags, specifiers, new DeclListNode(line, decl)) { }
+
+        public override string ToString() => $"{string.Join(' ', this.Tags)} {this.Specifiers} enum {this.DeclaratorList}";
     }
 }
