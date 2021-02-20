@@ -12,16 +12,16 @@ namespace LINVAST.Imperative.Nodes
         public IEnumerable<DeclStatNode> Declarations => this.Children.Skip(3).Cast<DeclStatNode>();
 
         [JsonIgnore]
-        public IdListNode TemplateParameters => this.Children[1].As<IdListNode>();
+        public TypeNameListNode TemplateParameters => this.Children[1].As<TypeNameListNode>();
 
         [JsonIgnore]
-        public IdListNode BaseTypes => this.Children[2].As<IdListNode>();
+        public TypeNameListNode BaseTypes => this.Children[2].As<TypeNameListNode>();
 
 
-        public TypeDeclNode(int line, IdNode identifier, IdListNode templateParams, IdListNode baseTypes, IEnumerable<DeclStatNode> declarations)
+        public TypeDeclNode(int line, IdNode identifier, TypeNameListNode templateParams, TypeNameListNode baseTypes, IEnumerable<DeclStatNode> declarations)
             : base(line, identifier, new ASTNode[] { templateParams, baseTypes }.Concat(declarations)) { }
 
-        public TypeDeclNode(int line, IdNode identifier, IdListNode templateParams, IdListNode baseTypes, params DeclStatNode[] declarations)
+        public TypeDeclNode(int line, IdNode identifier, TypeNameListNode templateParams, TypeNameListNode baseTypes, params DeclStatNode[] declarations)
             : base(line, identifier, new ASTNode[] { templateParams, baseTypes }.Concat(declarations)) { }
 
 
@@ -29,12 +29,12 @@ namespace LINVAST.Imperative.Nodes
         {
             var sb = new StringBuilder();
             sb.Append(this.Identifier);
-            if (this.TemplateParameters.Expressions.Any())
-                sb.Append('<').AppendJoin(',', this.TemplateParameters.Expressions).Append('>');
-            if (this.BaseTypes.Expressions.Any())
-                sb.Append(" : ").AppendJoin(',', this.TemplateParameters.Expressions);
+            if (this.TemplateParameters.Types.Any())
+                sb.Append('<').Append(this.TemplateParameters.Types).Append('>');
+            if (this.BaseTypes.Types.Any())
+                sb.Append(" : ").Append(this.BaseTypes.Types);
             sb.AppendLine();
-            sb.Append(" { ").AppendJoin('\n', this.Declarations).AppendLine(" }");
+            sb.AppendLine(" { ").AppendJoin("; ", this.Declarations).AppendLine(" }");
             return sb.ToString();
         }
     }

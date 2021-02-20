@@ -12,11 +12,24 @@ namespace LINVAST.Imperative.Nodes
 {
     public abstract class DeclarationNode : ASTNode
     {
+        [JsonIgnore]
+        public IEnumerable<ASTNode> ChildrenWithoutTags => this.Children.SkipWhile(e => e is TagNode);
+
+        [JsonIgnore]
+        public IEnumerable<TagNode> Tags => this.Children.TakeWhile(e => e is TagNode).Cast<TagNode>();
+
+
         protected DeclarationNode(int line, IEnumerable<ASTNode> children)
             : base(line, children) { }
 
         protected DeclarationNode(int line, params ASTNode[] children)
             : base(line, children) { }
+
+        protected DeclarationNode(int line, IEnumerable<TagNode> tags, IEnumerable<ASTNode> children)
+            : base(line, tags.Concat(children)) { }
+
+        protected DeclarationNode(int line, IEnumerable<TagNode> tags, params ASTNode[] children)
+            : base(line, tags.Concat(children)) { }
     }
 
     public sealed class DeclSpecsNode : DeclarationNode
@@ -34,16 +47,10 @@ namespace LINVAST.Imperative.Nodes
 
 
         public DeclSpecsNode(int line)
-            : this(line, "object")
-        {
-
-        }
+            : this(line, "object") { }
 
         public DeclSpecsNode(int line, string type)
-            : this(line, "", type)
-        {
-
-        }
+            : this(line, "", type) { }
 
         public DeclSpecsNode(int line, string specs, string type)
             : base(line, new TypeNameNode(line, type))
@@ -52,10 +59,7 @@ namespace LINVAST.Imperative.Nodes
         }
 
         public DeclSpecsNode(int line, TypeNameNode type)
-            : this(line, "", type)
-        {
-
-        }
+            : this(line, "", type) { }
 
         public DeclSpecsNode(int line, string specs, TypeNameNode type)
             : base(line, type)
@@ -108,6 +112,12 @@ namespace LINVAST.Imperative.Nodes
         public DeclNode(int line, IdNode identifier, IEnumerable<ASTNode> children)
             : base(line, new[] { identifier }.Concat(children)) { }
 
+        public DeclNode(int line, IEnumerable<TagNode> tags, IdNode identifier, params ASTNode[] children)
+            : base(line, tags.Concat(new ASTNode[] { identifier }).Concat(children)) { }
+
+        public DeclNode(int line, IEnumerable<TagNode> tags, IdNode identifier, IEnumerable<ASTNode> children)
+            : base(line, tags.Concat(new ASTNode[] { identifier }).Concat(children)) { }
+
 
         public override string GetText() => $"{new string('*', this.PointerLevel)}{this.IdentifierNode.GetText()}";
     }
@@ -140,6 +150,12 @@ namespace LINVAST.Imperative.Nodes
         public VarDeclNode(int line, IdNode identifier, ExprNode initializer)
             : base(line, identifier, initializer) { }
 
+        public VarDeclNode(int line, IEnumerable<TagNode> tags, IdNode identifier)
+            : base(line, tags, identifier) { }
+
+        public VarDeclNode(int line, IEnumerable<TagNode> tags, IdNode identifier, ExprNode initializer)
+            : base(line, tags, identifier, initializer) { }
+
 
         public override string GetText()
             => this.Initializer is { } ? $"{base.GetText()} = {this.Initializer.GetText()}" : base.GetText();
@@ -148,13 +164,13 @@ namespace LINVAST.Imperative.Nodes
     public sealed class TypeNameListNode : DeclListNode
     {
         [JsonIgnore]
-        public IEnumerable<TypeDeclNode> Types => this.Children.Cast<TypeDeclNode>();
+        public IEnumerable<TypeNameNode> Types => this.Children.Cast<TypeNameNode>();
 
 
-        public TypeNameListNode(int line, IEnumerable<TypeDeclNode> decls)
+        public TypeNameListNode(int line, IEnumerable<TypeNameNode> decls)
             : base(line, decls) { }
 
-        public TypeNameListNode(int line, params TypeDeclNode[] decls)
+        public TypeNameListNode(int line, params TypeNameNode[] decls)
             : base(line, decls) { }
     }
 
@@ -163,16 +179,16 @@ namespace LINVAST.Imperative.Nodes
         public string TypeName => this.Identifier;
 
         [JsonIgnore]
-        public IEnumerable<IdNode> TemplateArguments => this.Children.Skip(1).Cast<IdNode>();
+        public IEnumerable<TypeNameNode> TemplateArguments => this.Children.Skip(1).Cast<TypeNameNode>();
 
         [JsonIgnore]
         public Type? Type { get; }
 
 
-        public TypeNameNode(int line, string typeName, params IdNode[] templateArgs)
+        public TypeNameNode(int line, string typeName, params TypeNameNode[] templateArgs)
             : this(line, typeName, templateArgs.AsEnumerable()) { }
 
-        public TypeNameNode(int line, string typeName, IEnumerable<IdNode> templateArgs)
+        public TypeNameNode(int line, string typeName, IEnumerable<TypeNameNode> templateArgs)
             : base(line, new IdNode(line, typeName.Trim()), templateArgs)
         {
             TypeCode? typeCode = Types.TypeCodeFor(this.TypeName);

@@ -47,6 +47,27 @@ namespace LINVAST.Imperative.Nodes
         public FuncDeclNode(int line, IdNode identifier, TypeNameListNode templateArgs, FuncParamsNode @params, BlockStatNode body)
             : base(line, identifier, templateArgs, @params, body) { }
 
+        public FuncDeclNode(int line, IEnumerable<TagNode> tags, IdNode identifier)
+            : base(line, tags, identifier) { }
+
+        public FuncDeclNode(int line, IEnumerable<TagNode> tags, IdNode identifier, FuncParamsNode @params)
+            : base(line, tags, identifier, new TypeNameListNode(line), @params) { }
+
+        public FuncDeclNode(int line, IEnumerable<TagNode> tags, IdNode identifier, BlockStatNode body)
+            : base(line, tags, identifier, new TypeNameListNode(line), body) { }
+
+        public FuncDeclNode(int line, IEnumerable<TagNode> tags, IdNode identifier, FuncParamsNode @params, BlockStatNode body)
+            : base(line, tags, identifier, new TypeNameListNode(line), @params, body) { }
+
+        public FuncDeclNode(int line, IEnumerable<TagNode> tags, IdNode identifier, TypeNameListNode templateArgs, FuncParamsNode @params)
+            : base(line, tags, identifier, templateArgs, @params) { }
+
+        public FuncDeclNode(int line, IEnumerable<TagNode> tags, IdNode identifier, TypeNameListNode templateArgs, BlockStatNode body)
+            : base(line, tags, identifier, templateArgs, body) { }
+
+        public FuncDeclNode(int line, IEnumerable<TagNode> tags, IdNode identifier, TypeNameListNode templateArgs, FuncParamsNode @params, BlockStatNode body)
+            : base(line, tags, identifier, templateArgs, @params, body) { }
+
 
         public override string GetText()
         {
@@ -164,5 +185,8 @@ namespace LINVAST.Imperative.Nodes
 
         public FuncParamNode(int line, DeclSpecsNode declSpecs, DeclNode declarator)
             : base(line, declSpecs, declarator) { }
+
+        public FuncParamNode(int line, IEnumerable<TagNode> tags, DeclSpecsNode declSpecs, DeclNode declarator)
+            : base(line, tags, declSpecs, declarator) { }
     }
 }
