@@ -20,9 +20,8 @@ namespace LINVAST.Tests.Imperative.Builders.Java
             TypeNameListNode ast = this.GenerateAST("< Point >").As<TypeNameListNode>();
 
             Assert.That(ast.Types.Count, Is.EqualTo(1));
-            Assert.That(ast.Types.First().Identifier, Is.EqualTo("Point"));
-            Assert.That(ast.Types.First().BaseTypes.Children.Count, Is.EqualTo(0));
-            Assert.That(ast.Types.First().TemplateParameters.Children.Count, Is.EqualTo(0));
+            Assert.That(ast.Types.First().Identifier, Is.EqualTo("Point")); 
+            Assert.That(ast.Types.First().TemplateArguments.Count, Is.EqualTo(0));
         }
 
         [Test]
@@ -44,9 +43,8 @@ namespace LINVAST.Tests.Imperative.Builders.Java
 
             Assert.That(ast.Types.Count, Is.EqualTo(1));
             Assert.That(ast.Types.First().Identifier, Is.EqualTo("Square"));
-            Assert.That(ast.Types.First().BaseTypes.Children.Count, Is.EqualTo(1));
-            Assert.That(ast.Types.First().TemplateParameters.Children.Count, Is.EqualTo(0));
-            Assert.That(ast.Types.First().BaseTypes.Identifiers.First().Identifier, Is.EqualTo("Rectangle"));
+            Assert.That(ast.Types.First().TemplateArguments.Count, Is.EqualTo(1));
+            Assert.That(ast.Types.First().TemplateArguments.First().Identifier, Is.EqualTo("Rectangle"));
         }
         [Test]
         public void TypeParametersWithExtendsTest()
@@ -56,9 +54,8 @@ namespace LINVAST.Tests.Imperative.Builders.Java
 
             Assert.That(ast.Types.Count, Is.EqualTo(2));
             Assert.That(ast.Types.First().Identifier, Is.EqualTo("Square"));
-            Assert.That(ast.Types.First().BaseTypes.Children.Count, Is.EqualTo(1));
-            Assert.That(ast.Types.First().TemplateParameters.Children.Count, Is.EqualTo(0));
-            Assert.That(ast.Types.First().BaseTypes.Identifiers.First().Identifier, Is.EqualTo("Rectangle"));
+            Assert.That(ast.Types.First().TemplateArguments.Count, Is.EqualTo(1));
+            Assert.That(ast.Types.First().TemplateArguments.First().Identifier, Is.EqualTo("Rectangle"));
             Assert.That(ast.Types.Last().Identifier, Is.EqualTo("bool"));
         }
 
@@ -70,10 +67,9 @@ namespace LINVAST.Tests.Imperative.Builders.Java
 
             Assert.That(ast.Types.First().Identifier, Is.EqualTo("TypeA"));
             Assert.That(ast.Types.Count, Is.EqualTo(2));
-            Assert.That(ast.Types.First().BaseTypes.Children.Count, Is.EqualTo(2));
-            Assert.That(ast.Types.First().TemplateParameters.Children.Count, Is.EqualTo(0));
-            Assert.That(ast.Types.First().BaseTypes.Identifiers.First().Identifier, Is.EqualTo("TypeC"));
-            Assert.That(ast.Types.First().BaseTypes.Identifiers.Last().Identifier, Is.EqualTo("TypeD"));
+            Assert.That(ast.Types.First().TemplateArguments.Count, Is.EqualTo(2));
+            Assert.That(ast.Types.First().TemplateArguments.First().Identifier, Is.EqualTo("TypeC"));
+            Assert.That(ast.Types.First().TemplateArguments.Last().Identifier, Is.EqualTo("TypeD"));
             Assert.That(ast.Types.Last().Identifier, Is.EqualTo("TypeB"));
         }
         protected override ASTNode GenerateAST(string src)

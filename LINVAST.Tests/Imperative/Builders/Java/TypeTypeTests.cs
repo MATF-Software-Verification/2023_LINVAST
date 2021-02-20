@@ -66,6 +66,21 @@ namespace LINVAST.Tests.Imperative.Builders.Java
             Assert.That(ast.TemplateArguments.Last().Identifier, Is.EqualTo("Point"));
         }
 
+
+        [Test]
+        public void ClassOrInterfaceTypeWithClassOrInterfaceTest()
+        {
+
+            TypeNameNode ast = this.GenerateAST("Map<String, Point<int, int>>").As<TypeNameNode>();
+
+            Assert.That(ast.Identifier, Is.EqualTo("Map"));
+            Assert.That(ast.TemplateArguments.Count, Is.EqualTo(2));
+            Assert.That(ast.TemplateArguments.First().Identifier, Is.EqualTo("String"));
+            Assert.That(ast.TemplateArguments.Last().Identifier, Is.EqualTo("Point"));
+            Assert.That(ast.TemplateArguments.Last().TemplateArguments.Count, Is.EqualTo(2));
+            Assert.That(ast.TemplateArguments.Last().TemplateArguments.First().Identifier, Is.EqualTo("int"));
+            Assert.That(ast.TemplateArguments.Last().TemplateArguments.Last().Identifier, Is.EqualTo("int"));
+        }
         protected override ASTNode GenerateAST(string src)
         {
             return new JavaASTBuilder().BuildFromSource(src, p => p.typeTypeOrVoid());

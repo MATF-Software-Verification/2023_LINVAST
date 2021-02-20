@@ -33,7 +33,7 @@ namespace LINVAST.Tests.Imperative.Builders.Java
             Assert.That(ast.Identifier, Is.EqualTo("List"));
             Assert.That(ast.BaseTypes.Children.Count, Is.EqualTo(0));
             Assert.That(ast.TemplateParameters.Children.Count, Is.EqualTo(1));
-            Assert.That(ast.TemplateParameters.Identifiers.First().Identifier, Is.EqualTo("Point"));
+            Assert.That(ast.TemplateParameters.Types.First().Identifier, Is.EqualTo("Point"));
 
         }
 
@@ -46,9 +46,9 @@ namespace LINVAST.Tests.Imperative.Builders.Java
             Assert.That(ast.Identifier, Is.EqualTo("Class"));
             Assert.That(ast.BaseTypes.Children.Count, Is.EqualTo(1));
             Assert.That(ast.TemplateParameters.Children.Count, Is.EqualTo(1));
-            Assert.That(ast.BaseTypes.Identifiers.Count, Is.EqualTo(1));
-            Assert.That(ast.BaseTypes.Identifiers.First().Identifier, Is.EqualTo("BaseClass"));
-            Assert.That(ast.TemplateParameters.Identifiers.First().Identifier, Is.EqualTo("Template"));
+            Assert.That(ast.BaseTypes.Types.Count, Is.EqualTo(1));
+            Assert.That(ast.BaseTypes.Types.First().Identifier, Is.EqualTo("BaseClass"));
+            Assert.That(ast.TemplateParameters.Types.First().Identifier, Is.EqualTo("Template"));
 
         }
         [Test]
@@ -60,11 +60,10 @@ namespace LINVAST.Tests.Imperative.Builders.Java
             Assert.That(ast.Identifier, Is.EqualTo("Class"));
             Assert.That(ast.BaseTypes.Children.Count, Is.EqualTo(1));
             Assert.That(ast.TemplateParameters.Children.Count, Is.EqualTo(1));
-            Assert.That(ast.BaseTypes.Identifiers.First().Identifier, Is.EqualTo("BaseClass"));
-            Assert.That(ast.TemplateParameters.Identifiers.First().Identifier, Is.EqualTo("TemplateClass"));
+            Assert.That(ast.BaseTypes.Types.First().Identifier, Is.EqualTo("BaseClass"));
+            Assert.That(ast.TemplateParameters.Types.First().Identifier, Is.EqualTo("TemplateClass"));
 
         }
-
 
         protected override ASTNode GenerateAST(string src)
         {

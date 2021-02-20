@@ -60,8 +60,6 @@ namespace LINVAST.Imperative.Builders.Java
 
         }
 
-
-
         public override ASTNode VisitTypeType([NotNull] TypeTypeContext ctx)
         {
 
@@ -83,14 +81,13 @@ namespace LINVAST.Imperative.Builders.Java
         {
             var typeNameNodes = ctx.typeType().Select(c => this.Visit(c).As<TypeNameNode>()).ToArray<TypeNameNode>();
 
-            var templateNodes = typeNameNodes.Select(t => new TypeDeclNode(ctx.Start.Line, new IdNode(ctx.Start.Line, t.Identifier), new IdListNode(ctx.Start.Line, t.TemplateArguments.Select(ta => new IdNode(ctx.Start.Line, ta.Identifier)).ToArray<IdNode>()), new IdListNode(ctx.Start.Line, new ArrayList<IdNode>()), new ArrayList<DeclStatNode>()));
 
-            return new TypeNameListNode(ctx.Start.Line, templateNodes);
+            return new TypeNameListNode(ctx.Start.Line, typeNameNodes);
         }
 
         public override ASTNode VisitTypeParameters([NotNull] TypeParametersContext ctx)
         {
-            return new TypeNameListNode(ctx.Start.Line, ctx.typeParameter().Select(c => this.Visit(c).As<TypeDeclNode>()).ToArray());
+            return new TypeNameListNode(ctx.Start.Line, ctx.typeParameter().Select(c => this.Visit(c).As<TypeNameNode>()).ToArray());
         }
 
         public override ASTNode VisitTypeParameter([NotNull] TypeParameterContext ctx)
@@ -98,24 +95,19 @@ namespace LINVAST.Imperative.Builders.Java
             if (ctx.annotation() is { } && ctx.annotation().Any())
                 throw new NotImplementedException("annotations");
 
-            var identifier = new IdNode(ctx.Start.Line, ctx.IDENTIFIER().GetText());
-
-            IdListNode baseList;
+            TypeNameListNode baseList;
             if (ctx.typeBound() is { })
-                baseList = new IdListNode(ctx.Start.Line, this.Visit(ctx.typeBound()).As<TypeNameListNode>().Types.Select(t => new IdNode(ctx.Start.Line, t.Identifier)).ToArray());
+                baseList = this.Visit(ctx.typeBound()).As<TypeNameListNode>();
             else
-                baseList = new IdListNode(ctx.Start.Line, new ArrayList<IdNode>());
+                baseList = new TypeNameListNode(ctx.Start.Line, new ArrayList<TypeNameNode>());
 
-            return new TypeDeclNode(ctx.Start.Line, identifier, new IdListNode(ctx.Start.Line, new ArrayList<IdNode>()), baseList, new ArrayList<DeclStatNode>());
+            return new TypeNameNode(ctx.Start.Line, ctx.IDENTIFIER().GetText(), baseList.Types);
         }
 
         public override ASTNode VisitTypeBound([NotNull] TypeBoundContext ctx)
         {
             var typeNameNodes = ctx.typeType().Select(c => this.Visit(c).As<TypeNameNode>()).ToArray<TypeNameNode>();
-
-            var templateNodes = typeNameNodes.Select(t => new TypeDeclNode(ctx.Start.Line, new IdNode(ctx.Start.Line, t.Identifier), new IdListNode(ctx.Start.Line, t.TemplateArguments.Select(ta => new IdNode(ctx.Start.Line, ta.Identifier)).ToArray<IdNode>()), new IdListNode(ctx.Start.Line, new ArrayList<IdNode>()), new ArrayList<DeclStatNode>()));
-
-            return new TypeNameListNode(ctx.Start.Line, templateNodes);
+            return new TypeNameListNode(ctx.Start.Line, typeNameNodes);
         }
 
 
@@ -134,19 +126,18 @@ namespace LINVAST.Imperative.Builders.Java
             }
 
             var ctxStartLine = ctx.Start.Line;
-            IdListNode templlist = new IdListNode(ctxStartLine, new ArrayList<IdNode>()), baselist = new IdListNode(ctxStartLine, new ArrayList<IdNode>());
+            TypeNameListNode templlist = new TypeNameListNode(ctxStartLine, new ArrayList<TypeNameNode>()), baselist = new TypeNameListNode(ctxStartLine, new ArrayList<TypeNameNode>());
             if (ctx.classOrInterfaceType() is { }) {
                 TypeNameNode typeName = this.Visit(ctx.classOrInterfaceType()).As<TypeNameNode>();
 
                 ctxStartLine = ctx.classOrInterfaceType().Start.Line;
-                var list = new ArrayList<IdNode>();
-                list.Add(new IdNode(ctxStartLine, typeName.Identifier));
-                baselist = new IdListNode(ctxStartLine, list);
+                
+                baselist = new TypeNameListNode(ctxStartLine, typeName);
             }
 
             if (ctx.typeArguments() is { }) {
                 
-                templlist = new IdListNode(ctxStartLine, this.Visit(ctx.typeArguments()).As<TypeNameListNode>().Types.Select(t => new IdNode(ctxStartLine, t.Identifier)).ToArray<IdNode>());
+                templlist =  this.Visit(ctx.typeArguments()).As<TypeNameListNode>();
             }
 
 
@@ -156,15 +147,17 @@ namespace LINVAST.Imperative.Builders.Java
 
         public override ASTNode VisitClassOrInterfaceType([NotNull] ClassOrInterfaceTypeContext ctx)
         {
-
+            
             if (ctx.IDENTIFIER().Length > 1)
                 throw new NotImplementedException("base types");
+            TypeNameListNode tnln;
+            if (ctx.typeArguments().Any() && ctx.typeArguments() is { })
+                tnln = this.Visit(ctx.typeArguments().First()).As<TypeNameListNode>();
+            else
+                tnln = new TypeNameListNode(ctx.Start.Line, new ArrayList<TypeNameNode>());
 
-            
-            var typeArgumentsList = ctx.typeArguments().Any() ? this.Visit(ctx.typeArguments().First()).As<TypeNameListNode>().Types.Select(t => new IdNode(ctx.Start.Line, t.Identifier)).ToList<IdNode>() : new ArrayList<IdNode>();
 
-
-            return new TypeNameNode(ctx.Start.Line, ctx.IDENTIFIER().First().GetText(), typeArgumentsList);
+            return new TypeNameNode(ctx.Start.Line, ctx.IDENTIFIER().First().GetText(), tnln.Types);
 
         }
         public override ASTNode VisitTypeTypeOrVoid([NotNull] TypeTypeOrVoidContext ctx)
@@ -185,7 +178,6 @@ namespace LINVAST.Imperative.Builders.Java
             if (ctx.nonWildcardTypeArguments() is null)
                 throw new NotImplementedException("<>");
                
-
                 return this.Visit(ctx.nonWildcardTypeArguments());
         }
 
@@ -198,7 +190,6 @@ namespace LINVAST.Imperative.Builders.Java
             if (ctx.EXTENDS() is { } || ctx.SUPER() is { }) {
                 //TODO EXTENDS/SUPER
                 return this.Visit(ctx.typeType());
-
             }
             return this.Visit(ctx.typeType());
         }
@@ -208,9 +199,7 @@ namespace LINVAST.Imperative.Builders.Java
 
             var typeNameNodes = ctx.typeArgument().Select(c => this.Visit(c).As<TypeNameNode>()).ToArray<TypeNameNode>();
 
-            var templateNodes = typeNameNodes.Select(t => new TypeDeclNode(ctx.Start.Line, new IdNode(ctx.Start.Line, t.Identifier), new IdListNode(ctx.Start.Line, t.TemplateArguments.Select(ta => new IdNode(ctx.Start.Line, ta.Identifier)).ToArray<IdNode>()), new IdListNode(ctx.Start.Line, new ArrayList<IdNode>()), new ArrayList<DeclStatNode>()));
-
-            return new TypeNameListNode(ctx.Start.Line, templateNodes);
+            return new TypeNameListNode(ctx.Start.Line, typeNameNodes);
 
         }
 
