@@ -150,14 +150,10 @@ namespace LINVAST.Imperative.Builders.Java
             
             if (ctx.IDENTIFIER().Length > 1)
                 throw new NotImplementedException("base types");
-            TypeNameListNode tnln;
-            if (ctx.typeArguments().Any() && ctx.typeArguments() is { })
-                tnln = this.Visit(ctx.typeArguments().First()).As<TypeNameListNode>();
-            else
-                tnln = new TypeNameListNode(ctx.Start.Line, new ArrayList<TypeNameNode>());
+            TypeNameListNode typeNames = ctx.typeArguments()?.Any()??false ? this.Visit(ctx.typeArguments().First()).As<TypeNameListNode>() : new TypeNameListNode(ctx.Start.Line, new ArrayList<TypeNameNode>());
 
 
-            return new TypeNameNode(ctx.Start.Line, ctx.IDENTIFIER().First().GetText(), tnln.Types);
+            return new TypeNameNode(ctx.Start.Line, ctx.IDENTIFIER().First().GetText(), typeNames.Types);
 
         }
         public override ASTNode VisitTypeTypeOrVoid([NotNull] TypeTypeOrVoidContext ctx)
