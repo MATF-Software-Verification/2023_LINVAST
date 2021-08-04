@@ -180,6 +180,50 @@ namespace LINVAST.Imperative.Builders.Java
         }
 
 
+        // class member declarations:
+
+        public override ASTNode VisitMemberDeclaration([NotNull] MemberDeclarationContext ctx)
+            => this.Visit(ctx.children.Single());
+
+        public override ASTNode VisitMethodDeclaration([NotNull] MethodDeclarationContext ctx)
+        {
+            var identifier = new IdNode(ctx.Start.Line, ctx.IDENTIFIER().GetText());
+
+            FuncParamsNode @params = this.Visit(ctx.formalParameters()).As<FuncParamsNode>();
+
+            // brackets applies to the return type, historical reasons
+            if (ctx.LBRACK().Length > 0)
+                throw new NotImplementedException("brackets after method definition");
+
+            if (ctx.THROWS() is { })
+                throw new NotImplementedException("exceptions");
+
+            BlockStatNode body = this.Visit(ctx.methodBody()).As<BlockStatNode>();
+
+            return new FuncDeclNode(ctx.Start.Line, identifier, @params, body);
+        }
+
+        public override ASTNode VisitGenericMethodDeclaration([NotNull] GenericMethodDeclarationContext ctx)
+        {
+            TypeNameListNode templateArgs = this.Visit(ctx.typeParameters()).As<TypeNameListNode>();
+            FuncDeclNode func = this.Visit(ctx.methodDeclaration()).As<FuncDeclNode>();
+
+            // throwing exception to suppress warnings
+            return new FuncDeclNode(ctx.Start.Line, func.IdentifierNode, templateArgs,
+                    func.ParametersNode ?? throw new SyntaxErrorException("Unknown construct"),
+                    func.Definition ?? throw new SyntaxErrorException("Unknown construct"));
+        }
+
+        public override ASTNode VisitGenericConstructorDeclaration([NotNull] GenericConstructorDeclarationContext ctx)
+            => throw new NotImplementedException("constructors");
+
+        public override ASTNode VisitConstructorDeclaration([NotNull] ConstructorDeclarationContext ctx)
+            => throw new NotImplementedException("constructors");
+
+        public override ASTNode VisitFieldDeclaration([NotNull] FieldDeclarationContext ctx)
+            => this.Visit(ctx.variableDeclarators()); // DeclListNode
+
+
 
         // private methods instead of visiting Modifier Contexts:
 
@@ -236,6 +280,14 @@ namespace LINVAST.Imperative.Builders.Java
 
         public override ASTNode VisitTypeParameters([NotNull] TypeParametersContext ctx)
             => new TypeNameListNode(ctx.Start.Line, new TypeNameNode(ctx.Start.Line, "Class1"));
+
+        public override ASTNode VisitMethodBody([NotNull] MethodBodyContext ctx)
+            => new BlockStatNode(ctx.Start.Line);
+
+        public override ASTNode VisitFormalParameters([NotNull] FormalParametersContext ctx)
+            => new FuncParamsNode(ctx.Start.Line);
+
+
 
     }
 }
