@@ -34,6 +34,8 @@ namespace LINVAST.Imperative.Nodes.Common
                 qualifiers |= QualifierFlags.Static;
             if (split.Contains("volatile"))
                 qualifiers |= QualifierFlags.Volatile;
+            if (split.Contains("default"))
+                qualifiers |= QualifierFlags.Default;
 
             return new Modifiers(access, qualifiers);
         }
@@ -65,6 +67,8 @@ namespace LINVAST.Imperative.Nodes.Common
                sb.Append("const ");
             if (this.QualifierFlags.HasFlag(QualifierFlags.Volatile))
                sb.Append("volatile ");
+            if (this.QualifierFlags.HasFlag(QualifierFlags.Default))
+                sb.Append("default ");
             return sb.ToString().Trim();
         }
 
@@ -97,5 +101,6 @@ namespace LINVAST.Imperative.Nodes.Common
         Static = 1,
         Const = 2,
         Volatile = 4,
+        Default = 8,
     }
 }

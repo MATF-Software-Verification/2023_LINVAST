@@ -224,6 +224,134 @@ namespace LINVAST.Imperative.Builders.Java
             => this.Visit(ctx.variableDeclarators()); // DeclListNode
 
 
+        // interface member declarations:
+
+        public override ASTNode VisitInterfaceBodyDeclaration([NotNull] InterfaceBodyDeclarationContext ctx)
+        {
+            if (ctx.SEMI() is { })
+                return new EmptyStatNode(ctx.Start.Line);
+
+            var modifiers = new StringBuilder("");
+            int? declSpecsStartLine = null;
+            if (ctx.modifier() is { } modifierCtxList && modifierCtxList.Any()) {
+                modifiers.Append(string.Join(" ",
+                    modifierCtxList.Select(modCtx => this.ProcessModifier(modCtx))));
+                declSpecsStartLine = modifierCtxList.First().Start.Line;
+            }
+
+            // additionally, there could be interface specific method modifiers
+            if (ctx.interfaceMemberDeclaration().interfaceMethodDeclaration() is { } iMethodDeclCtx &&
+                iMethodDeclCtx.interfaceMethodModifier() is { } iMethodModCtxList &&
+                iMethodModCtxList.Any()) {
+                if (!modifiers.Equals(""))
+                    modifiers.Append(" ");
+                modifiers.Append(string.Join(" ",
+                    iMethodModCtxList.Select(iMCtx => this.ProcessInterfaceMethodModifier(iMCtx))));
+                declSpecsStartLine ??= iMethodModCtxList.First().Start.Line;
+            }
+
+            TypeNameNode type = TypeName(ctx.interfaceMemberDeclaration());
+            declSpecsStartLine ??= type.Line;
+            var declSpecs = new DeclSpecsNode(declSpecsStartLine ?? ctx.Start.Line, modifiers.ToString(), type);
+
+
+            DeclListNode declList;
+            if (ctx.interfaceMemberDeclaration().constDeclaration() is { } constDeclCtx)
+                declList = this.Visit(constDeclCtx).As<DeclListNode>();
+            else
+                declList = new DeclListNode(ctx.interfaceMemberDeclaration().Start.Line,
+                    this.Visit(ctx.interfaceMemberDeclaration()).As<DeclNode>());
+
+            return new DeclStatNode(ctx.Start.Line, declSpecs, declList);
+
+            TypeNameNode TypeName([NotNull] InterfaceMemberDeclarationContext ctx)
+            {
+                if (ctx.constDeclaration() is { } constDeclCtx)
+                    return this.Visit(constDeclCtx.typeType()).As<TypeNameNode>();
+
+                if (ctx.interfaceMethodDeclaration() is { } iMethodDeclCtx)
+                    return this.Visit(iMethodDeclCtx.typeTypeOrVoid()).As<TypeNameNode>();
+
+                if (ctx.genericInterfaceMethodDeclaration() is { } genIntMethdDeclCtx)
+                    return this.Visit(genIntMethdDeclCtx.interfaceMethodDeclaration().typeTypeOrVoid()).As<TypeNameNode>();
+
+                if (ctx.interfaceDeclaration() is { } interfaceDeclCtx)
+                    return new TypeNameNode(interfaceDeclCtx.Start.Line, interfaceDeclCtx.IDENTIFIER().GetText());
+
+                if (ctx.annotationTypeDeclaration() is { })
+                    throw new NotImplementedException("annotation type declaration");
+
+                if (ctx.classDeclaration() is { } clsDeclCtx)
+                    return new TypeNameNode(clsDeclCtx.Start.Line, clsDeclCtx.IDENTIFIER().GetText());
+
+                if (ctx.enumDeclaration() is { } enumDeclCtx)
+                    return new TypeNameNode(enumDeclCtx.Start.Line, enumDeclCtx.IDENTIFIER().GetText());
+
+                // unreachable path
+                throw new SyntaxErrorException("Source file contained unexpected content");
+            }
+
+        }
+
+        public override ASTNode VisitInterfaceMemberDeclaration([NotNull] InterfaceMemberDeclarationContext ctx)
+            => base.Visit(ctx.children.Single());
+       
+        public override ASTNode VisitConstDeclaration([NotNull] ConstDeclarationContext ctx)
+            => new DeclListNode(ctx.Start.Line, ctx.constantDeclarator().Select(
+                constDeclCtx => this.Visit(constDeclCtx).As<DeclNode>()));
+
+        public override ASTNode VisitConstantDeclarator([NotNull] ConstantDeclaratorContext ctx)
+        {
+            var identifier = new IdNode(ctx.Start.Line, ctx.IDENTIFIER().GetText());
+
+            if (ctx.LBRACK().Length > 0)
+                throw new NotImplementedException("arrays");
+
+            ExprNode init = this.Visit(ctx.variableInitializer()).As<ExprNode>();
+
+            return new VarDeclNode(ctx.Start.Line, identifier, init);
+        }
+
+        public override ASTNode VisitInterfaceMethodDeclaration([NotNull] InterfaceMethodDeclarationContext ctx)
+        {
+            var identifier = new IdNode(ctx.Start.Line, ctx.IDENTIFIER().GetText());
+
+            if (ctx.annotation() is { } && ctx.annotation().Any())
+                throw new NotImplementedException("annotations");
+
+            TypeNameListNode? templateArgs = null;
+            if (ctx.typeParameters() is { })
+                templateArgs = this.Visit(ctx.typeParameters()).As<TypeNameListNode>();
+
+            FuncParamsNode @params = this.Visit(ctx.formalParameters()).As<FuncParamsNode>();
+
+            // brackets applies to the return type, historical reasons
+            if (ctx.LBRACK().Length > 0)
+                throw new NotImplementedException("brackets after method definition");
+
+            if (ctx.THROWS() is { })
+                throw new NotImplementedException("exceptions");
+
+            BlockStatNode body = this.Visit(ctx.methodBody()).As<BlockStatNode>();
+
+            return new FuncDeclNode(ctx.Start.Line, identifier,
+                templateArgs ?? new TypeNameListNode(ctx.Start.Line),
+                @params, body);
+        }
+
+        public override ASTNode VisitGenericInterfaceMethodDeclaration([NotNull] GenericInterfaceMethodDeclarationContext ctx)
+        {
+            TypeNameListNode templateArgs = this.Visit(ctx.typeParameters()).As<TypeNameListNode>();
+            FuncDeclNode func = this.Visit(ctx.interfaceMethodDeclaration()).As<FuncDeclNode>();
+
+            // throwing exception to suppress warning
+            return new FuncDeclNode(ctx.Start.Line, func.IdentifierNode,
+                new TypeNameListNode(templateArgs.Line, templateArgs.Types.Concat(func.TemplateArgs.Types)),
+                func.ParametersNode ?? throw new SyntaxErrorException("Unknown construct"),
+                func.Definition ?? throw new SyntaxErrorException("Unknown construct"));
+        }
+
+
 
         // private methods instead of visiting Modifier Contexts:
 
@@ -287,7 +415,8 @@ namespace LINVAST.Imperative.Builders.Java
         public override ASTNode VisitFormalParameters([NotNull] FormalParametersContext ctx)
             => new FuncParamsNode(ctx.Start.Line);
 
-
+        public override ASTNode VisitVariableInitializer([NotNull] VariableInitializerContext ctx)
+            => new NullLitExprNode(ctx.Start.Line);
 
     }
 }
