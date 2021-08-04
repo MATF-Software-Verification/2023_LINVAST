@@ -352,6 +352,87 @@ namespace LINVAST.Imperative.Builders.Java
         }
 
 
+        // variable declarators:
+
+        public override ASTNode VisitVariableDeclarators([NotNull] VariableDeclaratorsContext ctx)
+            => new DeclListNode(ctx.Start.Line, ctx.variableDeclarator().Select(
+                varDeclCtx => this.Visit(varDeclCtx).As<DeclNode>()));
+
+        public override ASTNode VisitVariableDeclarator([NotNull] VariableDeclaratorContext ctx)
+        {
+            VariableDeclaratorIdContext varDeclIdCtx = ctx.variableDeclaratorId();
+            IdNode identifier = this.Visit(varDeclIdCtx).As<IdNode>();
+
+            if (ctx.variableInitializer() is { } varInitCtx) {
+                ExprNode init = this.Visit(varInitCtx).As<ExprNode>();
+                return new VarDeclNode(ctx.Start.Line, identifier, init);
+            }
+
+            return new VarDeclNode(ctx.Start.Line, identifier);
+        }
+
+        public override ASTNode VisitVariableDeclaratorId([NotNull] VariableDeclaratorIdContext ctx)
+        {
+            if (ctx.LBRACK().Length > 0)
+                throw new NotImplementedException("arrays");
+
+            return new IdNode(ctx.Start.Line, ctx.IDENTIFIER().GetText());
+        }
+
+
+        // local declarations:
+
+        public override ASTNode VisitLocalVariableDeclaration([NotNull] LocalVariableDeclarationContext ctx)
+        {
+            string modifiers = "";
+            int? declSpecsStartLine = null;
+            if (ctx.variableModifier() is { } varModifierCtxList && varModifierCtxList.Any()) {
+                modifiers = string.Join(" ",
+                    varModifierCtxList.Select(modCtx => this.ProcessVariableModifier(modCtx)));
+                declSpecsStartLine = varModifierCtxList.First().Start.Line;
+            }
+
+            TypeNameNode typeName = this.Visit(ctx.typeType()).As<TypeNameNode>();
+            declSpecsStartLine ??= typeName.Line;
+            var declSpecs = new DeclSpecsNode(declSpecsStartLine ?? ctx.Start.Line, modifiers, typeName);
+            DeclListNode declList = this.Visit(ctx.variableDeclarators()).As<DeclListNode>();
+
+            return new DeclStatNode(ctx.Start.Line, declSpecs, declList);
+        }
+
+        public override ASTNode VisitLocalTypeDeclaration([NotNull] LocalTypeDeclarationContext ctx)
+        {
+            if (ctx.SEMI() is { })
+                return new EmptyStatNode(ctx.Start.Line);
+
+            string modifiers = "";
+            int? declSpecsStartLine = null;
+            if (ctx.classOrInterfaceModifier() is { } clssOrInterfaceModList &&
+                clssOrInterfaceModList.Any()) {
+                modifiers = string.Join(" ", clssOrInterfaceModList.Select(
+                    modCtx => this.ProcessClassOrInterfaceModifier(modCtx)));
+                declSpecsStartLine = clssOrInterfaceModList.First().Start.Line;
+            }
+
+            if (ctx.classDeclaration() is { }) {
+                TypeDeclNode decl = this.Visit(ctx.classDeclaration()).As<TypeDeclNode>();
+                declSpecsStartLine ??= decl.Line;
+                var declSpecs = new DeclSpecsNode(declSpecsStartLine ?? ctx.Start.Line, modifiers, decl.Identifier);
+                return new ClassNode(ctx.Start.Line, declSpecs, decl);
+            }
+
+            if (ctx.interfaceDeclaration() is { }) {
+                TypeDeclNode decl = this.Visit(ctx.interfaceDeclaration()).As<TypeDeclNode>();
+                declSpecsStartLine ??= decl.Line;
+                var declSpecs = new DeclSpecsNode(declSpecsStartLine ?? ctx.Start.Line, modifiers, decl.Identifier);
+                return new InterfaceNode(ctx.Start.Line, declSpecs, decl);
+            }
+
+            // unreachable path
+            throw new SyntaxErrorException("Source file contained unexpected content");
+        }
+
+
 
         // private methods instead of visiting Modifier Contexts:
 
