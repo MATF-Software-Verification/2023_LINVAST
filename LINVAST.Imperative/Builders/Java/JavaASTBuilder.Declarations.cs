@@ -433,6 +433,15 @@ namespace LINVAST.Imperative.Builders.Java
         }
 
 
+        // annotation declarations:
+
+        public override ASTNode VisitAnnotationTypeDeclaration([NotNull] AnnotationTypeDeclarationContext ctx)
+            => throw new NotImplementedException("Declaring an annotation type");
+
+        public override ASTNode VisitAnnotationTypeElementDeclaration([NotNull] AnnotationTypeElementDeclarationContext ctx)
+            => throw new NotImplementedException("Declaring an annotation type");
+
+
 
         // private methods instead of visiting Modifier Contexts:
 
