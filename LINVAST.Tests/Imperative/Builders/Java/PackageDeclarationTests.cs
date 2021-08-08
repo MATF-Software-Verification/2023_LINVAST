@@ -12,7 +12,7 @@ namespace LINVAST.Tests.Imperative.Builders.Java
         [Test]
         public void PackageDeclarationTest()
         {
-            string src1 = "package Name1;";
+            string src1 = "package mypkg;";
             Assert.That(() => this.GenerateAST(src1), Throws.InstanceOf<NotImplementedException>());
         }
 

@@ -9,14 +9,12 @@ namespace LINVAST.Tests.Imperative.Builders.Java
 {
     internal sealed class EnumDeclarationTests : DeclarationTestsBase
     {
-
         [Test]
         public void NoConstantsEnumDeclTest()
         {
             string src1 = "enum Color {}";
             EnumDeclNode ast1 = this.GenerateAST(src1).As<EnumDeclNode>();
             Assert.That(ast1.Identifier, Is.EqualTo("Color"));
-            Assert.That(ast1.GetText(), Is.EqualTo("Color"));
         }
 
         [Test]

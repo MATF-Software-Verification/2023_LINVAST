@@ -15,7 +15,9 @@ namespace LINVAST.Tests.Imperative.Builders.Java
         {
             string src1 = "class Class1 {}";
             TypeDeclNode ast1 = this.GenerateAST(src1).As<TypeDeclNode>();
-            StringAssert.IsMatch(@"Class1\s*{\s*}\s*", ast1.GetText());
+
+            Assert.That(ast1.Identifier, Is.EqualTo("Class1"));
+            Assert.That(ast1.Declarations.Count, Is.EqualTo(0));
         }
 
         [Test]
