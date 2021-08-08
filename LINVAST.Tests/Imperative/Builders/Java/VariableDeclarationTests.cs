@@ -10,7 +10,6 @@ namespace LINVAST.Tests.Imperative.Builders.Java
 {
     internal sealed class VariableDeclarationTests : DeclarationTestsBase
     {
-
         [Test]
         public void WithoutInitializerLocalVariableTest()
         {
@@ -81,6 +80,7 @@ namespace LINVAST.Tests.Imperative.Builders.Java
             string src1 = "String str[] = null;";
             Assert.That(() => this.GenerateAST(src1), Throws.InstanceOf<NotImplementedException>());
         }
+
 
         protected override ASTNode GenerateAST(string src)
             => new JavaASTBuilder().BuildFromSource(src, p => p.localVariableDeclaration());

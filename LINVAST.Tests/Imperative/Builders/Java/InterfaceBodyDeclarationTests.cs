@@ -22,7 +22,6 @@ namespace LINVAST.Tests.Imperative.Builders.Java
         public void WithAnnotationClassBodyDeclTest()
         {
             string src1 = "@Override public string toString() {return this.attr.toString();}";
-
             Assert.That(() => this.GenerateAST(src1), Throws.InstanceOf<NotImplementedException>());
         }
 
@@ -76,7 +75,6 @@ namespace LINVAST.Tests.Imperative.Builders.Java
             StringAssert.IsMatch(@"default String f\(<>\){\s*}", ast2.GetText());
         }
 
-
         [Test]
         public void WithBracketsInterfaceMethodTest()
         {
@@ -105,12 +103,10 @@ namespace LINVAST.Tests.Imperative.Builders.Java
             Assert.That(ast1.Specifiers.TypeName, Is.EqualTo("String"));
             Assert.That(ast1.Modifiers.ToString(), Is.EqualTo("public"));
             StringAssert.IsMatch(@"public String f\(<Class1>\){\s*}", ast1.GetText());
-
-
             Assert.That(ast2.Modifiers.ToString(), Is.EqualTo("volatile"));
             StringAssert.IsMatch(@"volatile String f\(<Class1>\){\s*}", ast2.GetText());
-
         }
+
 
         protected override ASTNode GenerateAST(string src)
             => new JavaASTBuilder().BuildFromSource(src, p => p.interfaceBodyDeclaration());

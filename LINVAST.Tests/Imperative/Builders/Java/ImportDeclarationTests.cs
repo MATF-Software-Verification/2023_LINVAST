@@ -9,15 +9,13 @@ namespace LINVAST.Tests.Imperative.Builders.Java
 {
     internal sealed class ImportDeclarationTests : DeclarationTestsBase
     {
-
         [Test]
         public void SingleNameImportDeclTest()
         {
             string src1 = "import System;";
             string src2 = "import System ;";
 
-
-            ImportNode ast1 = this.GenerateAST(src1).As<ImportNode>(); 
+            ImportNode ast1 = this.GenerateAST(src1).As<ImportNode>();
             ImportNode ast2 = this.GenerateAST(src2).As<ImportNode>();
 
             Assert.That(ast1.Directive, Is.EqualTo("System"));
@@ -72,7 +70,7 @@ namespace LINVAST.Tests.Imperative.Builders.Java
         }
 
 
-        protected override ASTNode GenerateAST(string src) 
+        protected override ASTNode GenerateAST(string src)
             => new JavaASTBuilder().BuildFromSource(src, p => p.importDeclaration());
     }
 }

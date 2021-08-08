@@ -14,7 +14,7 @@ namespace LINVAST.Imperative.Builders.Java
     public sealed partial class JavaASTBuilder : JavaBaseVisitor<ASTNode>, IASTBuilder<JavaParser>
     {
 
-        // package and import declarations:
+        #region package and import declarations
 
         public override ASTNode VisitPackageDeclaration([NotNull] PackageDeclarationContext ctx)
             => throw new NotImplementedException("Package declarations.");
@@ -31,26 +31,30 @@ namespace LINVAST.Imperative.Builders.Java
             return new ImportNode(ctx.Start.Line, directive.ToString());
         }
 
+        #endregion
 
-        // class, enum, interface declarations:
+        #region class, enum, interface declarations
 
         public override ASTNode VisitClassDeclaration([NotNull] ClassDeclarationContext ctx)
         {
             var identifier = new IdNode(ctx.Start.Line, ctx.IDENTIFIER().GetText());
 
             TypeNameListNode templateParams;
-            if (ctx.typeParameters() is { } typeParamsCtx)
+            if (ctx.typeParameters() is { } typeParamsCtx) {
                 templateParams = this.Visit(typeParamsCtx).As<TypeNameListNode>();
-            else
-                templateParams = new TypeNameListNode(ctx.Start.Line, new TypeNameNode[] { });
+            } else {
+                templateParams = new TypeNameListNode(ctx.Start.Line);
+            }
 
             IEnumerable<TypeNameNode> baseTypes;
             int baseTypesStartLine = ctx.Start.Line;
             if (ctx.typeList() is { } typeListCtx) {
                 baseTypes = this.Visit(typeListCtx).As<TypeNameListNode>().Types;
                 baseTypesStartLine = typeListCtx.Start.Line;
+            } else {
+                baseTypes = new TypeNameNode[] { };
             }
-            else baseTypes = new TypeNameNode[] { };
+
             if (ctx.typeType() is { } typeTypeCtx) {
                 baseTypes = baseTypes.Append(this.Visit(typeTypeCtx).As<TypeNameNode>());
                 baseTypesStartLine = typeTypeCtx.Start.Line;
@@ -58,7 +62,7 @@ namespace LINVAST.Imperative.Builders.Java
 
             IEnumerable<DeclStatNode> declarations;
             BlockStatNode block = this.Visit(ctx.classBody()).As<BlockStatNode>();
-            declarations = block.Children.Select(c => c.As<DeclStatNode>());
+            declarations = block.Children.Cast<DeclStatNode>();
 
             return new TypeDeclNode(ctx.Start.Line, identifier, templateParams,
                 new TypeNameListNode(baseTypesStartLine, baseTypes),
@@ -117,7 +121,6 @@ namespace LINVAST.Imperative.Builders.Java
             if (ctx.STATIC() is { } || ctx.block() is { })
                 throw new NotImplementedException("static- and non-static- blocks in a class");
 
-
             // we use private method ProcessModifier instead of overriding VisitModifier
             string modifiers = "";
             int? declSpecsStartLine = null;
@@ -133,17 +136,18 @@ namespace LINVAST.Imperative.Builders.Java
             if (typeName is { }) { // if memberDeclaration is anything but constructor- or genericConstructor- Declaration
                 declSpecsStartLine ??= typeName.Line;
                 declSpecs = new DeclSpecsNode(declSpecsStartLine ?? ctx.Start.Line, modifiers, typeName);
-            }
-            else // if memberDeclaration is constructor- or genericConstructor- Declaration
+            } else { // if memberDeclaration is constructor- or genericConstructor- Declaration
                 throw new NotImplementedException("constructors");
-
+            }
             DeclListNode declList;
-            if (memberDeclCtx.fieldDeclaration() is { })
+            if (memberDeclCtx.fieldDeclaration() is { }) {
                 declList = this.Visit(memberDeclCtx).As<DeclListNode>();
-            else
+            } else {
                 declList = new DeclListNode(memberDeclCtx.Start.Line, this.Visit(memberDeclCtx).As<DeclNode>());
+            }
 
             return new DeclStatNode(ctx.Start.Line, declSpecs, declList);
+
 
             TypeNameNode? TypeName([NotNull] MemberDeclarationContext ctx)
             {
@@ -179,8 +183,9 @@ namespace LINVAST.Imperative.Builders.Java
             }
         }
 
+        #endregion
 
-        // class member declarations:
+        #region class member declarations
 
         public override ASTNode VisitMemberDeclaration([NotNull] MemberDeclarationContext ctx)
             => this.Visit(ctx.children.Single());
@@ -223,8 +228,9 @@ namespace LINVAST.Imperative.Builders.Java
         public override ASTNode VisitFieldDeclaration([NotNull] FieldDeclarationContext ctx)
             => this.Visit(ctx.variableDeclarators()); // DeclListNode
 
+        #endregion
 
-        // interface member declarations:
+        #region interface member declarations
 
         public override ASTNode VisitInterfaceBodyDeclaration([NotNull] InterfaceBodyDeclarationContext ctx)
         {
@@ -254,15 +260,16 @@ namespace LINVAST.Imperative.Builders.Java
             declSpecsStartLine ??= type.Line;
             var declSpecs = new DeclSpecsNode(declSpecsStartLine ?? ctx.Start.Line, modifiers.ToString(), type);
 
-
             DeclListNode declList;
-            if (ctx.interfaceMemberDeclaration().constDeclaration() is { } constDeclCtx)
+            if (ctx.interfaceMemberDeclaration().constDeclaration() is { } constDeclCtx) {
                 declList = this.Visit(constDeclCtx).As<DeclListNode>();
-            else
+            } else {
                 declList = new DeclListNode(ctx.interfaceMemberDeclaration().Start.Line,
                     this.Visit(ctx.interfaceMemberDeclaration()).As<DeclNode>());
+            }
 
             return new DeclStatNode(ctx.Start.Line, declSpecs, declList);
+
 
             TypeNameNode TypeName([NotNull] InterfaceMemberDeclarationContext ctx)
             {
@@ -295,7 +302,7 @@ namespace LINVAST.Imperative.Builders.Java
 
         public override ASTNode VisitInterfaceMemberDeclaration([NotNull] InterfaceMemberDeclarationContext ctx)
             => base.Visit(ctx.children.Single());
-       
+
         public override ASTNode VisitConstDeclaration([NotNull] ConstDeclarationContext ctx)
             => new DeclListNode(ctx.Start.Line, ctx.constantDeclarator().Select(
                 constDeclCtx => this.Visit(constDeclCtx).As<DeclNode>()));
@@ -351,8 +358,9 @@ namespace LINVAST.Imperative.Builders.Java
                 func.Definition ?? throw new SyntaxErrorException("Unknown construct"));
         }
 
+        #endregion
 
-        // variable declarators:
+        #region variable declarators
 
         public override ASTNode VisitVariableDeclarators([NotNull] VariableDeclaratorsContext ctx)
             => new DeclListNode(ctx.Start.Line, ctx.variableDeclarator().Select(
@@ -379,8 +387,9 @@ namespace LINVAST.Imperative.Builders.Java
             return new IdNode(ctx.Start.Line, ctx.IDENTIFIER().GetText());
         }
 
+        #endregion
 
-        // local declarations:
+        #region local declarations
 
         public override ASTNode VisitLocalVariableDeclaration([NotNull] LocalVariableDeclarationContext ctx)
         {
@@ -432,8 +441,9 @@ namespace LINVAST.Imperative.Builders.Java
             throw new SyntaxErrorException("Source file contained unexpected content");
         }
 
+        #endregion
 
-        // annotation declarations:
+        #region annotation declarations
 
         public override ASTNode VisitAnnotationTypeDeclaration([NotNull] AnnotationTypeDeclarationContext ctx)
             => throw new NotImplementedException("Declaring an annotation type");
@@ -441,9 +451,9 @@ namespace LINVAST.Imperative.Builders.Java
         public override ASTNode VisitAnnotationTypeElementDeclaration([NotNull] AnnotationTypeElementDeclarationContext ctx)
             => throw new NotImplementedException("Declaring an annotation type");
 
+        #endregion
 
-
-        // private methods instead of visiting Modifier Contexts:
+        #region private methods instead of visiting Modifier Contexts
 
         private string ProcessModifier(ModifierContext modifierCtx)
         {
@@ -477,8 +487,9 @@ namespace LINVAST.Imperative.Builders.Java
             return variableModifierCtx.GetText();
         }
 
+        #endregion
 
-        // other (overriden just for the purposes of testing the above methods):
+        #region other (overriden just for the purposes of testing the above methods)
 
         public override ASTNode VisitQualifiedName([NotNull] QualifiedNameContext ctx)
             => new IdNode(ctx.Start.Line,
@@ -507,6 +518,8 @@ namespace LINVAST.Imperative.Builders.Java
 
         public override ASTNode VisitVariableInitializer([NotNull] VariableInitializerContext ctx)
             => new NullLitExprNode(ctx.Start.Line);
+
+        #endregion
 
     }
 }

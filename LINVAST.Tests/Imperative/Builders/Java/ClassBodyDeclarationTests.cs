@@ -10,7 +10,6 @@ namespace LINVAST.Tests.Imperative.Builders.Java
 {
     internal sealed class ClassBodyDeclarationTests : DeclarationTestsBase
     {
-
         [Test]
         public void EmptyClassBodyDeclTest()
         {
@@ -19,7 +18,6 @@ namespace LINVAST.Tests.Imperative.Builders.Java
             EmptyStatNode ast1 = this.GenerateAST(src1).As<EmptyStatNode>();
             Assert.That(ast1.GetText(), Is.EqualTo(";"));
         }
-
 
         [Test]
         public void StaticBlockClassBodyDeclTest()
@@ -127,7 +125,6 @@ namespace LINVAST.Tests.Imperative.Builders.Java
             Assert.That(ast1.Modifiers.ToString(), Is.EqualTo("private"));
             Assert.That(ast1.Specifiers.Line, Is.EqualTo(1));
             Assert.That(ast1.DeclaratorList.Declarators.First().Line, Is.EqualTo(2));
-
             Assert.That(ast2.GetText(), Is.EqualTo("private static String x = null;"));
             Assert.That(ast2.Modifiers.ToString(), Is.EqualTo("private static"));
             Assert.That(ast2.Specifiers.Line, Is.EqualTo(1));
@@ -184,7 +181,6 @@ namespace LINVAST.Tests.Imperative.Builders.Java
             string src1 = "@interface Id1 {}";
             Assert.That(() => this.GenerateAST(src1), Throws.InstanceOf<NotImplementedException>());
         }
-
 
 
         protected override ASTNode GenerateAST(string src)

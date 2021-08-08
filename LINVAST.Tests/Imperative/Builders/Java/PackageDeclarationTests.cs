@@ -17,7 +17,7 @@ namespace LINVAST.Tests.Imperative.Builders.Java
         }
 
 
-        protected override ASTNode GenerateAST(string src) 
+        protected override ASTNode GenerateAST(string src)
             => new JavaASTBuilder().BuildFromSource(src, p => p.packageDeclaration());
     }
 }
