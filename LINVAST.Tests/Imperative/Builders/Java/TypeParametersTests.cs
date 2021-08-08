@@ -20,7 +20,7 @@ namespace LINVAST.Tests.Imperative.Builders.Java
             TypeNameListNode ast = this.GenerateAST("< Point >").As<TypeNameListNode>();
 
             Assert.That(ast.Types.Count, Is.EqualTo(1));
-            Assert.That(ast.Types.First().Identifier, Is.EqualTo("Point")); 
+            Assert.That(ast.Types.First().Identifier, Is.EqualTo("Point"));
             Assert.That(ast.Types.First().TemplateArguments.Count, Is.EqualTo(0));
         }
 
