@@ -58,10 +58,10 @@ namespace LINVAST.Tests.Imperative.Builders.Java
             DeclStatNode ast1 = this.GenerateAST(src1).As<DeclStatNode>();
 
             Assert.That(ast1.DeclaratorList.Children.Count, Is.EqualTo(1));
-            Assert.That(ast1.Specifiers.Modifiers.ToString(), Is.EqualTo("final"));
+            Assert.That(ast1.Specifiers.Modifiers.ToString(), Is.EqualTo("const"));
             Assert.That(ast1.Specifiers.TypeName, Is.EqualTo("String"));
             Assert.That(ast1.DeclaratorList.Declarators.First().As<VarDeclNode>().Identifier,
-                Is.EqualTo("str1"));
+                Is.EqualTo("str"));
             Assert.That(ast1.DeclaratorList.Children.Count, Is.EqualTo(1));
         }
 
@@ -72,7 +72,7 @@ namespace LINVAST.Tests.Imperative.Builders.Java
                             String str = null;";
             DeclStatNode ast1 = this.GenerateAST(src1).As<DeclStatNode>();
 
-            Assert.That(ast1.Specifiers.Modifiers.ToString(), Is.EqualTo("final"));
+            Assert.That(ast1.Specifiers.Modifiers.ToString(), Is.EqualTo("const"));
             Assert.That(ast1.DeclaratorList.Children.Count, Is.EqualTo(1));
             Assert.That(ast1.Specifiers.Line, Is.EqualTo(1));
             Assert.That(ast1.DeclaratorList.Declarators.First().Line, Is.EqualTo(2));
