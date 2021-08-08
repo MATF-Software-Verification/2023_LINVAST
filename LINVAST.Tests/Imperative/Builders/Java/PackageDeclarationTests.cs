@@ -8,7 +8,6 @@ namespace LINVAST.Tests.Imperative.Builders.Java
 {
     internal sealed class PackageDeclarationTests : DeclarationTestsBase
     {
-
         [Test]
         public void PackageDeclarationTest()
         {
