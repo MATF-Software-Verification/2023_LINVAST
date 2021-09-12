@@ -42,7 +42,8 @@ namespace LINVAST.Imperative.Builders.Java
             TypeNameListNode templateParams;
             if (ctx.typeParameters() is { } typeParamsCtx) {
                 templateParams = this.Visit(typeParamsCtx).As<TypeNameListNode>();
-            } else {
+            }
+            else {
                 templateParams = new TypeNameListNode(ctx.Start.Line);
             }
 
@@ -51,7 +52,8 @@ namespace LINVAST.Imperative.Builders.Java
             if (ctx.typeList() is { } typeListCtx) {
                 baseTypes = this.Visit(typeListCtx).As<TypeNameListNode>().Types;
                 baseTypesStartLine = typeListCtx.Start.Line;
-            } else {
+            }
+            else {
                 baseTypes = new TypeNameNode[] { };
             }
 
@@ -136,13 +138,15 @@ namespace LINVAST.Imperative.Builders.Java
             if (typeName is { }) { // if memberDeclaration is anything but constructor- or genericConstructor- Declaration
                 declSpecsStartLine ??= typeName.Line;
                 declSpecs = new DeclSpecsNode(declSpecsStartLine ?? ctx.Start.Line, modifiers, typeName);
-            } else { // if memberDeclaration is constructor- or genericConstructor- Declaration
+            }
+            else { // if memberDeclaration is constructor- or genericConstructor- Declaration
                 throw new NotImplementedException("constructors");
             }
             DeclListNode declList;
             if (memberDeclCtx.fieldDeclaration() is { }) {
                 declList = this.Visit(memberDeclCtx).As<DeclListNode>();
-            } else {
+            }
+            else {
                 declList = new DeclListNode(memberDeclCtx.Start.Line, this.Visit(memberDeclCtx).As<DeclNode>());
             }
 
@@ -263,7 +267,8 @@ namespace LINVAST.Imperative.Builders.Java
             DeclListNode declList;
             if (ctx.interfaceMemberDeclaration().constDeclaration() is { } constDeclCtx) {
                 declList = this.Visit(constDeclCtx).As<DeclListNode>();
-            } else {
+            }
+            else {
                 declList = new DeclListNode(ctx.interfaceMemberDeclaration().Start.Line,
                     this.Visit(ctx.interfaceMemberDeclaration()).As<DeclNode>());
             }
@@ -500,15 +505,6 @@ namespace LINVAST.Imperative.Builders.Java
 
         public override ASTNode VisitInterfaceBody([NotNull] InterfaceBodyContext ctx)
             => new BlockStatNode(ctx.Start.Line);
-
-        public override ASTNode VisitTypeType([NotNull] TypeTypeContext ctx)
-            => new TypeNameNode(ctx.Start.Line, "String");
-
-        public override ASTNode VisitTypeTypeOrVoid([NotNull] TypeTypeOrVoidContext ctx)
-            => new TypeNameNode(ctx.Start.Line, "String");
-
-        public override ASTNode VisitTypeParameters([NotNull] TypeParametersContext ctx)
-            => new TypeNameListNode(ctx.Start.Line, new TypeNameNode(ctx.Start.Line, "Class1"));
 
         public override ASTNode VisitMethodBody([NotNull] MethodBodyContext ctx)
             => new BlockStatNode(ctx.Start.Line);

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Antlr4.Runtime;
 using Antlr4.Runtime.Misc;
 using Antlr4.Runtime.Tree;
@@ -43,10 +44,15 @@ namespace LINVAST.Imperative.Builders.Java
             }
         }
 
-        public override ASTNode VisitCompilationUnit([NotNull] CompilationUnitContext context)
+        public override ASTNode VisitCompilationUnit([NotNull] CompilationUnitContext ctx)
         {
-            // TODO
-            return new SourceNode();
+            if (ctx.packageDeclaration() is { }) {
+                // TODO package declaration
+            }
+
+            var imports = ctx.importDeclaration().Select(this.Visit).ToList();
+            var types = ctx.typeDeclaration().Select(this.Visit).ToList();
+            return new SourceNode(imports.Concat(types));
         }
     }
 }

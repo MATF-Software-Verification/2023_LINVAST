@@ -1,12 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using Antlr4.Runtime;
 using Antlr4.Runtime.Misc;
-using Antlr4.Runtime.Tree;
 using LINVAST.Builders;
-using LINVAST.Exceptions;
 using LINVAST.Imperative.Nodes;
-using LINVAST.Logging;
 using LINVAST.Nodes;
 using static LINVAST.Imperative.Builders.Java.JavaParser;
 
@@ -16,9 +13,8 @@ namespace LINVAST.Imperative.Builders.Java
     {
         public override ASTNode VisitTypeDeclaration([NotNull] TypeDeclarationContext ctx)
         {
-
-            var ctxStartLine = ctx.Start.Line;
-            var modifiers = "";
+            int ctxStartLine = ctx.Start.Line;
+            string? modifiers = "";
             if (ctx.classOrInterfaceModifier() is { }) {
                 ctxStartLine = ctx.classOrInterfaceModifier().First().Start.Line;
 
@@ -31,63 +27,57 @@ namespace LINVAST.Imperative.Builders.Java
             }
 
             if (ctx.classDeclaration() is { }) {
-                var classDecl = this.Visit(ctx.classDeclaration()).As<TypeDeclNode>();
+                TypeDeclNode? classDecl = this.Visit(ctx.classDeclaration()).As<TypeDeclNode>();
                 int declSpecsLine = ctxStartLine;
                 return new ClassNode(ctx.Start.Line, new DeclSpecsNode(declSpecsLine, modifiers, classDecl.Identifier), classDecl);
             }
 
             if (ctx.enumDeclaration() is { }) {
-                var enumDecl = this.Visit(ctx.enumDeclaration()).As<EnumDeclNode>();
+                EnumDeclNode? enumDecl = this.Visit(ctx.enumDeclaration()).As<EnumDeclNode>();
                 int declSpecsLine = ctxStartLine;
                 return new EnumNode(ctx.Start.Line, new DeclSpecsNode(declSpecsLine, modifiers, enumDecl.Identifier), enumDecl);
             }
 
             if (ctx.interfaceDeclaration() is { }) {
-                var interfaceDecl = this.Visit(ctx.interfaceDeclaration()).As<TypeDeclNode>();
+                TypeDeclNode? interfaceDecl = this.Visit(ctx.interfaceDeclaration()).As<TypeDeclNode>();
                 int declSpecsLine = ctxStartLine;
                 return new InterfaceNode(ctx.Start.Line, new DeclSpecsNode(declSpecsLine, modifiers, interfaceDecl.Identifier), interfaceDecl);
             }
+
             return new EmptyStatNode(ctx.Start.Line);
         }
 
         public override ASTNode VisitClassOrInterfaceModifier([NotNull] ClassOrInterfaceModifierContext ctx)
         {
-
             if (ctx.annotation() is { })
                 throw new NotImplementedException("annotations");
 
             return new DeclSpecsNode(ctx.Start.Line, ctx.children.First().GetText());
-
         }
 
         public override ASTNode VisitTypeType([NotNull] TypeTypeContext ctx)
         {
-
             if (ctx.annotation().Any()) {
                 throw new NotImplementedException("annotations");
             }
 
             if (ctx.primitiveType() is { }) {
                 return this.Visit(ctx.primitiveType());
-
             }
 
             return this.Visit(ctx.classOrInterfaceType());
-
         }
 
 
         public override ASTNode VisitTypeList([NotNull] TypeListContext ctx)
         {
-            var typeNameNodes = ctx.typeType().Select(c => this.Visit(c).As<TypeNameNode>());
-
-
+            IEnumerable<TypeNameNode>? typeNameNodes = ctx.typeType().Select(c => this.Visit(c).As<TypeNameNode>());
             return new TypeNameListNode(ctx.Start.Line, typeNameNodes);
         }
 
         public override ASTNode VisitTypeParameters([NotNull] TypeParametersContext ctx)
         {
-            var typeNameNodes = ctx.typeParameter().Select(c => this.Visit(c).As<TypeNameNode>());
+            IEnumerable<TypeNameNode>? typeNameNodes = ctx.typeParameter().Select(c => this.Visit(c).As<TypeNameNode>());
             return new TypeNameListNode(ctx.Start.Line, typeNameNodes);
         }
 
@@ -96,37 +86,27 @@ namespace LINVAST.Imperative.Builders.Java
             if (ctx.annotation().Any())
                 throw new NotImplementedException("annotations");
 
-            TypeNameListNode baseList;
-            if (ctx.typeBound() is { })
-                baseList = this.Visit(ctx.typeBound()).As<TypeNameListNode>();
-            else
-                baseList = new TypeNameListNode(ctx.Start.Line);
-
+            TypeNameListNode baseList = ctx.typeBound() is { } ? this.Visit(ctx.typeBound()).As<TypeNameListNode>() : new TypeNameListNode(ctx.Start.Line);
             return new TypeNameNode(ctx.Start.Line, ctx.IDENTIFIER().GetText(), baseList.Types);
         }
 
         public override ASTNode VisitTypeBound([NotNull] TypeBoundContext ctx)
         {
-            var typeNameNodes = ctx.typeType().Select(c => this.Visit(c).As<TypeNameNode>());
+            IEnumerable<TypeNameNode>? typeNameNodes = ctx.typeType().Select(c => this.Visit(c).As<TypeNameNode>());
             return new TypeNameListNode(ctx.Start.Line, typeNameNodes);
         }
 
 
-        public override ASTNode VisitPrimitiveType([NotNull] PrimitiveTypeContext ctx)
-        {
-
-            return new TypeNameNode(ctx.Start.Line, ctx.children.First().GetText());
-
-        }
+        public override ASTNode VisitPrimitiveType([NotNull] PrimitiveTypeContext ctx) 
+            => new TypeNameNode(ctx.Start.Line, ctx.children.First().GetText());
 
         public override ASTNode VisitClassType([NotNull] ClassTypeContext ctx)
         {
-
             if (ctx.annotation().Any()) {
                 throw new NotImplementedException("annotations");
             }
 
-            var ctxStartLine = ctx.Start.Line;
+            int ctxStartLine = ctx.Start.Line;
 
             TypeNameListNode templlist = new TypeNameListNode(ctxStartLine), baselist = new TypeNameListNode(ctxStartLine);
             if (ctx.classOrInterfaceType() is { }) {
@@ -142,21 +122,17 @@ namespace LINVAST.Imperative.Builders.Java
                 templlist = this.Visit(ctx.typeArguments()).As<TypeNameListNode>();
             }
 
-
             var identifier = new IdNode(ctxStartLine, ctx.IDENTIFIER().GetText());
             return new TypeDeclNode(ctxStartLine, identifier, templlist, baselist, new ArrayList<DeclStatNode>());
         }
 
         public override ASTNode VisitClassOrInterfaceType([NotNull] ClassOrInterfaceTypeContext ctx)
         {
-
             if (ctx.IDENTIFIER().Length > 1)
                 throw new NotImplementedException("base types");
+           
             TypeNameListNode typeNames = ctx.typeArguments()?.Any() ?? false ? this.Visit(ctx.typeArguments().First()).As<TypeNameListNode>() : new TypeNameListNode(ctx.Start.Line, new ArrayList<TypeNameNode>());
-
-
             return new TypeNameNode(ctx.Start.Line, ctx.IDENTIFIER().First().GetText(), typeNames.Types);
-
         }
         public override ASTNode VisitTypeTypeOrVoid([NotNull] TypeTypeOrVoidContext ctx)
         {
@@ -166,10 +142,8 @@ namespace LINVAST.Imperative.Builders.Java
             return new TypeNameNode(ctx.Start.Line, ctx.children.First().GetText());
         }
 
-        public override ASTNode VisitNonWildcardTypeArguments([NotNull] NonWildcardTypeArgumentsContext ctx)
-        {
-            return this.Visit(ctx.typeList());
-        }
+        public override ASTNode VisitNonWildcardTypeArguments([NotNull] NonWildcardTypeArgumentsContext ctx) 
+            => this.Visit(ctx.typeList());
 
         public override ASTNode VisitNonWildcardTypeArgumentsOrDiamond([NotNull] NonWildcardTypeArgumentsOrDiamondContext ctx)
         {
@@ -181,7 +155,6 @@ namespace LINVAST.Imperative.Builders.Java
 
         public override ASTNode VisitTypeArgument([NotNull] TypeArgumentContext ctx)
         {
-
             if (ctx.annotation().Any())
                 throw new NotImplementedException("annotations");
 
@@ -189,20 +162,14 @@ namespace LINVAST.Imperative.Builders.Java
                 //TODO EXTENDS/SUPER
                 return this.Visit(ctx.typeType());
             }
+
             return this.Visit(ctx.typeType());
         }
 
         public override ASTNode VisitTypeArguments([NotNull] TypeArgumentsContext ctx)
         {
-
-            var typeNameNodes = ctx.typeArgument().Select(c => this.Visit(c).As<TypeNameNode>());
-
+            IEnumerable<TypeNameNode>? typeNameNodes = ctx.typeArgument().Select(c => this.Visit(c).As<TypeNameNode>());
             return new TypeNameListNode(ctx.Start.Line, typeNameNodes);
-
         }
-
     }
-
-
-
 }
