@@ -299,7 +299,7 @@ namespace LINVAST.Imperative.Nodes
         public ExprNode ThenExpression => this.Children[1].As<ExprNode>();
 
         [JsonIgnore]
-        public ExprNode ElseExpression => this.Children[1].As<ExprNode>();
+        public ExprNode ElseExpression => this.Children[2].As<ExprNode>();
 
 
         public CondExprNode(int line, ExprNode cond, ExprNode @then, ExprNode @else)
