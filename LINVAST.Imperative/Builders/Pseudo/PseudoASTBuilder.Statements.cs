@@ -23,9 +23,9 @@ namespace LINVAST.Imperative.Builders.Pseudo
                 return this.Visit(ctx.cexp());
 
             switch (ctx.children.First().GetText()) {
-                case "pass": 
+                case "pass":
                     return new EmptyStatNode(ctx.Start.Line);
-                case "return": 
+                case "return":
                     return new JumpStatNode(ctx.Start.Line, this.Visit(ctx.exp()).As<ExprNode>());
                 case "error":
                     return new ThrowStatNode(ctx.Start.Line, new LitExprNode(ctx.Start.Line, ctx.STRING().GetText()));

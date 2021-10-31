@@ -22,7 +22,7 @@ csharp_indent_switch_labels = true
 #place catch statements on the same line
 csharp_new_line_before_catch = false
 #place else statements on a new line
-csharp_new_line_before_else = true
+csharp_new_line_before_else =false
 #require members of object initializers to be on the same line
 csharp_new_line_before_members_in_object_initializers = false
 #require braces to be on a new line for object_collection_array_initializers, types, and methods (also known as "Allman" style)

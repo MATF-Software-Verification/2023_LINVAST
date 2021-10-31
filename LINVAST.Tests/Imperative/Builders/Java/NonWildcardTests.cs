@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using LINVAST.Imperative.Builders.Java;
 using LINVAST.Imperative.Nodes;
 using LINVAST.Nodes;
@@ -16,7 +12,7 @@ namespace LINVAST.Tests.Imperative.Builders.Java
 
         public void nonWildcardTypeArgumentsTypeTypeTest()
         {
-            TypeNameListNode ast = GenerateAST("<int>").As<TypeNameListNode>();
+            TypeNameListNode ast = this.GenerateAST("<int>").As<TypeNameListNode>();
 
             Assert.That(ast.Types.Count, Is.EqualTo(1));
             Assert.That(ast.Types.First().Identifier, Is.EqualTo("int"));
@@ -26,7 +22,7 @@ namespace LINVAST.Tests.Imperative.Builders.Java
 
         public void nonWildcardTypeArgumentsTypeListTest()
         {
-            TypeNameListNode ast = GenerateAST("<String, Point>").As<TypeNameListNode>();
+            TypeNameListNode ast = this.GenerateAST("<String, Point>").As<TypeNameListNode>();
 
             Assert.That(ast.Types.Count, Is.EqualTo(2));
             Assert.That(ast.Types.First().Identifier, Is.EqualTo("String"));

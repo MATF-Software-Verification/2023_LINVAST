@@ -10,7 +10,7 @@ namespace LINVAST.Imperative.Nodes
         [JsonIgnore]
         public ExprNode? SizeExpression
             => this.Children.Count > 2 ? this.Children[1].As<ExprNode>()
-                                       : this.Initializer is { } ? null 
+                                       : this.Initializer is { } ? null
                                                                  : this.Children.ElementAtOrDefault(1) as ExprNode;
 
         [JsonIgnore]

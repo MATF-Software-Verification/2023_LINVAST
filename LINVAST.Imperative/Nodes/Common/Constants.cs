@@ -6,16 +6,16 @@ namespace LINVAST.Imperative.Nodes.Common
 {
     internal static class Constants
     {
-        private static readonly Regex _intRegex = 
-            new Regex(@"^(?<value>(0|[1-9]\d*))(?<suffix>u?l{0,2})$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-        private static readonly Regex _intORegex = 
-            new Regex(@"^(?<value>(0[0-7]*))(?<suffix>u?l{0,2})$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-        private static readonly Regex _intHRegex = 
-            new Regex(@"^(?<value>(0x[0-9a-f]+))(?<suffix>u?l{0,2})$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+        private static readonly Regex _intRegex =
+            new(@"^(?<value>(0|[1-9]\d*))(?<suffix>u?l{0,2})$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+        private static readonly Regex _intORegex =
+            new(@"^(?<value>(0[0-7]*))(?<suffix>u?l{0,2})$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+        private static readonly Regex _intHRegex =
+            new(@"^(?<value>(0x[0-9a-f]+))(?<suffix>u?l{0,2})$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
         private static readonly Regex _floatRegex =
-            new Regex(@"^(?<value>([0-9]*\.?[0-9]+([e][-+]?[0-9]+)?))(?<suffix>[flmd]?)$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+            new(@"^(?<value>([0-9]*\.?[0-9]+([e][-+]?[0-9]+)?))(?<suffix>[flmd]?)$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
         private static readonly Regex _charRegex =
-            new Regex(@"^'(?<value>.)'$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+            new(@"^'(?<value>.)'$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
 
         public static bool TryConvert(string str, out object? literal, out string? suffix)
@@ -115,10 +115,9 @@ namespace LINVAST.Imperative.Nodes.Common
                     literal = res_double;
                 else if (TryPerformConverter(Convert.ToSingle, value, out float? res_float))
                     literal = res_float;
-                else if (TryPerformConverter(Convert.ToDecimal, value, out decimal? res_decimal))
-                    literal = res_decimal;
-                else
-                    throw new SyntaxErrorException("Literal does not convert to any known floating type");
+                else literal = TryPerformConverter(Convert.ToDecimal, value, out decimal? res_decimal)
+                    ? res_decimal
+                    : throw new SyntaxErrorException("Literal does not convert to any known floating type");
             } else {
                 switch (suffix.ToUpper()) {
                     case "F":

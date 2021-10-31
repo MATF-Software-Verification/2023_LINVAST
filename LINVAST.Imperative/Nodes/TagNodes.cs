@@ -57,7 +57,7 @@ namespace LINVAST.Imperative.Nodes
         }
 
 
-        public override string GetText() 
+        public override string GetText()
             => $"{this.Name}={this.Value}";
 
         public override bool Equals(object? obj)

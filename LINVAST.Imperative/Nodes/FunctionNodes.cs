@@ -125,19 +125,19 @@ namespace LINVAST.Imperative.Nodes
 
         [JsonIgnore]
         public string ReturnTypeName => this.Specifiers.TypeName;
-        
+
         [JsonIgnore]
         public Type? ReturnType => this.Specifiers.Type;
-        
+
         [JsonIgnore]
         public string Identifier => this.Declarator.Identifier;
-        
+
         [JsonIgnore]
         public bool IsVariadic => this.Declarator.IsVariadic;
 
         [JsonIgnore]
         public FuncParamsNode? ParametersNode => this.Declarator.ParametersNode;
-        
+
         [JsonIgnore]
         public IEnumerable<FuncParamNode>? Parameters => this.ParametersNode?.Parameters;
 
@@ -178,7 +178,7 @@ namespace LINVAST.Imperative.Nodes
     {
         [JsonIgnore]
         public DeclSpecsNode Specifiers => this.Children[0].As<DeclSpecsNode>();
-        
+
         [JsonIgnore]
         public DeclNode Declarator => this.Children[1].As<DeclNode>();
 

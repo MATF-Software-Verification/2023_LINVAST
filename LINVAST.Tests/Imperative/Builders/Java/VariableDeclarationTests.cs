@@ -17,7 +17,7 @@ namespace LINVAST.Tests.Imperative.Builders.Java
             DeclStatNode ast1 = this.GenerateAST(src1).As<DeclStatNode>();
 
             Assert.That(ast1.Specifiers.TypeName, Is.EqualTo("String"));
-            Assert.That(ast1.DeclaratorList.Declarators.First().As<VarDeclNode>().Identifier, 
+            Assert.That(ast1.DeclaratorList.Declarators.First().As<VarDeclNode>().Identifier,
                 Is.EqualTo("str1"));
             Assert.That(ast1.DeclaratorList.Children.Count, Is.EqualTo(1));
         }

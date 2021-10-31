@@ -35,7 +35,7 @@ namespace LINVAST.Imperative.Nodes.Common
         }.ToImmutableDictionary();
 
 
-        public static TypeCode? TypeCodeFor(string name) 
+        public static TypeCode? TypeCodeFor(string name)
             => _types.GetValueOrDefault(name.ToLower());
 
         public static Type? ToType(this TypeCode code)

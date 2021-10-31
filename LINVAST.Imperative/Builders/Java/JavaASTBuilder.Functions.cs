@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Linq;
-using Antlr4.Runtime;
 using Antlr4.Runtime.Misc;
-using Antlr4.Runtime.Tree;
 using LINVAST.Builders;
 using LINVAST.Exceptions;
 using LINVAST.Imperative.Nodes;
-using LINVAST.Logging;
 using LINVAST.Nodes;
 using static LINVAST.Imperative.Builders.Java.JavaParser;
 
@@ -20,8 +17,7 @@ namespace LINVAST.Imperative.Builders.Java
                 if (ctx.expressionList() is { }) {
                     ExprListNode param = this.Visit(ctx.expressionList()).As<ExprListNode>();
                     return new FuncCallExprNode(ctx.Start.Line, new IdNode(ctx.Start.Line, ctx.IDENTIFIER().GetText()), new TypeNameListNode(ctx.Start.Line), param);
-                }
-                else {
+                } else {
                     return new FuncCallExprNode(ctx.Start.Line, new IdNode(ctx.Start.Line, ctx.IDENTIFIER().GetText()));
                 }
             }
@@ -30,18 +26,16 @@ namespace LINVAST.Imperative.Builders.Java
                 if (ctx.expressionList() is { }) {
                     ExprListNode param = this.Visit(ctx.expressionList()).As<ExprListNode>();
                     return new FuncCallExprNode(ctx.Start.Line, new IdNode(ctx.Start.Line, ctx.THIS().GetText()), new TypeNameListNode(ctx.Start.Line), param);
-                }
-                else {
+                } else {
                     return new FuncCallExprNode(ctx.Start.Line, new IdNode(ctx.Start.Line, ctx.THIS().GetText()));
                 }
             }
 
-            if (ctx.SUPER() is { } && ctx.RPAREN() is { }  && ctx.RPAREN() is { }) {
+            if (ctx.SUPER() is { } && ctx.RPAREN() is { } && ctx.RPAREN() is { }) {
                 if (ctx.expressionList() is { }) {
                     ExprListNode param = this.Visit(ctx.expressionList()).As<ExprListNode>();
                     return new FuncCallExprNode(ctx.Start.Line, new IdNode(ctx.Start.Line, ctx.SUPER().GetText()), new TypeNameListNode(ctx.Start.Line), param);
-                }
-                else {
+                } else {
                     return new FuncCallExprNode(ctx.Start.Line, new IdNode(ctx.Start.Line, ctx.SUPER().GetText()));
                 }
             }
@@ -57,8 +51,7 @@ namespace LINVAST.Imperative.Builders.Java
 
                 if (suffix.Arguments is null) {
                     return new FuncCallExprNode(ctx.Start.Line, new IdNode(ctx.Start.Line, suffix.Identifier), typeArgs);
-                }
-                else {
+                } else {
                     return new FuncCallExprNode(ctx.Start.Line, new IdNode(ctx.Start.Line, suffix.Identifier), typeArgs, suffix.Arguments);
                 }
             }
@@ -69,7 +62,7 @@ namespace LINVAST.Imperative.Builders.Java
         public override ASTNode VisitExplicitGenericInvocationSuffix([NotNull] ExplicitGenericInvocationSuffixContext ctx)
         {
             if (ctx.SUPER() is { } && ctx.superSuffix() is { }) {
-                var args = this.Visit(ctx.superSuffix());
+                ASTNode? args = this.Visit(ctx.superSuffix());
 
                 if (args is ExprListNode) {
                     return new FuncCallExprNode(ctx.Start.Line, new IdNode(ctx.Start.Line, ctx.SUPER().ToString()), new TypeNameListNode(ctx.Start.Line), args.As<ExprListNode>());
@@ -105,10 +98,10 @@ namespace LINVAST.Imperative.Builders.Java
         public override ASTNode VisitFormalParameterList([NotNull] FormalParameterListContext ctx)
         {
             if (ctx.formalParameter().Length > 0) {
-                var p = ctx.formalParameter().Select(v => this.Visit(v).As<FuncParamNode>());
+                System.Collections.Generic.IEnumerable<FuncParamNode>? p = ctx.formalParameter().Select(v => this.Visit(v).As<FuncParamNode>());
 
                 if (ctx.lastFormalParameter() is { }) {
-                p.Append(this.Visit(ctx.lastFormalParameter()).As<FuncParamNode>());
+                    p.Append(this.Visit(ctx.lastFormalParameter()).As<FuncParamNode>());
                 }
                 return new FuncParamsNode(ctx.Start.Line, p);
             }
@@ -139,8 +132,8 @@ namespace LINVAST.Imperative.Builders.Java
             }
 
             if (type is not null && variableDeclaratorId is not null) {
-                DeclSpecsNode declSpecs = new DeclSpecsNode(ctx.Start.Line, modifiers, type.Identifier);
-                VarDeclNode decl = new VarDeclNode(ctx.Start.Line, variableDeclaratorId);
+                var declSpecs = new DeclSpecsNode(ctx.Start.Line, modifiers, type.Identifier);
+                var decl = new VarDeclNode(ctx.Start.Line, variableDeclaratorId);
                 return new FuncParamNode(ctx.Start.Line, declSpecs, decl);
             }
 
@@ -166,15 +159,12 @@ namespace LINVAST.Imperative.Builders.Java
             }
 
             if (type is not null && variableDeclaratorId is not null) {
-                DeclSpecsNode declSpecs = new DeclSpecsNode(ctx.Start.Line, modifiers, type.Identifier);
-                VarDeclNode decl = new VarDeclNode(ctx.Start.Line, variableDeclaratorId);
+                var declSpecs = new DeclSpecsNode(ctx.Start.Line, modifiers, type.Identifier);
+                var decl = new VarDeclNode(ctx.Start.Line, variableDeclaratorId);
 
-                if (ctx.annotation() is { }) {
-                    decl = new VarDeclNode(ctx.Start.Line, ctx.annotation().Select(v => this.Visit(v).As<TagNode>()), variableDeclaratorId);
-                }
-                else {
-                    decl = new VarDeclNode(ctx.Start.Line, variableDeclaratorId);
-                }
+                decl = ctx.annotation() is { }
+                    ? new VarDeclNode(ctx.Start.Line, ctx.annotation().Select(v => this.Visit(v).As<TagNode>()), variableDeclaratorId)
+                    : new VarDeclNode(ctx.Start.Line, variableDeclaratorId);
 
                 return new FuncParamNode(ctx.Start.Line, declSpecs, decl);
             }
@@ -199,13 +189,12 @@ namespace LINVAST.Imperative.Builders.Java
         {
             if (ctx.IDENTIFIER() is { } && ctx.classCreatorRest() is { }) {
                 ExprListNode expr = this.Visit(ctx.classCreatorRest()).As<ExprListNode>();
-                IdNode id = new IdNode(ctx.Start.Line, ctx.IDENTIFIER().GetText());
+                var id = new IdNode(ctx.Start.Line, ctx.IDENTIFIER().GetText());
 
                 if (ctx.nonWildcardTypeArgumentsOrDiamond() is { }) {
                     TypeNameListNode type = this.Visit(ctx.nonWildcardTypeArgumentsOrDiamond()).As<TypeNameListNode>();
                     return new FuncCallExprNode(ctx.Start.Line, id, type, expr);
-                }
-                else {
+                } else {
                     return new FuncCallExprNode(ctx.Start.Line, id, new TypeNameListNode(ctx.Start.Line), expr);
                 }
             }
@@ -217,7 +206,7 @@ namespace LINVAST.Imperative.Builders.Java
         {
             if (ctx.createdName() is { }) {
                 TypeNameNode typeNameNode = this.Visit(ctx.createdName()).As<TypeNameNode>();
-                IdNode idNode = new IdNode(ctx.Start.Line, typeNameNode.GetText()); ;
+                var idNode = new IdNode(ctx.Start.Line, typeNameNode.GetText()); ;
 
                 if (ctx.arrayCreatorRest() is { }) {
                     return new ArrAccessExprNode(ctx.Start.Line, idNode, this.Visit(ctx.arrayCreatorRest()).As<ExprNode>());
@@ -229,8 +218,7 @@ namespace LINVAST.Imperative.Builders.Java
                     if (ctx.nonWildcardTypeArguments() is { }) {
                         TypeNameListNode typeArgs = this.Visit(ctx.nonWildcardTypeArguments()).As<TypeNameListNode>();
                         return new FuncCallExprNode(ctx.Start.Line, idNode, typeArgs, args);
-                    }
-                    else {
+                    } else {
                         return new FuncCallExprNode(ctx.Start.Line, idNode, new TypeNameListNode(ctx.Start.Line), args);
                     }
                 }
@@ -245,8 +233,7 @@ namespace LINVAST.Imperative.Builders.Java
                 if (ctx.typeArgumentsOrDiamond().Any()) {
                     TypeNameListNode typeName = this.Visit(ctx.typeArgumentsOrDiamond(0)).As<TypeNameListNode>();
                     return new TypeNameNode(ctx.Start.Line, ctx.IDENTIFIER(0).GetText(), typeName.Types);
-                }
-                else {
+                } else {
                     return new TypeNameNode(ctx.Start.Line, ctx.IDENTIFIER(0).GetText());
                 }
             }
@@ -262,8 +249,7 @@ namespace LINVAST.Imperative.Builders.Java
         {
             if (ctx.typeArguments() is { }) {
                 return this.Visit(ctx.typeArguments()).As<TypeNameListNode>();
-            }
-            else {
+            } else {
                 return new TypeNameListNode(ctx.Start.Line);
             }
         }
@@ -289,8 +275,7 @@ namespace LINVAST.Imperative.Builders.Java
             if (ctx.expression().Any()) {
                 if (ctx.expression().Length == 1) {
                     return this.Visit(ctx.expression(0)).As<ExprNode>();
-                }
-                else {
+                } else {
                     throw new NotImplementedException("Multidimensional array.");
                 }
             }
@@ -336,7 +321,7 @@ namespace LINVAST.Imperative.Builders.Java
             }
 
             if (ctx.elementValue() is { }) {
-                var element = this.Visit(ctx.elementValue());
+                ASTNode? element = this.Visit(ctx.elementValue());
                 return new TagNode(ctx.Start.Line, nameNode, new TagFieldNode(ctx.Start.Line, "value", new(ctx.Start.Line, element.GetText())));
             }
 
@@ -366,7 +351,7 @@ namespace LINVAST.Imperative.Builders.Java
         public override ASTNode VisitElementValuePair([NotNull] ElementValuePairContext ctx)
         {
             if (ctx.IDENTIFIER() is { } && ctx.elementValue() is { }) {
-                var element = this.Visit(ctx.elementValue());
+                ASTNode? element = this.Visit(ctx.elementValue());
                 return new TagFieldNode(ctx.Start.Line, ctx.IDENTIFIER().GetText(), new LitExprNode(ctx.Start.Line, element.GetText()));
             }
             throw new SyntaxErrorException("Unknown construct");

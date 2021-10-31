@@ -39,21 +39,15 @@ namespace LINVAST.Imperative.Builders.Java
         {
             var identifier = new IdNode(ctx.Start.Line, ctx.IDENTIFIER().GetText());
 
-            TypeNameListNode templateParams;
-            if (ctx.typeParameters() is { } typeParamsCtx) {
-                templateParams = this.Visit(typeParamsCtx).As<TypeNameListNode>();
-            }
-            else {
-                templateParams = new TypeNameListNode(ctx.Start.Line);
-            }
-
+            TypeNameListNode templateParams = ctx.typeParameters() is { } typeParamsCtx
+                ? this.Visit(typeParamsCtx).As<TypeNameListNode>()
+                : new TypeNameListNode(ctx.Start.Line);
             IEnumerable<TypeNameNode> baseTypes;
             int baseTypesStartLine = ctx.Start.Line;
             if (ctx.typeList() is { } typeListCtx) {
                 baseTypes = this.Visit(typeListCtx).As<TypeNameListNode>().Types;
                 baseTypesStartLine = typeListCtx.Start.Line;
-            }
-            else {
+            } else {
                 baseTypes = new TypeNameNode[] { };
             }
 
@@ -138,18 +132,12 @@ namespace LINVAST.Imperative.Builders.Java
             if (typeName is { }) { // if memberDeclaration is anything but constructor- or genericConstructor- Declaration
                 declSpecsStartLine ??= typeName.Line;
                 declSpecs = new DeclSpecsNode(declSpecsStartLine ?? ctx.Start.Line, modifiers, typeName);
-            }
-            else { // if memberDeclaration is constructor- or genericConstructor- Declaration
+            } else { // if memberDeclaration is constructor- or genericConstructor- Declaration
                 throw new NotImplementedException("constructors");
             }
-            DeclListNode declList;
-            if (memberDeclCtx.fieldDeclaration() is { }) {
-                declList = this.Visit(memberDeclCtx).As<DeclListNode>();
-            }
-            else {
-                declList = new DeclListNode(memberDeclCtx.Start.Line, this.Visit(memberDeclCtx).As<DeclNode>());
-            }
-
+            DeclListNode declList = memberDeclCtx.fieldDeclaration() is { }
+                ? this.Visit(memberDeclCtx).As<DeclListNode>()
+                : new DeclListNode(memberDeclCtx.Start.Line, this.Visit(memberDeclCtx).As<DeclNode>());
             return new DeclStatNode(ctx.Start.Line, declSpecs, declList);
 
 
@@ -264,15 +252,10 @@ namespace LINVAST.Imperative.Builders.Java
             declSpecsStartLine ??= type.Line;
             var declSpecs = new DeclSpecsNode(declSpecsStartLine ?? ctx.Start.Line, modifiers.ToString(), type);
 
-            DeclListNode declList;
-            if (ctx.interfaceMemberDeclaration().constDeclaration() is { } constDeclCtx) {
-                declList = this.Visit(constDeclCtx).As<DeclListNode>();
-            }
-            else {
-                declList = new DeclListNode(ctx.interfaceMemberDeclaration().Start.Line,
+            DeclListNode declList = ctx.interfaceMemberDeclaration().constDeclaration() is { } constDeclCtx
+                ? this.Visit(constDeclCtx).As<DeclListNode>()
+                : new DeclListNode(ctx.interfaceMemberDeclaration().Start.Line,
                     this.Visit(ctx.interfaceMemberDeclaration()).As<DeclNode>());
-            }
-
             return new DeclStatNode(ctx.Start.Line, declSpecs, declList);
 
 
@@ -511,7 +494,7 @@ namespace LINVAST.Imperative.Builders.Java
 
         public override ASTNode VisitFormalParameters([NotNull] FormalParametersContext ctx)
             => new FuncParamsNode(ctx.Start.Line);
-        #endregion
 
+        #endregion
     }
 }

@@ -28,7 +28,7 @@ namespace LINVAST.Imperative.Nodes
 
 
         public ImportNode(int line, string directive, string? qualifiedAs = null)
-            : base(line) 
+            : base(line)
         {
             this.Directive = directive;
             this.QualifiedAs = qualifiedAs;

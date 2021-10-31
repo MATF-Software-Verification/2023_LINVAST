@@ -62,17 +62,17 @@ namespace LINVAST.Imperative.Nodes.Common
                 case AccessModifiers.Public: sb.Append("public "); break;
             }
             if (this.QualifierFlags.HasFlag(QualifierFlags.Static))
-               sb.Append("static ");
+                sb.Append("static ");
             if (this.QualifierFlags.HasFlag(QualifierFlags.Const))
-               sb.Append("const ");
+                sb.Append("const ");
             if (this.QualifierFlags.HasFlag(QualifierFlags.Volatile))
-               sb.Append("volatile ");
+                sb.Append("volatile ");
             if (this.QualifierFlags.HasFlag(QualifierFlags.Default))
                 sb.Append("default ");
             return sb.ToString().Trim();
         }
 
-        public override bool Equals(object? obj) 
+        public override bool Equals(object? obj)
             => this.Equals(obj as Modifiers);
 
         public bool Equals([AllowNull] Modifiers other)

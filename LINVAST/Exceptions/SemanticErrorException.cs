@@ -7,7 +7,7 @@ namespace LINVAST.Exceptions
         private static string FormErrorMessage(string msg, int line)
             => $"L{line}: {msg}";
 
-        
+
         public SemanticErrorException(string message)
             : base(message)
         {

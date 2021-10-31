@@ -24,8 +24,6 @@ namespace LINVAST.Imperative.Builders.Lua
 
     using Antlr4.Runtime.Misc;
     using Antlr4.Runtime.Tree;
-    using IToken = Antlr4.Runtime.IToken;
-    using ParserRuleContext = Antlr4.Runtime.ParserRuleContext;
 
     /// <summary>
     /// This class provides an empty implementation of <see cref="ILuaVisitor{Result}"/>,
@@ -34,7 +32,7 @@ namespace LINVAST.Imperative.Builders.Lua
     /// </summary>
     /// <typeparam name="Result">The return type of the visit operation.</typeparam>
     [System.CodeDom.Compiler.GeneratedCode("ANTLR", "4.7.1")]
-    
+
     public partial class LuaBaseVisitor<Result> : AbstractParseTreeVisitor<Result>, ILuaVisitor<Result>
     {
         /// <summary>

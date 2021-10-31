@@ -11,7 +11,7 @@ namespace LINVAST.Imperative.Builders.Lua
 {
     public sealed partial class LuaASTBuilder : LuaBaseVisitor<ASTNode>, IASTBuilder<LuaParser>
     {
-        public override ASTNode VisitExplist([NotNull] ExplistContext ctx) 
+        public override ASTNode VisitExplist([NotNull] ExplistContext ctx)
             => new ExprListNode(ctx.Start.Line, ctx.exp().Select(v => this.Visit(v).As<ExprNode>()));
 
         public override ASTNode VisitExp([NotNull] ExpContext ctx)
@@ -97,7 +97,7 @@ namespace LINVAST.Imperative.Builders.Lua
             static bool IsArithmeticExpressionContext(ExpContext ctx)
             {
                 return ctx.operatorAddSub() is { } || ctx.operatorMulDivMod() is { } || ctx.operatorBitwise() is { }
-                    || ctx.operatorStrcat() is { } || ctx.operatorPower() is { } ;
+                    || ctx.operatorStrcat() is { } || ctx.operatorPower() is { };
             }
 
             static bool IsLogicExpressionContext(ExpContext ctx, out string? op)
@@ -135,7 +135,7 @@ namespace LINVAST.Imperative.Builders.Lua
             }
         }
 
-        public override ASTNode VisitVarOrExp([NotNull] VarOrExpContext ctx) 
+        public override ASTNode VisitVarOrExp([NotNull] VarOrExpContext ctx)
             => ctx.exp() is { } ? this.Visit(ctx.exp()) : this.Visit(ctx.var());
 
         public override ASTNode VisitNameAndArgs([NotNull] NameAndArgsContext ctx)
@@ -149,8 +149,8 @@ namespace LINVAST.Imperative.Builders.Lua
         {
             if (ctx.tableconstructor() is { } || ctx.@string() is { })
                 throw new NotImplementedException("tableconstructor or string");
-            return ctx.explist() is { } 
-                ? this.Visit(ctx.explist()) 
+            return ctx.explist() is { }
+                ? this.Visit(ctx.explist())
                 : new ExprListNode(ctx.Start.Line);
         }
 
@@ -163,8 +163,8 @@ namespace LINVAST.Imperative.Builders.Lua
             if (ctx.parlist() is { })
                 @params = this.Visit(ctx.parlist()).As<FuncParamsNode>();
             BlockStatNode def = this.Visit(ctx.block()).As<BlockStatNode>();
-            return @params is null 
-                ? new LambdaFuncExprNode(ctx.Start.Line, def) 
+            return @params is null
+                ? new LambdaFuncExprNode(ctx.Start.Line, def)
                 : new LambdaFuncExprNode(ctx.Start.Line, @params, def);
         }
 

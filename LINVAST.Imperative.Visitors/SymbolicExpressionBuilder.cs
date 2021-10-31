@@ -8,9 +8,9 @@ namespace LINVAST.Imperative.Visitors
 {
     public sealed class SymbolicExpressionBuilder : BaseASTVisitor<Expr>
     {
-        private static readonly Regex _wildcardRegex = new Regex(@"v__\d+", RegexOptions.Compiled);
+        private static readonly Regex _wildcardRegex = new(@"v__\d+", RegexOptions.Compiled);
         private static int _lastUsedId = 0;
-        private static readonly Dictionary<string, int> _wildcards = new Dictionary<string, int>();
+        private static readonly Dictionary<string, int> _wildcards = new();
 
 
         public static string WildcardReplace(string expr, string replacement = "?")
@@ -42,7 +42,7 @@ namespace LINVAST.Imperative.Visitors
         public override Expr Visit(UnaryExprNode node)
             => this.EvaluateUnaryExpression(node);
 
-        public override Expr Visit(IdNode node) 
+        public override Expr Visit(IdNode node)
             => Expr.Variable(node.Identifier);
 
         public override Expr Visit(FuncCallExprNode node)
@@ -76,7 +76,7 @@ namespace LINVAST.Imperative.Visitors
             try {
                 constantValue = ConstantExpressionEvaluator.Evaluate(e);
             } catch {
-                
+
             }
 
             if (constantValue is { }) {

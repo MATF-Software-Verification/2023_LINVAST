@@ -8,7 +8,7 @@ using NUnit.Framework;
 
 namespace LINVAST.Tests.Imperative.Builders.Java
 {
-    internal sealed class ExpressionFunctionsTests: ExpressionTestsBase
+    internal sealed class ExpressionFunctionsTests : ExpressionTestsBase
     {
         [Test]
         public void TestLiteralExpressions()
@@ -59,7 +59,8 @@ namespace LINVAST.Tests.Imperative.Builders.Java
         }
 
         [Test]
-        public void TestParExpression() {
+        public void TestParExpression()
+        {
             this.AssertExpressionValue("(3)", 3);
             this.AssertExpressionValue("((2.3))", 2.3);
             this.AssertExpressionValue("('a')", 'a');
@@ -71,32 +72,34 @@ namespace LINVAST.Tests.Imperative.Builders.Java
             string src1 = "x -> x*x";
             LambdaFuncExprNode ast1 = this.GenerateAST(src1).As<LambdaFuncExprNode>();
             Assert.That(ast1.Definition.Children[0], Is.EqualTo(this.GenerateAST("x*x").As<ArithmExprNode>()));
-            Assert.That(ast1.Parameters.Count, Is.EqualTo(1));
+            Assert.That(ast1.Parameters, Has.Exactly(1).Items);
 
             string src2 = "(a) -> a+9";
             LambdaFuncExprNode ast2 = this.GenerateAST(src2).As<LambdaFuncExprNode>();
             Assert.That(ast2.Definition.Children[0], Is.EqualTo(this.GenerateAST("a+9").As<ArithmExprNode>()));
-            Assert.That(ast2.Parameters.Count, Is.EqualTo(1));
+            Assert.That(ast2.Parameters, Has.Exactly(1).Items);
 
             string src3 = "(x, y) -> (x*y)";
             LambdaFuncExprNode ast3 = this.GenerateAST(src3).As<LambdaFuncExprNode>();
             Assert.That(ast3.Definition.Children[0], Is.EqualTo(this.GenerateAST("x*y").As<ArithmExprNode>()));
-            Assert.That(ast3.Parameters.Count, Is.EqualTo(2));
+            Assert.That(ast3.Parameters, Has.Exactly(2).Items);
 
             string src4 = "(int x) -> x-2";
             LambdaFuncExprNode ast4 = this.GenerateAST(src4).As<LambdaFuncExprNode>();
             Assert.That(ast4.Definition.Children[0], Is.EqualTo(this.GenerateAST("x-2").As<ArithmExprNode>()));
-            Assert.That(ast4.Parameters.Count, Is.EqualTo(1));
+            Assert.That(ast4.Parameters, Has.Exactly(1).Items);
 
             string src5 = "(bool x, bool y) -> x&&y";
             LambdaFuncExprNode ast5 = this.GenerateAST(src5).As<LambdaFuncExprNode>();
             Assert.That(ast5.Definition.Children[0], Is.EqualTo(this.GenerateAST("x&&y").As<LogicExprNode>()));
-            Assert.That(ast5.Parameters.Count, Is.EqualTo(2));
+            Assert.That(ast5.Parameters, Has.Exactly(2).Items);
         }
 
         [Test]
         public void TestConditionalExpr()
         {
+            this.AssertExpressionValue("true ? 1 : 2", 1);
+            this.AssertExpressionValue("false ? 1 : 2", 2);
             this.AssertExpressionValue("2 == 3 ? 4 : 5", 5);
             this.AssertExpressionValue("2 != 3 ? 4 : 5", 4);
             this.AssertExpressionValue("2 < 3 ? 'a' : 'b'", 'a');
@@ -203,7 +206,7 @@ namespace LINVAST.Tests.Imperative.Builders.Java
         }
 
         [Test]
-        public void TestMethodCall() 
+        public void TestMethodCall()
         {
             this.AssertFunctionCallExpression("f()", "f");
             this.AssertFunctionCallExpression("g(3)", "g", 3);

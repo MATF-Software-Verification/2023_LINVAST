@@ -57,7 +57,7 @@ namespace LINVAST.Tests.Imperative.Builders.C
             FuncNode f = this.AssertFunctionSignature(@"
                 unsigned int f(int x) { 
                     return x;
-                }", 
+                }",
                 2, "f", "unsigned int", @params: ("int", "x")
             );
             Assert.That(f.Definition, Is.Not.Null);
@@ -71,7 +71,7 @@ namespace LINVAST.Tests.Imperative.Builders.C
                 float f(const unsigned int x, ...) {
                     int z = 4;
                     return 3.0;
-                }", 
+                }",
                 2, "f", "float", isVariadic: true, @params: ("unsigned int", "x")
             );
             Assert.That(f.IsVariadic, Is.True);

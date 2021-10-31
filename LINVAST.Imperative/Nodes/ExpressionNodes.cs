@@ -152,7 +152,7 @@ namespace LINVAST.Imperative.Nodes
         public TypeNameListNode? TemplateArguments => this.Children.ElementAtOrDefault(1)?.As<TypeNameListNode>();
 
         [JsonIgnore]
-        public ExprListNode? Arguments 
+        public ExprListNode? Arguments
             => this.Children.Count > 2 ? this.Children[2].As<ExprListNode>()
                                        : this.Children.ElementAtOrDefault(1) as ExprListNode;
 

@@ -58,7 +58,7 @@ namespace LINVAST.Imperative.Nodes
 
 
         protected TypeNode(int line, string category, DeclSpecsNode specifiers, TypeDeclNode decl)
-            : base(line, specifiers, new DeclListNode(line, decl)) 
+            : base(line, specifiers, new DeclListNode(line, decl))
         {
             this.Category = category;
         }

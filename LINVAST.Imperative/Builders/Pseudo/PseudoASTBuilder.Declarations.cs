@@ -49,8 +49,8 @@ namespace LINVAST.Imperative.Builders.Pseudo
                     var fname = new IdNode(ctx.Start.Line, ctx.NAME().GetText());
                     FuncParamsNode? fparams = ctx.parlist() is null ? null : this.Visit(ctx.parlist()).As<FuncParamsNode>();
                     BlockStatNode body = this.Visit(ctx.block()).As<BlockStatNode>();
-                    FuncDeclNode fdef = fparams is null 
-                        ? new FuncDeclNode(ctx.Start.Line, fname, body) 
+                    FuncDeclNode fdef = fparams is null
+                        ? new FuncDeclNode(ctx.Start.Line, fname, body)
                         : new FuncDeclNode(ctx.Start.Line, fname, fparams, body);
                     return new FuncNode(ctx.Start.Line, fdeclSpecs, fdef);
                 default:

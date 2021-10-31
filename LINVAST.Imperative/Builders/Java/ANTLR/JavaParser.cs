@@ -24,9 +24,6 @@ namespace LINVAST.Imperative.Builders.Java
 
     using System;
     using System.IO;
-    using System.Text;
-    using System.Diagnostics;
-    using System.Collections.Generic;
     using Antlr4.Runtime;
     using Antlr4.Runtime.Atn;
     using Antlr4.Runtime.Misc;
@@ -160,10 +157,8 @@ namespace LINVAST.Imperative.Builders.Java
         public static readonly IVocabulary DefaultVocabulary = new Vocabulary(_LiteralNames, _SymbolicNames);
 
         [NotNull]
-        public override IVocabulary Vocabulary
-        {
-            get
-            {
+        public override IVocabulary Vocabulary {
+            get {
                 return DefaultVocabulary;
             }
         }
@@ -177,8 +172,7 @@ namespace LINVAST.Imperative.Builders.Java
         static JavaParser()
         {
             decisionToDFA = new DFA[_ATN.NumberOfDecisions];
-            for (int i = 0; i < _ATN.NumberOfDecisions; i++)
-            {
+            for (int i = 0; i < _ATN.NumberOfDecisions; i++) {
                 decisionToDFA[i] = new DFA(_ATN.GetDecisionState(i), i);
             }
         }
@@ -251,16 +245,13 @@ namespace LINVAST.Imperative.Builders.Java
             CompilationUnitContext _localctx = new CompilationUnitContext(Context, State);
             EnterRule(_localctx, 0, RULE_compilationUnit);
             int _la;
-            try
-            {
+            try {
                 EnterOuterAlt(_localctx, 1);
                 {
                     State = 211;
                     ErrorHandler.Sync(this);
-                    switch (Interpreter.AdaptivePredict(TokenStream, 0, Context))
-                    {
-                        case 1:
-                        {
+                    switch (Interpreter.AdaptivePredict(TokenStream, 0, Context)) {
+                        case 1: {
                             State = 210; packageDeclaration();
                         }
                         break;
@@ -268,8 +259,7 @@ namespace LINVAST.Imperative.Builders.Java
                     State = 216;
                     ErrorHandler.Sync(this);
                     _la = TokenStream.LA(1);
-                    while (_la == IMPORT)
-                    {
+                    while (_la == IMPORT) {
                         {
                             {
                                 State = 213; importDeclaration();
@@ -282,8 +272,7 @@ namespace LINVAST.Imperative.Builders.Java
                     State = 222;
                     ErrorHandler.Sync(this);
                     _la = TokenStream.LA(1);
-                    while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << ABSTRACT) | (1L << CLASS) | (1L << ENUM) | (1L << FINAL) | (1L << INTERFACE) | (1L << PRIVATE) | (1L << PROTECTED) | (1L << PUBLIC) | (1L << STATIC) | (1L << STRICTFP))) != 0) || ((((_la - 67)) & ~0x3f) == 0 && ((1L << (_la - 67)) & ((1L << (SEMI - 67)) | (1L << (AT - 67)) | (1L << (IDENTIFIER - 67)))) != 0))
-                    {
+                    while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << ABSTRACT) | (1L << CLASS) | (1L << ENUM) | (1L << FINAL) | (1L << INTERFACE) | (1L << PRIVATE) | (1L << PROTECTED) | (1L << PUBLIC) | (1L << STATIC) | (1L << STRICTFP))) != 0) || ((((_la - 67)) & ~0x3f) == 0 && ((1L << (_la - 67)) & ((1L << (SEMI - 67)) | (1L << (AT - 67)) | (1L << (IDENTIFIER - 67)))) != 0)) {
                         {
                             {
                                 State = 219; typeDeclaration();
@@ -295,15 +284,11 @@ namespace LINVAST.Imperative.Builders.Java
                     }
                     State = 225; Match(Eof);
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -360,15 +345,13 @@ namespace LINVAST.Imperative.Builders.Java
             PackageDeclarationContext _localctx = new PackageDeclarationContext(Context, State);
             EnterRule(_localctx, 2, RULE_packageDeclaration);
             int _la;
-            try
-            {
+            try {
                 EnterOuterAlt(_localctx, 1);
                 {
                     State = 230;
                     ErrorHandler.Sync(this);
                     _la = TokenStream.LA(1);
-                    while (_la == AT || _la == IDENTIFIER)
-                    {
+                    while (_la == AT || _la == IDENTIFIER) {
                         {
                             {
                                 State = 227; annotation();
@@ -382,15 +365,11 @@ namespace LINVAST.Imperative.Builders.Java
                     State = 234; qualifiedName();
                     State = 235; Match(SEMI);
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -440,16 +419,14 @@ namespace LINVAST.Imperative.Builders.Java
             ImportDeclarationContext _localctx = new ImportDeclarationContext(Context, State);
             EnterRule(_localctx, 4, RULE_importDeclaration);
             int _la;
-            try
-            {
+            try {
                 EnterOuterAlt(_localctx, 1);
                 {
                     State = 237; Match(IMPORT);
                     State = 239;
                     ErrorHandler.Sync(this);
                     _la = TokenStream.LA(1);
-                    if (_la == STATIC)
-                    {
+                    if (_la == STATIC) {
                         {
                             State = 238; Match(STATIC);
                         }
@@ -459,8 +436,7 @@ namespace LINVAST.Imperative.Builders.Java
                     State = 244;
                     ErrorHandler.Sync(this);
                     _la = TokenStream.LA(1);
-                    if (_la == DOT)
-                    {
+                    if (_la == DOT) {
                         {
                             State = 242; Match(DOT);
                             State = 243; Match(MUL);
@@ -469,15 +445,11 @@ namespace LINVAST.Imperative.Builders.Java
 
                     State = 246; Match(SEMI);
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -547,13 +519,11 @@ namespace LINVAST.Imperative.Builders.Java
         {
             TypeDeclarationContext _localctx = new TypeDeclarationContext(Context, State);
             EnterRule(_localctx, 6, RULE_typeDeclaration);
-            try
-            {
+            try {
                 int _alt;
                 State = 261;
                 ErrorHandler.Sync(this);
-                switch (TokenStream.LA(1))
-                {
+                switch (TokenStream.LA(1)) {
                     case ABSTRACT:
                     case CLASS:
                     case ENUM:
@@ -566,15 +536,12 @@ namespace LINVAST.Imperative.Builders.Java
                     case STRICTFP:
                     case AT:
                     case IDENTIFIER:
-                        EnterOuterAlt(_localctx, 1);
-                        {
+                        EnterOuterAlt(_localctx, 1); {
                             State = 251;
                             ErrorHandler.Sync(this);
                             _alt = Interpreter.AdaptivePredict(TokenStream, 6, Context);
-                            while (_alt != 2 && _alt != global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER)
-                            {
-                                if (_alt == 1)
-                                {
+                            while (_alt != 2 && _alt != global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER) {
+                                if (_alt == 1) {
                                     {
                                         {
                                             State = 248; classOrInterfaceModifier();
@@ -587,25 +554,20 @@ namespace LINVAST.Imperative.Builders.Java
                             }
                             State = 258;
                             ErrorHandler.Sync(this);
-                            switch (TokenStream.LA(1))
-                            {
-                                case CLASS:
-                                {
+                            switch (TokenStream.LA(1)) {
+                                case CLASS: {
                                     State = 254; classDeclaration();
                                 }
                                 break;
-                                case ENUM:
-                                {
+                                case ENUM: {
                                     State = 255; enumDeclaration();
                                 }
                                 break;
-                                case INTERFACE:
-                                {
+                                case INTERFACE: {
                                     State = 256; interfaceDeclaration();
                                 }
                                 break;
-                                case AT:
-                                {
+                                case AT: {
                                     State = 257; annotationTypeDeclaration();
                                 }
                                 break;
@@ -615,23 +577,18 @@ namespace LINVAST.Imperative.Builders.Java
                         }
                         break;
                     case SEMI:
-                        EnterOuterAlt(_localctx, 2);
-                        {
+                        EnterOuterAlt(_localctx, 2); {
                             State = 260; Match(SEMI);
                         }
                         break;
                     default:
                         throw new NoViableAltException(this);
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -679,12 +636,10 @@ namespace LINVAST.Imperative.Builders.Java
         {
             ModifierContext _localctx = new ModifierContext(Context, State);
             EnterRule(_localctx, 8, RULE_modifier);
-            try
-            {
+            try {
                 State = 268;
                 ErrorHandler.Sync(this);
-                switch (TokenStream.LA(1))
-                {
+                switch (TokenStream.LA(1)) {
                     case ABSTRACT:
                     case FINAL:
                     case PRIVATE:
@@ -694,47 +649,38 @@ namespace LINVAST.Imperative.Builders.Java
                     case STRICTFP:
                     case AT:
                     case IDENTIFIER:
-                        EnterOuterAlt(_localctx, 1);
-                        {
+                        EnterOuterAlt(_localctx, 1); {
                             State = 263; classOrInterfaceModifier();
                         }
                         break;
                     case NATIVE:
-                        EnterOuterAlt(_localctx, 2);
-                        {
+                        EnterOuterAlt(_localctx, 2); {
                             State = 264; Match(NATIVE);
                         }
                         break;
                     case SYNCHRONIZED:
-                        EnterOuterAlt(_localctx, 3);
-                        {
+                        EnterOuterAlt(_localctx, 3); {
                             State = 265; Match(SYNCHRONIZED);
                         }
                         break;
                     case TRANSIENT:
-                        EnterOuterAlt(_localctx, 4);
-                        {
+                        EnterOuterAlt(_localctx, 4); {
                             State = 266; Match(TRANSIENT);
                         }
                         break;
                     case VOLATILE:
-                        EnterOuterAlt(_localctx, 5);
-                        {
+                        EnterOuterAlt(_localctx, 5); {
                             State = 267; Match(VOLATILE);
                         }
                         break;
                     default:
                         throw new NoViableAltException(this);
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -785,73 +731,59 @@ namespace LINVAST.Imperative.Builders.Java
         {
             ClassOrInterfaceModifierContext _localctx = new ClassOrInterfaceModifierContext(Context, State);
             EnterRule(_localctx, 10, RULE_classOrInterfaceModifier);
-            try
-            {
+            try {
                 State = 278;
                 ErrorHandler.Sync(this);
-                switch (TokenStream.LA(1))
-                {
+                switch (TokenStream.LA(1)) {
                     case AT:
                     case IDENTIFIER:
-                        EnterOuterAlt(_localctx, 1);
-                        {
+                        EnterOuterAlt(_localctx, 1); {
                             State = 270; annotation();
                         }
                         break;
                     case PUBLIC:
-                        EnterOuterAlt(_localctx, 2);
-                        {
+                        EnterOuterAlt(_localctx, 2); {
                             State = 271; Match(PUBLIC);
                         }
                         break;
                     case PROTECTED:
-                        EnterOuterAlt(_localctx, 3);
-                        {
+                        EnterOuterAlt(_localctx, 3); {
                             State = 272; Match(PROTECTED);
                         }
                         break;
                     case PRIVATE:
-                        EnterOuterAlt(_localctx, 4);
-                        {
+                        EnterOuterAlt(_localctx, 4); {
                             State = 273; Match(PRIVATE);
                         }
                         break;
                     case STATIC:
-                        EnterOuterAlt(_localctx, 5);
-                        {
+                        EnterOuterAlt(_localctx, 5); {
                             State = 274; Match(STATIC);
                         }
                         break;
                     case ABSTRACT:
-                        EnterOuterAlt(_localctx, 6);
-                        {
+                        EnterOuterAlt(_localctx, 6); {
                             State = 275; Match(ABSTRACT);
                         }
                         break;
                     case FINAL:
-                        EnterOuterAlt(_localctx, 7);
-                        {
+                        EnterOuterAlt(_localctx, 7); {
                             State = 276; Match(FINAL);
                         }
                         break;
                     case STRICTFP:
-                        EnterOuterAlt(_localctx, 8);
-                        {
+                        EnterOuterAlt(_localctx, 8); {
                             State = 277; Match(STRICTFP);
                         }
                         break;
                     default:
                         throw new NoViableAltException(this);
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -896,37 +828,29 @@ namespace LINVAST.Imperative.Builders.Java
         {
             VariableModifierContext _localctx = new VariableModifierContext(Context, State);
             EnterRule(_localctx, 12, RULE_variableModifier);
-            try
-            {
+            try {
                 State = 282;
                 ErrorHandler.Sync(this);
-                switch (TokenStream.LA(1))
-                {
+                switch (TokenStream.LA(1)) {
                     case FINAL:
-                        EnterOuterAlt(_localctx, 1);
-                        {
+                        EnterOuterAlt(_localctx, 1); {
                             State = 280; Match(FINAL);
                         }
                         break;
                     case AT:
                     case IDENTIFIER:
-                        EnterOuterAlt(_localctx, 2);
-                        {
+                        EnterOuterAlt(_localctx, 2); {
                             State = 281; annotation();
                         }
                         break;
                     default:
                         throw new NoViableAltException(this);
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -990,8 +914,7 @@ namespace LINVAST.Imperative.Builders.Java
             ClassDeclarationContext _localctx = new ClassDeclarationContext(Context, State);
             EnterRule(_localctx, 14, RULE_classDeclaration);
             int _la;
-            try
-            {
+            try {
                 EnterOuterAlt(_localctx, 1);
                 {
                     State = 284; Match(CLASS);
@@ -999,8 +922,7 @@ namespace LINVAST.Imperative.Builders.Java
                     State = 287;
                     ErrorHandler.Sync(this);
                     _la = TokenStream.LA(1);
-                    if (_la == LT)
-                    {
+                    if (_la == LT) {
                         {
                             State = 286; typeParameters();
                         }
@@ -1009,8 +931,7 @@ namespace LINVAST.Imperative.Builders.Java
                     State = 291;
                     ErrorHandler.Sync(this);
                     _la = TokenStream.LA(1);
-                    if (_la == EXTENDS)
-                    {
+                    if (_la == EXTENDS) {
                         {
                             State = 289; Match(EXTENDS);
                             State = 290; typeType();
@@ -1020,8 +941,7 @@ namespace LINVAST.Imperative.Builders.Java
                     State = 295;
                     ErrorHandler.Sync(this);
                     _la = TokenStream.LA(1);
-                    if (_la == IMPLEMENTS)
-                    {
+                    if (_la == IMPLEMENTS) {
                         {
                             State = 293; Match(IMPLEMENTS);
                             State = 294; typeList();
@@ -1030,15 +950,11 @@ namespace LINVAST.Imperative.Builders.Java
 
                     State = 297; classBody();
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -1096,8 +1012,7 @@ namespace LINVAST.Imperative.Builders.Java
             TypeParametersContext _localctx = new TypeParametersContext(Context, State);
             EnterRule(_localctx, 16, RULE_typeParameters);
             int _la;
-            try
-            {
+            try {
                 EnterOuterAlt(_localctx, 1);
                 {
                     State = 299; Match(LT);
@@ -1105,8 +1020,7 @@ namespace LINVAST.Imperative.Builders.Java
                     State = 305;
                     ErrorHandler.Sync(this);
                     _la = TokenStream.LA(1);
-                    while (_la == COMMA)
-                    {
+                    while (_la == COMMA) {
                         {
                             {
                                 State = 301; Match(COMMA);
@@ -1119,15 +1033,11 @@ namespace LINVAST.Imperative.Builders.Java
                     }
                     State = 308; Match(GT);
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -1184,18 +1094,15 @@ namespace LINVAST.Imperative.Builders.Java
             TypeParameterContext _localctx = new TypeParameterContext(Context, State);
             EnterRule(_localctx, 18, RULE_typeParameter);
             int _la;
-            try
-            {
+            try {
                 int _alt;
                 EnterOuterAlt(_localctx, 1);
                 {
                     State = 313;
                     ErrorHandler.Sync(this);
                     _alt = Interpreter.AdaptivePredict(TokenStream, 16, Context);
-                    while (_alt != 2 && _alt != global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER)
-                    {
-                        if (_alt == 1)
-                        {
+                    while (_alt != 2 && _alt != global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER) {
+                        if (_alt == 1) {
                             {
                                 {
                                     State = 310; annotation();
@@ -1210,17 +1117,14 @@ namespace LINVAST.Imperative.Builders.Java
                     State = 325;
                     ErrorHandler.Sync(this);
                     _la = TokenStream.LA(1);
-                    if (_la == EXTENDS)
-                    {
+                    if (_la == EXTENDS) {
                         {
                             State = 317; Match(EXTENDS);
                             State = 321;
                             ErrorHandler.Sync(this);
                             _alt = Interpreter.AdaptivePredict(TokenStream, 17, Context);
-                            while (_alt != 2 && _alt != global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER)
-                            {
-                                if (_alt == 1)
-                                {
+                            while (_alt != 2 && _alt != global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER) {
+                                if (_alt == 1) {
                                     {
                                         {
                                             State = 318; annotation();
@@ -1236,15 +1140,11 @@ namespace LINVAST.Imperative.Builders.Java
                     }
 
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -1300,16 +1200,14 @@ namespace LINVAST.Imperative.Builders.Java
             TypeBoundContext _localctx = new TypeBoundContext(Context, State);
             EnterRule(_localctx, 20, RULE_typeBound);
             int _la;
-            try
-            {
+            try {
                 EnterOuterAlt(_localctx, 1);
                 {
                     State = 327; typeType();
                     State = 332;
                     ErrorHandler.Sync(this);
                     _la = TokenStream.LA(1);
-                    while (_la == BITAND)
-                    {
+                    while (_la == BITAND) {
                         {
                             {
                                 State = 328; Match(BITAND);
@@ -1321,15 +1219,11 @@ namespace LINVAST.Imperative.Builders.Java
                         _la = TokenStream.LA(1);
                     }
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -1390,8 +1284,7 @@ namespace LINVAST.Imperative.Builders.Java
             EnumDeclarationContext _localctx = new EnumDeclarationContext(Context, State);
             EnterRule(_localctx, 22, RULE_enumDeclaration);
             int _la;
-            try
-            {
+            try {
                 EnterOuterAlt(_localctx, 1);
                 {
                     State = 335; Match(ENUM);
@@ -1399,8 +1292,7 @@ namespace LINVAST.Imperative.Builders.Java
                     State = 339;
                     ErrorHandler.Sync(this);
                     _la = TokenStream.LA(1);
-                    if (_la == IMPLEMENTS)
-                    {
+                    if (_la == IMPLEMENTS) {
                         {
                             State = 337; Match(IMPLEMENTS);
                             State = 338; typeList();
@@ -1411,8 +1303,7 @@ namespace LINVAST.Imperative.Builders.Java
                     State = 343;
                     ErrorHandler.Sync(this);
                     _la = TokenStream.LA(1);
-                    if (_la == AT || _la == IDENTIFIER)
-                    {
+                    if (_la == AT || _la == IDENTIFIER) {
                         {
                             State = 342; enumConstants();
                         }
@@ -1421,8 +1312,7 @@ namespace LINVAST.Imperative.Builders.Java
                     State = 346;
                     ErrorHandler.Sync(this);
                     _la = TokenStream.LA(1);
-                    if (_la == COMMA)
-                    {
+                    if (_la == COMMA) {
                         {
                             State = 345; Match(COMMA);
                         }
@@ -1431,8 +1321,7 @@ namespace LINVAST.Imperative.Builders.Java
                     State = 349;
                     ErrorHandler.Sync(this);
                     _la = TokenStream.LA(1);
-                    if (_la == SEMI)
-                    {
+                    if (_la == SEMI) {
                         {
                             State = 348; enumBodyDeclarations();
                         }
@@ -1440,15 +1329,11 @@ namespace LINVAST.Imperative.Builders.Java
 
                     State = 351; Match(RBRACE);
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -1503,8 +1388,7 @@ namespace LINVAST.Imperative.Builders.Java
         {
             EnumConstantsContext _localctx = new EnumConstantsContext(Context, State);
             EnterRule(_localctx, 24, RULE_enumConstants);
-            try
-            {
+            try {
                 int _alt;
                 EnterOuterAlt(_localctx, 1);
                 {
@@ -1512,10 +1396,8 @@ namespace LINVAST.Imperative.Builders.Java
                     State = 358;
                     ErrorHandler.Sync(this);
                     _alt = Interpreter.AdaptivePredict(TokenStream, 24, Context);
-                    while (_alt != 2 && _alt != global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER)
-                    {
-                        if (_alt == 1)
-                        {
+                    while (_alt != 2 && _alt != global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER) {
+                        if (_alt == 1) {
                             {
                                 {
                                     State = 354; Match(COMMA);
@@ -1528,15 +1410,11 @@ namespace LINVAST.Imperative.Builders.Java
                         _alt = Interpreter.AdaptivePredict(TokenStream, 24, Context);
                     }
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -1597,18 +1475,15 @@ namespace LINVAST.Imperative.Builders.Java
             EnumConstantContext _localctx = new EnumConstantContext(Context, State);
             EnterRule(_localctx, 26, RULE_enumConstant);
             int _la;
-            try
-            {
+            try {
                 int _alt;
                 EnterOuterAlt(_localctx, 1);
                 {
                     State = 364;
                     ErrorHandler.Sync(this);
                     _alt = Interpreter.AdaptivePredict(TokenStream, 25, Context);
-                    while (_alt != 2 && _alt != global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER)
-                    {
-                        if (_alt == 1)
-                        {
+                    while (_alt != 2 && _alt != global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER) {
+                        if (_alt == 1) {
                             {
                                 {
                                     State = 361; annotation();
@@ -1623,8 +1498,7 @@ namespace LINVAST.Imperative.Builders.Java
                     State = 369;
                     ErrorHandler.Sync(this);
                     _la = TokenStream.LA(1);
-                    if (_la == LPAREN)
-                    {
+                    if (_la == LPAREN) {
                         {
                             State = 368; arguments();
                         }
@@ -1633,23 +1507,18 @@ namespace LINVAST.Imperative.Builders.Java
                     State = 372;
                     ErrorHandler.Sync(this);
                     _la = TokenStream.LA(1);
-                    if (_la == LBRACE)
-                    {
+                    if (_la == LBRACE) {
                         {
                             State = 371; classBody();
                         }
                     }
 
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -1700,16 +1569,14 @@ namespace LINVAST.Imperative.Builders.Java
             EnumBodyDeclarationsContext _localctx = new EnumBodyDeclarationsContext(Context, State);
             EnterRule(_localctx, 28, RULE_enumBodyDeclarations);
             int _la;
-            try
-            {
+            try {
                 EnterOuterAlt(_localctx, 1);
                 {
                     State = 374; Match(SEMI);
                     State = 378;
                     ErrorHandler.Sync(this);
                     _la = TokenStream.LA(1);
-                    while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << ABSTRACT) | (1L << BOOLEAN) | (1L << BYTE) | (1L << CHAR) | (1L << CLASS) | (1L << DOUBLE) | (1L << ENUM) | (1L << FINAL) | (1L << FLOAT) | (1L << INT) | (1L << INTERFACE) | (1L << LONG) | (1L << NATIVE) | (1L << PRIVATE) | (1L << PROTECTED) | (1L << PUBLIC) | (1L << SHORT) | (1L << STATIC) | (1L << STRICTFP) | (1L << SYNCHRONIZED) | (1L << TRANSIENT) | (1L << VOID) | (1L << VOLATILE) | (1L << LBRACE))) != 0) || ((((_la - 67)) & ~0x3f) == 0 && ((1L << (_la - 67)) & ((1L << (SEMI - 67)) | (1L << (LT - 67)) | (1L << (AT - 67)) | (1L << (IDENTIFIER - 67)))) != 0))
-                    {
+                    while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << ABSTRACT) | (1L << BOOLEAN) | (1L << BYTE) | (1L << CHAR) | (1L << CLASS) | (1L << DOUBLE) | (1L << ENUM) | (1L << FINAL) | (1L << FLOAT) | (1L << INT) | (1L << INTERFACE) | (1L << LONG) | (1L << NATIVE) | (1L << PRIVATE) | (1L << PROTECTED) | (1L << PUBLIC) | (1L << SHORT) | (1L << STATIC) | (1L << STRICTFP) | (1L << SYNCHRONIZED) | (1L << TRANSIENT) | (1L << VOID) | (1L << VOLATILE) | (1L << LBRACE))) != 0) || ((((_la - 67)) & ~0x3f) == 0 && ((1L << (_la - 67)) & ((1L << (SEMI - 67)) | (1L << (LT - 67)) | (1L << (AT - 67)) | (1L << (IDENTIFIER - 67)))) != 0)) {
                         {
                             {
                                 State = 375; classBodyDeclaration();
@@ -1720,15 +1587,11 @@ namespace LINVAST.Imperative.Builders.Java
                         _la = TokenStream.LA(1);
                     }
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -1786,8 +1649,7 @@ namespace LINVAST.Imperative.Builders.Java
             InterfaceDeclarationContext _localctx = new InterfaceDeclarationContext(Context, State);
             EnterRule(_localctx, 30, RULE_interfaceDeclaration);
             int _la;
-            try
-            {
+            try {
                 EnterOuterAlt(_localctx, 1);
                 {
                     State = 381; Match(INTERFACE);
@@ -1795,8 +1657,7 @@ namespace LINVAST.Imperative.Builders.Java
                     State = 384;
                     ErrorHandler.Sync(this);
                     _la = TokenStream.LA(1);
-                    if (_la == LT)
-                    {
+                    if (_la == LT) {
                         {
                             State = 383; typeParameters();
                         }
@@ -1805,8 +1666,7 @@ namespace LINVAST.Imperative.Builders.Java
                     State = 388;
                     ErrorHandler.Sync(this);
                     _la = TokenStream.LA(1);
-                    if (_la == EXTENDS)
-                    {
+                    if (_la == EXTENDS) {
                         {
                             State = 386; Match(EXTENDS);
                             State = 387; typeList();
@@ -1815,15 +1675,11 @@ namespace LINVAST.Imperative.Builders.Java
 
                     State = 390; interfaceBody();
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -1875,16 +1731,14 @@ namespace LINVAST.Imperative.Builders.Java
             ClassBodyContext _localctx = new ClassBodyContext(Context, State);
             EnterRule(_localctx, 32, RULE_classBody);
             int _la;
-            try
-            {
+            try {
                 EnterOuterAlt(_localctx, 1);
                 {
                     State = 392; Match(LBRACE);
                     State = 396;
                     ErrorHandler.Sync(this);
                     _la = TokenStream.LA(1);
-                    while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << ABSTRACT) | (1L << BOOLEAN) | (1L << BYTE) | (1L << CHAR) | (1L << CLASS) | (1L << DOUBLE) | (1L << ENUM) | (1L << FINAL) | (1L << FLOAT) | (1L << INT) | (1L << INTERFACE) | (1L << LONG) | (1L << NATIVE) | (1L << PRIVATE) | (1L << PROTECTED) | (1L << PUBLIC) | (1L << SHORT) | (1L << STATIC) | (1L << STRICTFP) | (1L << SYNCHRONIZED) | (1L << TRANSIENT) | (1L << VOID) | (1L << VOLATILE) | (1L << LBRACE))) != 0) || ((((_la - 67)) & ~0x3f) == 0 && ((1L << (_la - 67)) & ((1L << (SEMI - 67)) | (1L << (LT - 67)) | (1L << (AT - 67)) | (1L << (IDENTIFIER - 67)))) != 0))
-                    {
+                    while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << ABSTRACT) | (1L << BOOLEAN) | (1L << BYTE) | (1L << CHAR) | (1L << CLASS) | (1L << DOUBLE) | (1L << ENUM) | (1L << FINAL) | (1L << FLOAT) | (1L << INT) | (1L << INTERFACE) | (1L << LONG) | (1L << NATIVE) | (1L << PRIVATE) | (1L << PROTECTED) | (1L << PUBLIC) | (1L << SHORT) | (1L << STATIC) | (1L << STRICTFP) | (1L << SYNCHRONIZED) | (1L << TRANSIENT) | (1L << VOID) | (1L << VOLATILE) | (1L << LBRACE))) != 0) || ((((_la - 67)) & ~0x3f) == 0 && ((1L << (_la - 67)) & ((1L << (SEMI - 67)) | (1L << (LT - 67)) | (1L << (AT - 67)) | (1L << (IDENTIFIER - 67)))) != 0)) {
                         {
                             {
                                 State = 393; classBodyDeclaration();
@@ -1896,15 +1750,11 @@ namespace LINVAST.Imperative.Builders.Java
                     }
                     State = 399; Match(RBRACE);
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -1956,16 +1806,14 @@ namespace LINVAST.Imperative.Builders.Java
             InterfaceBodyContext _localctx = new InterfaceBodyContext(Context, State);
             EnterRule(_localctx, 34, RULE_interfaceBody);
             int _la;
-            try
-            {
+            try {
                 EnterOuterAlt(_localctx, 1);
                 {
                     State = 401; Match(LBRACE);
                     State = 405;
                     ErrorHandler.Sync(this);
                     _la = TokenStream.LA(1);
-                    while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << ABSTRACT) | (1L << BOOLEAN) | (1L << BYTE) | (1L << CHAR) | (1L << CLASS) | (1L << DEFAULT) | (1L << DOUBLE) | (1L << ENUM) | (1L << FINAL) | (1L << FLOAT) | (1L << INT) | (1L << INTERFACE) | (1L << LONG) | (1L << NATIVE) | (1L << PRIVATE) | (1L << PROTECTED) | (1L << PUBLIC) | (1L << SHORT) | (1L << STATIC) | (1L << STRICTFP) | (1L << SYNCHRONIZED) | (1L << TRANSIENT) | (1L << VOID) | (1L << VOLATILE))) != 0) || ((((_la - 67)) & ~0x3f) == 0 && ((1L << (_la - 67)) & ((1L << (SEMI - 67)) | (1L << (LT - 67)) | (1L << (AT - 67)) | (1L << (IDENTIFIER - 67)))) != 0))
-                    {
+                    while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << ABSTRACT) | (1L << BOOLEAN) | (1L << BYTE) | (1L << CHAR) | (1L << CLASS) | (1L << DEFAULT) | (1L << DOUBLE) | (1L << ENUM) | (1L << FINAL) | (1L << FLOAT) | (1L << INT) | (1L << INTERFACE) | (1L << LONG) | (1L << NATIVE) | (1L << PRIVATE) | (1L << PROTECTED) | (1L << PUBLIC) | (1L << SHORT) | (1L << STATIC) | (1L << STRICTFP) | (1L << SYNCHRONIZED) | (1L << TRANSIENT) | (1L << VOID) | (1L << VOLATILE))) != 0) || ((((_la - 67)) & ~0x3f) == 0 && ((1L << (_la - 67)) & ((1L << (SEMI - 67)) | (1L << (LT - 67)) | (1L << (AT - 67)) | (1L << (IDENTIFIER - 67)))) != 0)) {
                         {
                             {
                                 State = 402; interfaceBodyDeclaration();
@@ -1977,15 +1825,11 @@ namespace LINVAST.Imperative.Builders.Java
                     }
                     State = 408; Match(RBRACE);
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -2047,27 +1891,22 @@ namespace LINVAST.Imperative.Builders.Java
             ClassBodyDeclarationContext _localctx = new ClassBodyDeclarationContext(Context, State);
             EnterRule(_localctx, 36, RULE_classBodyDeclaration);
             int _la;
-            try
-            {
+            try {
                 int _alt;
                 State = 422;
                 ErrorHandler.Sync(this);
-                switch (Interpreter.AdaptivePredict(TokenStream, 35, Context))
-                {
+                switch (Interpreter.AdaptivePredict(TokenStream, 35, Context)) {
                     case 1:
-                        EnterOuterAlt(_localctx, 1);
-                        {
+                        EnterOuterAlt(_localctx, 1); {
                             State = 410; Match(SEMI);
                         }
                         break;
                     case 2:
-                        EnterOuterAlt(_localctx, 2);
-                        {
+                        EnterOuterAlt(_localctx, 2); {
                             State = 412;
                             ErrorHandler.Sync(this);
                             _la = TokenStream.LA(1);
-                            if (_la == STATIC)
-                            {
+                            if (_la == STATIC) {
                                 {
                                     State = 411; Match(STATIC);
                                 }
@@ -2077,15 +1916,12 @@ namespace LINVAST.Imperative.Builders.Java
                         }
                         break;
                     case 3:
-                        EnterOuterAlt(_localctx, 3);
-                        {
+                        EnterOuterAlt(_localctx, 3); {
                             State = 418;
                             ErrorHandler.Sync(this);
                             _alt = Interpreter.AdaptivePredict(TokenStream, 34, Context);
-                            while (_alt != 2 && _alt != global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER)
-                            {
-                                if (_alt == 1)
-                                {
+                            while (_alt != 2 && _alt != global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER) {
+                                if (_alt == 1) {
                                     {
                                         {
                                             State = 415; modifier();
@@ -2100,15 +1936,11 @@ namespace LINVAST.Imperative.Builders.Java
                         }
                         break;
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -2192,76 +2024,61 @@ namespace LINVAST.Imperative.Builders.Java
         {
             MemberDeclarationContext _localctx = new MemberDeclarationContext(Context, State);
             EnterRule(_localctx, 38, RULE_memberDeclaration);
-            try
-            {
+            try {
                 State = 433;
                 ErrorHandler.Sync(this);
-                switch (Interpreter.AdaptivePredict(TokenStream, 36, Context))
-                {
+                switch (Interpreter.AdaptivePredict(TokenStream, 36, Context)) {
                     case 1:
-                        EnterOuterAlt(_localctx, 1);
-                        {
+                        EnterOuterAlt(_localctx, 1); {
                             State = 424; methodDeclaration();
                         }
                         break;
                     case 2:
-                        EnterOuterAlt(_localctx, 2);
-                        {
+                        EnterOuterAlt(_localctx, 2); {
                             State = 425; genericMethodDeclaration();
                         }
                         break;
                     case 3:
-                        EnterOuterAlt(_localctx, 3);
-                        {
+                        EnterOuterAlt(_localctx, 3); {
                             State = 426; fieldDeclaration();
                         }
                         break;
                     case 4:
-                        EnterOuterAlt(_localctx, 4);
-                        {
+                        EnterOuterAlt(_localctx, 4); {
                             State = 427; constructorDeclaration();
                         }
                         break;
                     case 5:
-                        EnterOuterAlt(_localctx, 5);
-                        {
+                        EnterOuterAlt(_localctx, 5); {
                             State = 428; genericConstructorDeclaration();
                         }
                         break;
                     case 6:
-                        EnterOuterAlt(_localctx, 6);
-                        {
+                        EnterOuterAlt(_localctx, 6); {
                             State = 429; interfaceDeclaration();
                         }
                         break;
                     case 7:
-                        EnterOuterAlt(_localctx, 7);
-                        {
+                        EnterOuterAlt(_localctx, 7); {
                             State = 430; annotationTypeDeclaration();
                         }
                         break;
                     case 8:
-                        EnterOuterAlt(_localctx, 8);
-                        {
+                        EnterOuterAlt(_localctx, 8); {
                             State = 431; classDeclaration();
                         }
                         break;
                     case 9:
-                        EnterOuterAlt(_localctx, 9);
-                        {
+                        EnterOuterAlt(_localctx, 9); {
                             State = 432; enumDeclaration();
                         }
                         break;
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -2335,8 +2152,7 @@ namespace LINVAST.Imperative.Builders.Java
             MethodDeclarationContext _localctx = new MethodDeclarationContext(Context, State);
             EnterRule(_localctx, 40, RULE_methodDeclaration);
             int _la;
-            try
-            {
+            try {
                 EnterOuterAlt(_localctx, 1);
                 {
                     State = 435; typeTypeOrVoid();
@@ -2345,8 +2161,7 @@ namespace LINVAST.Imperative.Builders.Java
                     State = 442;
                     ErrorHandler.Sync(this);
                     _la = TokenStream.LA(1);
-                    while (_la == LBRACK)
-                    {
+                    while (_la == LBRACK) {
                         {
                             {
                                 State = 438; Match(LBRACK);
@@ -2360,8 +2175,7 @@ namespace LINVAST.Imperative.Builders.Java
                     State = 447;
                     ErrorHandler.Sync(this);
                     _la = TokenStream.LA(1);
-                    if (_la == THROWS)
-                    {
+                    if (_la == THROWS) {
                         {
                             State = 445; Match(THROWS);
                             State = 446; qualifiedNameList();
@@ -2370,15 +2184,11 @@ namespace LINVAST.Imperative.Builders.Java
 
                     State = 449; methodBody();
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -2423,36 +2233,28 @@ namespace LINVAST.Imperative.Builders.Java
         {
             MethodBodyContext _localctx = new MethodBodyContext(Context, State);
             EnterRule(_localctx, 42, RULE_methodBody);
-            try
-            {
+            try {
                 State = 453;
                 ErrorHandler.Sync(this);
-                switch (TokenStream.LA(1))
-                {
+                switch (TokenStream.LA(1)) {
                     case LBRACE:
-                        EnterOuterAlt(_localctx, 1);
-                        {
+                        EnterOuterAlt(_localctx, 1); {
                             State = 451; block();
                         }
                         break;
                     case SEMI:
-                        EnterOuterAlt(_localctx, 2);
-                        {
+                        EnterOuterAlt(_localctx, 2); {
                             State = 452; Match(SEMI);
                         }
                         break;
                     default:
                         throw new NoViableAltException(this);
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -2497,12 +2299,10 @@ namespace LINVAST.Imperative.Builders.Java
         {
             TypeTypeOrVoidContext _localctx = new TypeTypeOrVoidContext(Context, State);
             EnterRule(_localctx, 44, RULE_typeTypeOrVoid);
-            try
-            {
+            try {
                 State = 457;
                 ErrorHandler.Sync(this);
-                switch (TokenStream.LA(1))
-                {
+                switch (TokenStream.LA(1)) {
                     case BOOLEAN:
                     case BYTE:
                     case CHAR:
@@ -2513,29 +2313,23 @@ namespace LINVAST.Imperative.Builders.Java
                     case SHORT:
                     case AT:
                     case IDENTIFIER:
-                        EnterOuterAlt(_localctx, 1);
-                        {
+                        EnterOuterAlt(_localctx, 1); {
                             State = 455; typeType();
                         }
                         break;
                     case VOID:
-                        EnterOuterAlt(_localctx, 2);
-                        {
+                        EnterOuterAlt(_localctx, 2); {
                             State = 456; Match(VOID);
                         }
                         break;
                     default:
                         throw new NoViableAltException(this);
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -2584,22 +2378,17 @@ namespace LINVAST.Imperative.Builders.Java
         {
             GenericMethodDeclarationContext _localctx = new GenericMethodDeclarationContext(Context, State);
             EnterRule(_localctx, 46, RULE_genericMethodDeclaration);
-            try
-            {
+            try {
                 EnterOuterAlt(_localctx, 1);
                 {
                     State = 459; typeParameters();
                     State = 460; methodDeclaration();
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -2648,22 +2437,17 @@ namespace LINVAST.Imperative.Builders.Java
         {
             GenericConstructorDeclarationContext _localctx = new GenericConstructorDeclarationContext(Context, State);
             EnterRule(_localctx, 48, RULE_genericConstructorDeclaration);
-            try
-            {
+            try {
                 EnterOuterAlt(_localctx, 1);
                 {
                     State = 462; typeParameters();
                     State = 463; constructorDeclaration();
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -2721,8 +2505,7 @@ namespace LINVAST.Imperative.Builders.Java
             ConstructorDeclarationContext _localctx = new ConstructorDeclarationContext(Context, State);
             EnterRule(_localctx, 50, RULE_constructorDeclaration);
             int _la;
-            try
-            {
+            try {
                 EnterOuterAlt(_localctx, 1);
                 {
                     State = 465; Match(IDENTIFIER);
@@ -2730,8 +2513,7 @@ namespace LINVAST.Imperative.Builders.Java
                     State = 469;
                     ErrorHandler.Sync(this);
                     _la = TokenStream.LA(1);
-                    if (_la == THROWS)
-                    {
+                    if (_la == THROWS) {
                         {
                             State = 467; Match(THROWS);
                             State = 468; qualifiedNameList();
@@ -2740,15 +2522,11 @@ namespace LINVAST.Imperative.Builders.Java
 
                     State = 471; _localctx.constructorBody = block();
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -2798,23 +2576,18 @@ namespace LINVAST.Imperative.Builders.Java
         {
             FieldDeclarationContext _localctx = new FieldDeclarationContext(Context, State);
             EnterRule(_localctx, 52, RULE_fieldDeclaration);
-            try
-            {
+            try {
                 EnterOuterAlt(_localctx, 1);
                 {
                     State = 473; typeType();
                     State = 474; variableDeclarators();
                     State = 475; Match(SEMI);
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -2869,13 +2642,11 @@ namespace LINVAST.Imperative.Builders.Java
         {
             InterfaceBodyDeclarationContext _localctx = new InterfaceBodyDeclarationContext(Context, State);
             EnterRule(_localctx, 54, RULE_interfaceBodyDeclaration);
-            try
-            {
+            try {
                 int _alt;
                 State = 485;
                 ErrorHandler.Sync(this);
-                switch (TokenStream.LA(1))
-                {
+                switch (TokenStream.LA(1)) {
                     case ABSTRACT:
                     case BOOLEAN:
                     case BYTE:
@@ -2903,15 +2674,12 @@ namespace LINVAST.Imperative.Builders.Java
                     case LT:
                     case AT:
                     case IDENTIFIER:
-                        EnterOuterAlt(_localctx, 1);
-                        {
+                        EnterOuterAlt(_localctx, 1); {
                             State = 480;
                             ErrorHandler.Sync(this);
                             _alt = Interpreter.AdaptivePredict(TokenStream, 42, Context);
-                            while (_alt != 2 && _alt != global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER)
-                            {
-                                if (_alt == 1)
-                                {
+                            while (_alt != 2 && _alt != global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER) {
+                                if (_alt == 1) {
                                     {
                                         {
                                             State = 477; modifier();
@@ -2926,23 +2694,18 @@ namespace LINVAST.Imperative.Builders.Java
                         }
                         break;
                     case SEMI:
-                        EnterOuterAlt(_localctx, 2);
-                        {
+                        EnterOuterAlt(_localctx, 2); {
                             State = 484; Match(SEMI);
                         }
                         break;
                     default:
                         throw new NoViableAltException(this);
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -3016,64 +2779,51 @@ namespace LINVAST.Imperative.Builders.Java
         {
             InterfaceMemberDeclarationContext _localctx = new InterfaceMemberDeclarationContext(Context, State);
             EnterRule(_localctx, 56, RULE_interfaceMemberDeclaration);
-            try
-            {
+            try {
                 State = 494;
                 ErrorHandler.Sync(this);
-                switch (Interpreter.AdaptivePredict(TokenStream, 44, Context))
-                {
+                switch (Interpreter.AdaptivePredict(TokenStream, 44, Context)) {
                     case 1:
-                        EnterOuterAlt(_localctx, 1);
-                        {
+                        EnterOuterAlt(_localctx, 1); {
                             State = 487; constDeclaration();
                         }
                         break;
                     case 2:
-                        EnterOuterAlt(_localctx, 2);
-                        {
+                        EnterOuterAlt(_localctx, 2); {
                             State = 488; interfaceMethodDeclaration();
                         }
                         break;
                     case 3:
-                        EnterOuterAlt(_localctx, 3);
-                        {
+                        EnterOuterAlt(_localctx, 3); {
                             State = 489; genericInterfaceMethodDeclaration();
                         }
                         break;
                     case 4:
-                        EnterOuterAlt(_localctx, 4);
-                        {
+                        EnterOuterAlt(_localctx, 4); {
                             State = 490; interfaceDeclaration();
                         }
                         break;
                     case 5:
-                        EnterOuterAlt(_localctx, 5);
-                        {
+                        EnterOuterAlt(_localctx, 5); {
                             State = 491; annotationTypeDeclaration();
                         }
                         break;
                     case 6:
-                        EnterOuterAlt(_localctx, 6);
-                        {
+                        EnterOuterAlt(_localctx, 6); {
                             State = 492; classDeclaration();
                         }
                         break;
                     case 7:
-                        EnterOuterAlt(_localctx, 7);
-                        {
+                        EnterOuterAlt(_localctx, 7); {
                             State = 493; enumDeclaration();
                         }
                         break;
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -3135,8 +2885,7 @@ namespace LINVAST.Imperative.Builders.Java
             ConstDeclarationContext _localctx = new ConstDeclarationContext(Context, State);
             EnterRule(_localctx, 58, RULE_constDeclaration);
             int _la;
-            try
-            {
+            try {
                 EnterOuterAlt(_localctx, 1);
                 {
                     State = 496; typeType();
@@ -3144,8 +2893,7 @@ namespace LINVAST.Imperative.Builders.Java
                     State = 502;
                     ErrorHandler.Sync(this);
                     _la = TokenStream.LA(1);
-                    while (_la == COMMA)
-                    {
+                    while (_la == COMMA) {
                         {
                             {
                                 State = 498; Match(COMMA);
@@ -3158,15 +2906,11 @@ namespace LINVAST.Imperative.Builders.Java
                     }
                     State = 505; Match(SEMI);
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -3225,16 +2969,14 @@ namespace LINVAST.Imperative.Builders.Java
             ConstantDeclaratorContext _localctx = new ConstantDeclaratorContext(Context, State);
             EnterRule(_localctx, 60, RULE_constantDeclarator);
             int _la;
-            try
-            {
+            try {
                 EnterOuterAlt(_localctx, 1);
                 {
                     State = 507; Match(IDENTIFIER);
                     State = 512;
                     ErrorHandler.Sync(this);
                     _la = TokenStream.LA(1);
-                    while (_la == LBRACK)
-                    {
+                    while (_la == LBRACK) {
                         {
                             {
                                 State = 508; Match(LBRACK);
@@ -3248,15 +2990,11 @@ namespace LINVAST.Imperative.Builders.Java
                     State = 515; Match(ASSIGN);
                     State = 516; variableInitializer();
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -3355,18 +3093,15 @@ namespace LINVAST.Imperative.Builders.Java
             InterfaceMethodDeclarationContext _localctx = new InterfaceMethodDeclarationContext(Context, State);
             EnterRule(_localctx, 62, RULE_interfaceMethodDeclaration);
             int _la;
-            try
-            {
+            try {
                 int _alt;
                 EnterOuterAlt(_localctx, 1);
                 {
                     State = 521;
                     ErrorHandler.Sync(this);
                     _alt = Interpreter.AdaptivePredict(TokenStream, 47, Context);
-                    while (_alt != 2 && _alt != global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER)
-                    {
-                        if (_alt == 1)
-                        {
+                    while (_alt != 2 && _alt != global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER) {
+                        if (_alt == 1) {
                             {
                                 {
                                     State = 518; interfaceMethodModifier();
@@ -3379,8 +3114,7 @@ namespace LINVAST.Imperative.Builders.Java
                     }
                     State = 534;
                     ErrorHandler.Sync(this);
-                    switch (TokenStream.LA(1))
-                    {
+                    switch (TokenStream.LA(1)) {
                         case BOOLEAN:
                         case BYTE:
                         case CHAR:
@@ -3391,21 +3125,17 @@ namespace LINVAST.Imperative.Builders.Java
                         case SHORT:
                         case VOID:
                         case AT:
-                        case IDENTIFIER:
-                        {
+                        case IDENTIFIER: {
                             State = 524; typeTypeOrVoid();
                         }
                         break;
-                        case LT:
-                        {
+                        case LT: {
                             State = 525; typeParameters();
                             State = 529;
                             ErrorHandler.Sync(this);
                             _alt = Interpreter.AdaptivePredict(TokenStream, 48, Context);
-                            while (_alt != 2 && _alt != global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER)
-                            {
-                                if (_alt == 1)
-                                {
+                            while (_alt != 2 && _alt != global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER) {
+                                if (_alt == 1) {
                                     {
                                         {
                                             State = 526; annotation();
@@ -3427,8 +3157,7 @@ namespace LINVAST.Imperative.Builders.Java
                     State = 542;
                     ErrorHandler.Sync(this);
                     _la = TokenStream.LA(1);
-                    while (_la == LBRACK)
-                    {
+                    while (_la == LBRACK) {
                         {
                             {
                                 State = 538; Match(LBRACK);
@@ -3442,8 +3171,7 @@ namespace LINVAST.Imperative.Builders.Java
                     State = 547;
                     ErrorHandler.Sync(this);
                     _la = TokenStream.LA(1);
-                    if (_la == THROWS)
-                    {
+                    if (_la == THROWS) {
                         {
                             State = 545; Match(THROWS);
                             State = 546; qualifiedNameList();
@@ -3452,15 +3180,11 @@ namespace LINVAST.Imperative.Builders.Java
 
                     State = 549; methodBody();
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -3509,61 +3233,49 @@ namespace LINVAST.Imperative.Builders.Java
         {
             InterfaceMethodModifierContext _localctx = new InterfaceMethodModifierContext(Context, State);
             EnterRule(_localctx, 64, RULE_interfaceMethodModifier);
-            try
-            {
+            try {
                 State = 557;
                 ErrorHandler.Sync(this);
-                switch (TokenStream.LA(1))
-                {
+                switch (TokenStream.LA(1)) {
                     case AT:
                     case IDENTIFIER:
-                        EnterOuterAlt(_localctx, 1);
-                        {
+                        EnterOuterAlt(_localctx, 1); {
                             State = 551; annotation();
                         }
                         break;
                     case PUBLIC:
-                        EnterOuterAlt(_localctx, 2);
-                        {
+                        EnterOuterAlt(_localctx, 2); {
                             State = 552; Match(PUBLIC);
                         }
                         break;
                     case ABSTRACT:
-                        EnterOuterAlt(_localctx, 3);
-                        {
+                        EnterOuterAlt(_localctx, 3); {
                             State = 553; Match(ABSTRACT);
                         }
                         break;
                     case DEFAULT:
-                        EnterOuterAlt(_localctx, 4);
-                        {
+                        EnterOuterAlt(_localctx, 4); {
                             State = 554; Match(DEFAULT);
                         }
                         break;
                     case STATIC:
-                        EnterOuterAlt(_localctx, 5);
-                        {
+                        EnterOuterAlt(_localctx, 5); {
                             State = 555; Match(STATIC);
                         }
                         break;
                     case STRICTFP:
-                        EnterOuterAlt(_localctx, 6);
-                        {
+                        EnterOuterAlt(_localctx, 6); {
                             State = 556; Match(STRICTFP);
                         }
                         break;
                     default:
                         throw new NoViableAltException(this);
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -3612,22 +3324,17 @@ namespace LINVAST.Imperative.Builders.Java
         {
             GenericInterfaceMethodDeclarationContext _localctx = new GenericInterfaceMethodDeclarationContext(Context, State);
             EnterRule(_localctx, 66, RULE_genericInterfaceMethodDeclaration);
-            try
-            {
+            try {
                 EnterOuterAlt(_localctx, 1);
                 {
                     State = 559; typeParameters();
                     State = 560; interfaceMethodDeclaration();
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -3683,16 +3390,14 @@ namespace LINVAST.Imperative.Builders.Java
             VariableDeclaratorsContext _localctx = new VariableDeclaratorsContext(Context, State);
             EnterRule(_localctx, 68, RULE_variableDeclarators);
             int _la;
-            try
-            {
+            try {
                 EnterOuterAlt(_localctx, 1);
                 {
                     State = 562; variableDeclarator();
                     State = 567;
                     ErrorHandler.Sync(this);
                     _la = TokenStream.LA(1);
-                    while (_la == COMMA)
-                    {
+                    while (_la == COMMA) {
                         {
                             {
                                 State = 563; Match(COMMA);
@@ -3704,15 +3409,11 @@ namespace LINVAST.Imperative.Builders.Java
                         _la = TokenStream.LA(1);
                     }
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -3763,16 +3464,14 @@ namespace LINVAST.Imperative.Builders.Java
             VariableDeclaratorContext _localctx = new VariableDeclaratorContext(Context, State);
             EnterRule(_localctx, 70, RULE_variableDeclarator);
             int _la;
-            try
-            {
+            try {
                 EnterOuterAlt(_localctx, 1);
                 {
                     State = 570; variableDeclaratorId();
                     State = 573;
                     ErrorHandler.Sync(this);
                     _la = TokenStream.LA(1);
-                    if (_la == ASSIGN)
-                    {
+                    if (_la == ASSIGN) {
                         {
                             State = 571; Match(ASSIGN);
                             State = 572; variableInitializer();
@@ -3780,15 +3479,11 @@ namespace LINVAST.Imperative.Builders.Java
                     }
 
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -3841,16 +3536,14 @@ namespace LINVAST.Imperative.Builders.Java
             VariableDeclaratorIdContext _localctx = new VariableDeclaratorIdContext(Context, State);
             EnterRule(_localctx, 72, RULE_variableDeclaratorId);
             int _la;
-            try
-            {
+            try {
                 EnterOuterAlt(_localctx, 1);
                 {
                     State = 575; Match(IDENTIFIER);
                     State = 580;
                     ErrorHandler.Sync(this);
                     _la = TokenStream.LA(1);
-                    while (_la == LBRACK)
-                    {
+                    while (_la == LBRACK) {
                         {
                             {
                                 State = 576; Match(LBRACK);
@@ -3862,15 +3555,11 @@ namespace LINVAST.Imperative.Builders.Java
                         _la = TokenStream.LA(1);
                     }
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -3919,15 +3608,12 @@ namespace LINVAST.Imperative.Builders.Java
         {
             VariableInitializerContext _localctx = new VariableInitializerContext(Context, State);
             EnterRule(_localctx, 74, RULE_variableInitializer);
-            try
-            {
+            try {
                 State = 585;
                 ErrorHandler.Sync(this);
-                switch (TokenStream.LA(1))
-                {
+                switch (TokenStream.LA(1)) {
                     case LBRACE:
-                        EnterOuterAlt(_localctx, 1);
-                        {
+                        EnterOuterAlt(_localctx, 1); {
                             State = 583; arrayInitializer();
                         }
                         break;
@@ -3963,23 +3649,18 @@ namespace LINVAST.Imperative.Builders.Java
                     case SUB:
                     case AT:
                     case IDENTIFIER:
-                        EnterOuterAlt(_localctx, 2);
-                        {
+                        EnterOuterAlt(_localctx, 2); {
                             State = 584; expression(0);
                         }
                         break;
                     default:
                         throw new NoViableAltException(this);
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -4037,8 +3718,7 @@ namespace LINVAST.Imperative.Builders.Java
             ArrayInitializerContext _localctx = new ArrayInitializerContext(Context, State);
             EnterRule(_localctx, 76, RULE_arrayInitializer);
             int _la;
-            try
-            {
+            try {
                 int _alt;
                 EnterOuterAlt(_localctx, 1);
                 {
@@ -4046,17 +3726,14 @@ namespace LINVAST.Imperative.Builders.Java
                     State = 599;
                     ErrorHandler.Sync(this);
                     _la = TokenStream.LA(1);
-                    if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << BOOLEAN) | (1L << BYTE) | (1L << CHAR) | (1L << DOUBLE) | (1L << FLOAT) | (1L << INT) | (1L << LONG) | (1L << NEW) | (1L << SHORT) | (1L << SUPER) | (1L << THIS) | (1L << VOID) | (1L << DECIMAL_LITERAL) | (1L << HEX_LITERAL) | (1L << OCT_LITERAL) | (1L << BINARY_LITERAL) | (1L << FLOAT_LITERAL) | (1L << HEX_FLOAT_LITERAL) | (1L << BOOL_LITERAL) | (1L << CHAR_LITERAL) | (1L << STRING_LITERAL) | (1L << NULL_LITERAL) | (1L << LPAREN) | (1L << LBRACE))) != 0) || ((((_la - 72)) & ~0x3f) == 0 && ((1L << (_la - 72)) & ((1L << (LT - 72)) | (1L << (BANG - 72)) | (1L << (TILDE - 72)) | (1L << (INC - 72)) | (1L << (DEC - 72)) | (1L << (ADD - 72)) | (1L << (SUB - 72)) | (1L << (AT - 72)) | (1L << (IDENTIFIER - 72)))) != 0))
-                    {
+                    if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << BOOLEAN) | (1L << BYTE) | (1L << CHAR) | (1L << DOUBLE) | (1L << FLOAT) | (1L << INT) | (1L << LONG) | (1L << NEW) | (1L << SHORT) | (1L << SUPER) | (1L << THIS) | (1L << VOID) | (1L << DECIMAL_LITERAL) | (1L << HEX_LITERAL) | (1L << OCT_LITERAL) | (1L << BINARY_LITERAL) | (1L << FLOAT_LITERAL) | (1L << HEX_FLOAT_LITERAL) | (1L << BOOL_LITERAL) | (1L << CHAR_LITERAL) | (1L << STRING_LITERAL) | (1L << NULL_LITERAL) | (1L << LPAREN) | (1L << LBRACE))) != 0) || ((((_la - 72)) & ~0x3f) == 0 && ((1L << (_la - 72)) & ((1L << (LT - 72)) | (1L << (BANG - 72)) | (1L << (TILDE - 72)) | (1L << (INC - 72)) | (1L << (DEC - 72)) | (1L << (ADD - 72)) | (1L << (SUB - 72)) | (1L << (AT - 72)) | (1L << (IDENTIFIER - 72)))) != 0)) {
                         {
                             State = 588; variableInitializer();
                             State = 593;
                             ErrorHandler.Sync(this);
                             _alt = Interpreter.AdaptivePredict(TokenStream, 57, Context);
-                            while (_alt != 2 && _alt != global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER)
-                            {
-                                if (_alt == 1)
-                                {
+                            while (_alt != 2 && _alt != global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER) {
+                                if (_alt == 1) {
                                     {
                                         {
                                             State = 589; Match(COMMA);
@@ -4071,8 +3748,7 @@ namespace LINVAST.Imperative.Builders.Java
                             State = 597;
                             ErrorHandler.Sync(this);
                             _la = TokenStream.LA(1);
-                            if (_la == COMMA)
-                            {
+                            if (_la == COMMA) {
                                 {
                                     State = 596; Match(COMMA);
                                 }
@@ -4083,15 +3759,11 @@ namespace LINVAST.Imperative.Builders.Java
 
                     State = 601; Match(RBRACE);
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -4152,18 +3824,15 @@ namespace LINVAST.Imperative.Builders.Java
         {
             ClassOrInterfaceTypeContext _localctx = new ClassOrInterfaceTypeContext(Context, State);
             EnterRule(_localctx, 78, RULE_classOrInterfaceType);
-            try
-            {
+            try {
                 int _alt;
                 EnterOuterAlt(_localctx, 1);
                 {
                     State = 603; Match(IDENTIFIER);
                     State = 605;
                     ErrorHandler.Sync(this);
-                    switch (Interpreter.AdaptivePredict(TokenStream, 60, Context))
-                    {
-                        case 1:
-                        {
+                    switch (Interpreter.AdaptivePredict(TokenStream, 60, Context)) {
+                        case 1: {
                             State = 604; typeArguments();
                         }
                         break;
@@ -4171,20 +3840,16 @@ namespace LINVAST.Imperative.Builders.Java
                     State = 614;
                     ErrorHandler.Sync(this);
                     _alt = Interpreter.AdaptivePredict(TokenStream, 62, Context);
-                    while (_alt != 2 && _alt != global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER)
-                    {
-                        if (_alt == 1)
-                        {
+                    while (_alt != 2 && _alt != global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER) {
+                        if (_alt == 1) {
                             {
                                 {
                                     State = 607; Match(DOT);
                                     State = 608; Match(IDENTIFIER);
                                     State = 610;
                                     ErrorHandler.Sync(this);
-                                    switch (Interpreter.AdaptivePredict(TokenStream, 61, Context))
-                                    {
-                                        case 1:
-                                        {
+                                    switch (Interpreter.AdaptivePredict(TokenStream, 61, Context)) {
+                                        case 1: {
                                             State = 609; typeArguments();
                                         }
                                         break;
@@ -4197,15 +3862,11 @@ namespace LINVAST.Imperative.Builders.Java
                         _alt = Interpreter.AdaptivePredict(TokenStream, 62, Context);
                     }
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -4263,26 +3924,21 @@ namespace LINVAST.Imperative.Builders.Java
             TypeArgumentContext _localctx = new TypeArgumentContext(Context, State);
             EnterRule(_localctx, 80, RULE_typeArgument);
             int _la;
-            try
-            {
+            try {
                 State = 629;
                 ErrorHandler.Sync(this);
-                switch (Interpreter.AdaptivePredict(TokenStream, 65, Context))
-                {
+                switch (Interpreter.AdaptivePredict(TokenStream, 65, Context)) {
                     case 1:
-                        EnterOuterAlt(_localctx, 1);
-                        {
+                        EnterOuterAlt(_localctx, 1); {
                             State = 617; typeType();
                         }
                         break;
                     case 2:
-                        EnterOuterAlt(_localctx, 2);
-                        {
+                        EnterOuterAlt(_localctx, 2); {
                             State = 621;
                             ErrorHandler.Sync(this);
                             _la = TokenStream.LA(1);
-                            while (_la == AT || _la == IDENTIFIER)
-                            {
+                            while (_la == AT || _la == IDENTIFIER) {
                                 {
                                     {
                                         State = 618; annotation();
@@ -4296,17 +3952,13 @@ namespace LINVAST.Imperative.Builders.Java
                             State = 627;
                             ErrorHandler.Sync(this);
                             _la = TokenStream.LA(1);
-                            if (_la == EXTENDS || _la == SUPER)
-                            {
+                            if (_la == EXTENDS || _la == SUPER) {
                                 {
                                     State = 625;
                                     _la = TokenStream.LA(1);
-                                    if (!(_la == EXTENDS || _la == SUPER))
-                                    {
+                                    if (!(_la == EXTENDS || _la == SUPER)) {
                                         ErrorHandler.RecoverInline(this);
-                                    }
-                                    else
-                                    {
+                                    } else {
                                         ErrorHandler.ReportMatch(this);
                                         Consume();
                                     }
@@ -4317,15 +3969,11 @@ namespace LINVAST.Imperative.Builders.Java
                         }
                         break;
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -4381,16 +4029,14 @@ namespace LINVAST.Imperative.Builders.Java
             QualifiedNameListContext _localctx = new QualifiedNameListContext(Context, State);
             EnterRule(_localctx, 82, RULE_qualifiedNameList);
             int _la;
-            try
-            {
+            try {
                 EnterOuterAlt(_localctx, 1);
                 {
                     State = 631; qualifiedName();
                     State = 636;
                     ErrorHandler.Sync(this);
                     _la = TokenStream.LA(1);
-                    while (_la == COMMA)
-                    {
+                    while (_la == COMMA) {
                         {
                             {
                                 State = 632; Match(COMMA);
@@ -4402,15 +4048,11 @@ namespace LINVAST.Imperative.Builders.Java
                         _la = TokenStream.LA(1);
                     }
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -4457,16 +4099,14 @@ namespace LINVAST.Imperative.Builders.Java
             FormalParametersContext _localctx = new FormalParametersContext(Context, State);
             EnterRule(_localctx, 84, RULE_formalParameters);
             int _la;
-            try
-            {
+            try {
                 EnterOuterAlt(_localctx, 1);
                 {
                     State = 639; Match(LPAREN);
                     State = 641;
                     ErrorHandler.Sync(this);
                     _la = TokenStream.LA(1);
-                    if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << BOOLEAN) | (1L << BYTE) | (1L << CHAR) | (1L << DOUBLE) | (1L << FINAL) | (1L << FLOAT) | (1L << INT) | (1L << LONG) | (1L << SHORT))) != 0) || _la == AT || _la == IDENTIFIER)
-                    {
+                    if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << BOOLEAN) | (1L << BYTE) | (1L << CHAR) | (1L << DOUBLE) | (1L << FINAL) | (1L << FLOAT) | (1L << INT) | (1L << LONG) | (1L << SHORT))) != 0) || _la == AT || _la == IDENTIFIER) {
                         {
                             State = 640; formalParameterList();
                         }
@@ -4474,15 +4114,11 @@ namespace LINVAST.Imperative.Builders.Java
 
                     State = 643; Match(RPAREN);
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -4543,24 +4179,19 @@ namespace LINVAST.Imperative.Builders.Java
             FormalParameterListContext _localctx = new FormalParameterListContext(Context, State);
             EnterRule(_localctx, 86, RULE_formalParameterList);
             int _la;
-            try
-            {
+            try {
                 int _alt;
                 State = 658;
                 ErrorHandler.Sync(this);
-                switch (Interpreter.AdaptivePredict(TokenStream, 70, Context))
-                {
+                switch (Interpreter.AdaptivePredict(TokenStream, 70, Context)) {
                     case 1:
-                        EnterOuterAlt(_localctx, 1);
-                        {
+                        EnterOuterAlt(_localctx, 1); {
                             State = 645; formalParameter();
                             State = 650;
                             ErrorHandler.Sync(this);
                             _alt = Interpreter.AdaptivePredict(TokenStream, 68, Context);
-                            while (_alt != 2 && _alt != global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER)
-                            {
-                                if (_alt == 1)
-                                {
+                            while (_alt != 2 && _alt != global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER) {
+                                if (_alt == 1) {
                                     {
                                         {
                                             State = 646; Match(COMMA);
@@ -4575,8 +4206,7 @@ namespace LINVAST.Imperative.Builders.Java
                             State = 655;
                             ErrorHandler.Sync(this);
                             _la = TokenStream.LA(1);
-                            if (_la == COMMA)
-                            {
+                            if (_la == COMMA) {
                                 {
                                     State = 653; Match(COMMA);
                                     State = 654; lastFormalParameter();
@@ -4586,21 +4216,16 @@ namespace LINVAST.Imperative.Builders.Java
                         }
                         break;
                     case 2:
-                        EnterOuterAlt(_localctx, 2);
-                        {
+                        EnterOuterAlt(_localctx, 2); {
                             State = 657; lastFormalParameter();
                         }
                         break;
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -4659,18 +4284,15 @@ namespace LINVAST.Imperative.Builders.Java
         {
             FormalParameterContext _localctx = new FormalParameterContext(Context, State);
             EnterRule(_localctx, 88, RULE_formalParameter);
-            try
-            {
+            try {
                 int _alt;
                 EnterOuterAlt(_localctx, 1);
                 {
                     State = 663;
                     ErrorHandler.Sync(this);
                     _alt = Interpreter.AdaptivePredict(TokenStream, 71, Context);
-                    while (_alt != 2 && _alt != global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER)
-                    {
-                        if (_alt == 1)
-                        {
+                    while (_alt != 2 && _alt != global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER) {
+                        if (_alt == 1) {
                             {
                                 {
                                     State = 660; variableModifier();
@@ -4684,15 +4306,11 @@ namespace LINVAST.Imperative.Builders.Java
                     State = 666; typeType();
                     State = 667; variableDeclaratorId();
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -4763,18 +4381,15 @@ namespace LINVAST.Imperative.Builders.Java
             LastFormalParameterContext _localctx = new LastFormalParameterContext(Context, State);
             EnterRule(_localctx, 90, RULE_lastFormalParameter);
             int _la;
-            try
-            {
+            try {
                 int _alt;
                 EnterOuterAlt(_localctx, 1);
                 {
                     State = 672;
                     ErrorHandler.Sync(this);
                     _alt = Interpreter.AdaptivePredict(TokenStream, 72, Context);
-                    while (_alt != 2 && _alt != global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER)
-                    {
-                        if (_alt == 1)
-                        {
+                    while (_alt != 2 && _alt != global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER) {
+                        if (_alt == 1) {
                             {
                                 {
                                     State = 669; variableModifier();
@@ -4789,8 +4404,7 @@ namespace LINVAST.Imperative.Builders.Java
                     State = 679;
                     ErrorHandler.Sync(this);
                     _la = TokenStream.LA(1);
-                    while (_la == AT || _la == IDENTIFIER)
-                    {
+                    while (_la == AT || _la == IDENTIFIER) {
                         {
                             {
                                 State = 676; annotation();
@@ -4803,15 +4417,11 @@ namespace LINVAST.Imperative.Builders.Java
                     State = 682; Match(ELLIPSIS);
                     State = 683; variableDeclaratorId();
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -4862,8 +4472,7 @@ namespace LINVAST.Imperative.Builders.Java
         {
             QualifiedNameContext _localctx = new QualifiedNameContext(Context, State);
             EnterRule(_localctx, 92, RULE_qualifiedName);
-            try
-            {
+            try {
                 int _alt;
                 EnterOuterAlt(_localctx, 1);
                 {
@@ -4871,10 +4480,8 @@ namespace LINVAST.Imperative.Builders.Java
                     State = 690;
                     ErrorHandler.Sync(this);
                     _alt = Interpreter.AdaptivePredict(TokenStream, 74, Context);
-                    while (_alt != 2 && _alt != global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER)
-                    {
-                        if (_alt == 1)
-                        {
+                    while (_alt != 2 && _alt != global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER) {
+                        if (_alt == 1) {
                             {
                                 {
                                     State = 686; Match(DOT);
@@ -4887,15 +4494,11 @@ namespace LINVAST.Imperative.Builders.Java
                         _alt = Interpreter.AdaptivePredict(TokenStream, 74, Context);
                     }
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -4948,64 +4551,52 @@ namespace LINVAST.Imperative.Builders.Java
         {
             LiteralContext _localctx = new LiteralContext(Context, State);
             EnterRule(_localctx, 94, RULE_literal);
-            try
-            {
+            try {
                 State = 699;
                 ErrorHandler.Sync(this);
-                switch (TokenStream.LA(1))
-                {
+                switch (TokenStream.LA(1)) {
                     case DECIMAL_LITERAL:
                     case HEX_LITERAL:
                     case OCT_LITERAL:
                     case BINARY_LITERAL:
-                        EnterOuterAlt(_localctx, 1);
-                        {
+                        EnterOuterAlt(_localctx, 1); {
                             State = 693; integerLiteral();
                         }
                         break;
                     case FLOAT_LITERAL:
                     case HEX_FLOAT_LITERAL:
-                        EnterOuterAlt(_localctx, 2);
-                        {
+                        EnterOuterAlt(_localctx, 2); {
                             State = 694; floatLiteral();
                         }
                         break;
                     case CHAR_LITERAL:
-                        EnterOuterAlt(_localctx, 3);
-                        {
+                        EnterOuterAlt(_localctx, 3); {
                             State = 695; Match(CHAR_LITERAL);
                         }
                         break;
                     case STRING_LITERAL:
-                        EnterOuterAlt(_localctx, 4);
-                        {
+                        EnterOuterAlt(_localctx, 4); {
                             State = 696; Match(STRING_LITERAL);
                         }
                         break;
                     case BOOL_LITERAL:
-                        EnterOuterAlt(_localctx, 5);
-                        {
+                        EnterOuterAlt(_localctx, 5); {
                             State = 697; Match(BOOL_LITERAL);
                         }
                         break;
                     case NULL_LITERAL:
-                        EnterOuterAlt(_localctx, 6);
-                        {
+                        EnterOuterAlt(_localctx, 6); {
                             State = 698; Match(NULL_LITERAL);
                         }
                         break;
                     default:
                         throw new NoViableAltException(this);
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -5049,31 +4640,23 @@ namespace LINVAST.Imperative.Builders.Java
             IntegerLiteralContext _localctx = new IntegerLiteralContext(Context, State);
             EnterRule(_localctx, 96, RULE_integerLiteral);
             int _la;
-            try
-            {
+            try {
                 EnterOuterAlt(_localctx, 1);
                 {
                     State = 701;
                     _la = TokenStream.LA(1);
-                    if (!((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << DECIMAL_LITERAL) | (1L << HEX_LITERAL) | (1L << OCT_LITERAL) | (1L << BINARY_LITERAL))) != 0)))
-                    {
+                    if (!((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << DECIMAL_LITERAL) | (1L << HEX_LITERAL) | (1L << OCT_LITERAL) | (1L << BINARY_LITERAL))) != 0))) {
                         ErrorHandler.RecoverInline(this);
-                    }
-                    else
-                    {
+                    } else {
                         ErrorHandler.ReportMatch(this);
                         Consume();
                     }
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -5115,31 +4698,23 @@ namespace LINVAST.Imperative.Builders.Java
             FloatLiteralContext _localctx = new FloatLiteralContext(Context, State);
             EnterRule(_localctx, 98, RULE_floatLiteral);
             int _la;
-            try
-            {
+            try {
                 EnterOuterAlt(_localctx, 1);
                 {
                     State = 703;
                     _la = TokenStream.LA(1);
-                    if (!(_la == FLOAT_LITERAL || _la == HEX_FLOAT_LITERAL))
-                    {
+                    if (!(_la == FLOAT_LITERAL || _la == HEX_FLOAT_LITERAL)) {
                         ErrorHandler.RecoverInline(this);
-                    }
-                    else
-                    {
+                    } else {
                         ErrorHandler.ReportMatch(this);
                         Consume();
                     }
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -5192,15 +4767,13 @@ namespace LINVAST.Imperative.Builders.Java
             AltAnnotationQualifiedNameContext _localctx = new AltAnnotationQualifiedNameContext(Context, State);
             EnterRule(_localctx, 100, RULE_altAnnotationQualifiedName);
             int _la;
-            try
-            {
+            try {
                 EnterOuterAlt(_localctx, 1);
                 {
                     State = 709;
                     ErrorHandler.Sync(this);
                     _la = TokenStream.LA(1);
-                    while (_la == IDENTIFIER)
-                    {
+                    while (_la == IDENTIFIER) {
                         {
                             {
                                 State = 705; Match(IDENTIFIER);
@@ -5214,15 +4787,11 @@ namespace LINVAST.Imperative.Builders.Java
                     State = 712; Match(AT);
                     State = 713; Match(IDENTIFIER);
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -5285,22 +4854,18 @@ namespace LINVAST.Imperative.Builders.Java
             AnnotationContext _localctx = new AnnotationContext(Context, State);
             EnterRule(_localctx, 102, RULE_annotation);
             int _la;
-            try
-            {
+            try {
                 EnterOuterAlt(_localctx, 1);
                 {
                     State = 718;
                     ErrorHandler.Sync(this);
-                    switch (Interpreter.AdaptivePredict(TokenStream, 77, Context))
-                    {
-                        case 1:
-                        {
+                    switch (Interpreter.AdaptivePredict(TokenStream, 77, Context)) {
+                        case 1: {
                             State = 715; Match(AT);
                             State = 716; qualifiedName();
                         }
                         break;
-                        case 2:
-                        {
+                        case 2: {
                             State = 717; altAnnotationQualifiedName();
                         }
                         break;
@@ -5308,21 +4873,17 @@ namespace LINVAST.Imperative.Builders.Java
                     State = 726;
                     ErrorHandler.Sync(this);
                     _la = TokenStream.LA(1);
-                    if (_la == LPAREN)
-                    {
+                    if (_la == LPAREN) {
                         {
                             State = 720; Match(LPAREN);
                             State = 723;
                             ErrorHandler.Sync(this);
-                            switch (Interpreter.AdaptivePredict(TokenStream, 78, Context))
-                            {
-                                case 1:
-                                {
+                            switch (Interpreter.AdaptivePredict(TokenStream, 78, Context)) {
+                                case 1: {
                                     State = 721; elementValuePairs();
                                 }
                                 break;
-                                case 2:
-                                {
+                                case 2: {
                                     State = 722; elementValue();
                                 }
                                 break;
@@ -5332,15 +4893,11 @@ namespace LINVAST.Imperative.Builders.Java
                     }
 
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -5396,16 +4953,14 @@ namespace LINVAST.Imperative.Builders.Java
             ElementValuePairsContext _localctx = new ElementValuePairsContext(Context, State);
             EnterRule(_localctx, 104, RULE_elementValuePairs);
             int _la;
-            try
-            {
+            try {
                 EnterOuterAlt(_localctx, 1);
                 {
                     State = 728; elementValuePair();
                     State = 733;
                     ErrorHandler.Sync(this);
                     _la = TokenStream.LA(1);
-                    while (_la == COMMA)
-                    {
+                    while (_la == COMMA) {
                         {
                             {
                                 State = 729; Match(COMMA);
@@ -5417,15 +4972,11 @@ namespace LINVAST.Imperative.Builders.Java
                         _la = TokenStream.LA(1);
                     }
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -5471,23 +5022,18 @@ namespace LINVAST.Imperative.Builders.Java
         {
             ElementValuePairContext _localctx = new ElementValuePairContext(Context, State);
             EnterRule(_localctx, 106, RULE_elementValuePair);
-            try
-            {
+            try {
                 EnterOuterAlt(_localctx, 1);
                 {
                     State = 736; Match(IDENTIFIER);
                     State = 737; Match(ASSIGN);
                     State = 738; elementValue();
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -5541,40 +5087,31 @@ namespace LINVAST.Imperative.Builders.Java
         {
             ElementValueContext _localctx = new ElementValueContext(Context, State);
             EnterRule(_localctx, 108, RULE_elementValue);
-            try
-            {
+            try {
                 State = 743;
                 ErrorHandler.Sync(this);
-                switch (Interpreter.AdaptivePredict(TokenStream, 81, Context))
-                {
+                switch (Interpreter.AdaptivePredict(TokenStream, 81, Context)) {
                     case 1:
-                        EnterOuterAlt(_localctx, 1);
-                        {
+                        EnterOuterAlt(_localctx, 1); {
                             State = 740; expression(0);
                         }
                         break;
                     case 2:
-                        EnterOuterAlt(_localctx, 2);
-                        {
+                        EnterOuterAlt(_localctx, 2); {
                             State = 741; annotation();
                         }
                         break;
                     case 3:
-                        EnterOuterAlt(_localctx, 3);
-                        {
+                        EnterOuterAlt(_localctx, 3); {
                             State = 742; elementValueArrayInitializer();
                         }
                         break;
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -5632,8 +5169,7 @@ namespace LINVAST.Imperative.Builders.Java
             ElementValueArrayInitializerContext _localctx = new ElementValueArrayInitializerContext(Context, State);
             EnterRule(_localctx, 110, RULE_elementValueArrayInitializer);
             int _la;
-            try
-            {
+            try {
                 int _alt;
                 EnterOuterAlt(_localctx, 1);
                 {
@@ -5641,17 +5177,14 @@ namespace LINVAST.Imperative.Builders.Java
                     State = 754;
                     ErrorHandler.Sync(this);
                     _la = TokenStream.LA(1);
-                    if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << BOOLEAN) | (1L << BYTE) | (1L << CHAR) | (1L << DOUBLE) | (1L << FLOAT) | (1L << INT) | (1L << LONG) | (1L << NEW) | (1L << SHORT) | (1L << SUPER) | (1L << THIS) | (1L << VOID) | (1L << DECIMAL_LITERAL) | (1L << HEX_LITERAL) | (1L << OCT_LITERAL) | (1L << BINARY_LITERAL) | (1L << FLOAT_LITERAL) | (1L << HEX_FLOAT_LITERAL) | (1L << BOOL_LITERAL) | (1L << CHAR_LITERAL) | (1L << STRING_LITERAL) | (1L << NULL_LITERAL) | (1L << LPAREN) | (1L << LBRACE))) != 0) || ((((_la - 72)) & ~0x3f) == 0 && ((1L << (_la - 72)) & ((1L << (LT - 72)) | (1L << (BANG - 72)) | (1L << (TILDE - 72)) | (1L << (INC - 72)) | (1L << (DEC - 72)) | (1L << (ADD - 72)) | (1L << (SUB - 72)) | (1L << (AT - 72)) | (1L << (IDENTIFIER - 72)))) != 0))
-                    {
+                    if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << BOOLEAN) | (1L << BYTE) | (1L << CHAR) | (1L << DOUBLE) | (1L << FLOAT) | (1L << INT) | (1L << LONG) | (1L << NEW) | (1L << SHORT) | (1L << SUPER) | (1L << THIS) | (1L << VOID) | (1L << DECIMAL_LITERAL) | (1L << HEX_LITERAL) | (1L << OCT_LITERAL) | (1L << BINARY_LITERAL) | (1L << FLOAT_LITERAL) | (1L << HEX_FLOAT_LITERAL) | (1L << BOOL_LITERAL) | (1L << CHAR_LITERAL) | (1L << STRING_LITERAL) | (1L << NULL_LITERAL) | (1L << LPAREN) | (1L << LBRACE))) != 0) || ((((_la - 72)) & ~0x3f) == 0 && ((1L << (_la - 72)) & ((1L << (LT - 72)) | (1L << (BANG - 72)) | (1L << (TILDE - 72)) | (1L << (INC - 72)) | (1L << (DEC - 72)) | (1L << (ADD - 72)) | (1L << (SUB - 72)) | (1L << (AT - 72)) | (1L << (IDENTIFIER - 72)))) != 0)) {
                         {
                             State = 746; elementValue();
                             State = 751;
                             ErrorHandler.Sync(this);
                             _alt = Interpreter.AdaptivePredict(TokenStream, 82, Context);
-                            while (_alt != 2 && _alt != global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER)
-                            {
-                                if (_alt == 1)
-                                {
+                            while (_alt != 2 && _alt != global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER) {
+                                if (_alt == 1) {
                                     {
                                         {
                                             State = 747; Match(COMMA);
@@ -5669,8 +5202,7 @@ namespace LINVAST.Imperative.Builders.Java
                     State = 757;
                     ErrorHandler.Sync(this);
                     _la = TokenStream.LA(1);
-                    if (_la == COMMA)
-                    {
+                    if (_la == COMMA) {
                         {
                             State = 756; Match(COMMA);
                         }
@@ -5678,15 +5210,11 @@ namespace LINVAST.Imperative.Builders.Java
 
                     State = 759; Match(RBRACE);
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -5733,8 +5261,7 @@ namespace LINVAST.Imperative.Builders.Java
         {
             AnnotationTypeDeclarationContext _localctx = new AnnotationTypeDeclarationContext(Context, State);
             EnterRule(_localctx, 112, RULE_annotationTypeDeclaration);
-            try
-            {
+            try {
                 EnterOuterAlt(_localctx, 1);
                 {
                     State = 761; Match(AT);
@@ -5742,15 +5269,11 @@ namespace LINVAST.Imperative.Builders.Java
                     State = 763; Match(IDENTIFIER);
                     State = 764; annotationTypeBody();
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -5802,16 +5325,14 @@ namespace LINVAST.Imperative.Builders.Java
             AnnotationTypeBodyContext _localctx = new AnnotationTypeBodyContext(Context, State);
             EnterRule(_localctx, 114, RULE_annotationTypeBody);
             int _la;
-            try
-            {
+            try {
                 EnterOuterAlt(_localctx, 1);
                 {
                     State = 766; Match(LBRACE);
                     State = 770;
                     ErrorHandler.Sync(this);
                     _la = TokenStream.LA(1);
-                    while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << ABSTRACT) | (1L << BOOLEAN) | (1L << BYTE) | (1L << CHAR) | (1L << CLASS) | (1L << DOUBLE) | (1L << ENUM) | (1L << FINAL) | (1L << FLOAT) | (1L << INT) | (1L << INTERFACE) | (1L << LONG) | (1L << NATIVE) | (1L << PRIVATE) | (1L << PROTECTED) | (1L << PUBLIC) | (1L << SHORT) | (1L << STATIC) | (1L << STRICTFP) | (1L << SYNCHRONIZED) | (1L << TRANSIENT) | (1L << VOLATILE))) != 0) || ((((_la - 67)) & ~0x3f) == 0 && ((1L << (_la - 67)) & ((1L << (SEMI - 67)) | (1L << (AT - 67)) | (1L << (IDENTIFIER - 67)))) != 0))
-                    {
+                    while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << ABSTRACT) | (1L << BOOLEAN) | (1L << BYTE) | (1L << CHAR) | (1L << CLASS) | (1L << DOUBLE) | (1L << ENUM) | (1L << FINAL) | (1L << FLOAT) | (1L << INT) | (1L << INTERFACE) | (1L << LONG) | (1L << NATIVE) | (1L << PRIVATE) | (1L << PROTECTED) | (1L << PUBLIC) | (1L << SHORT) | (1L << STATIC) | (1L << STRICTFP) | (1L << SYNCHRONIZED) | (1L << TRANSIENT) | (1L << VOLATILE))) != 0) || ((((_la - 67)) & ~0x3f) == 0 && ((1L << (_la - 67)) & ((1L << (SEMI - 67)) | (1L << (AT - 67)) | (1L << (IDENTIFIER - 67)))) != 0)) {
                         {
                             {
                                 State = 767; annotationTypeElementDeclaration();
@@ -5823,15 +5344,11 @@ namespace LINVAST.Imperative.Builders.Java
                     }
                     State = 773; Match(RBRACE);
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -5886,13 +5403,11 @@ namespace LINVAST.Imperative.Builders.Java
         {
             AnnotationTypeElementDeclarationContext _localctx = new AnnotationTypeElementDeclarationContext(Context, State);
             EnterRule(_localctx, 116, RULE_annotationTypeElementDeclaration);
-            try
-            {
+            try {
                 int _alt;
                 State = 783;
                 ErrorHandler.Sync(this);
-                switch (TokenStream.LA(1))
-                {
+                switch (TokenStream.LA(1)) {
                     case ABSTRACT:
                     case BOOLEAN:
                     case BYTE:
@@ -5917,15 +5432,12 @@ namespace LINVAST.Imperative.Builders.Java
                     case VOLATILE:
                     case AT:
                     case IDENTIFIER:
-                        EnterOuterAlt(_localctx, 1);
-                        {
+                        EnterOuterAlt(_localctx, 1); {
                             State = 778;
                             ErrorHandler.Sync(this);
                             _alt = Interpreter.AdaptivePredict(TokenStream, 86, Context);
-                            while (_alt != 2 && _alt != global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER)
-                            {
-                                if (_alt == 1)
-                                {
+                            while (_alt != 2 && _alt != global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER) {
+                                if (_alt == 1) {
                                     {
                                         {
                                             State = 775; modifier();
@@ -5940,23 +5452,18 @@ namespace LINVAST.Imperative.Builders.Java
                         }
                         break;
                     case SEMI:
-                        EnterOuterAlt(_localctx, 2);
-                        {
+                        EnterOuterAlt(_localctx, 2); {
                             State = 782; Match(SEMI);
                         }
                         break;
                     default:
                         throw new NoViableAltException(this);
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -6026,30 +5533,24 @@ namespace LINVAST.Imperative.Builders.Java
         {
             AnnotationTypeElementRestContext _localctx = new AnnotationTypeElementRestContext(Context, State);
             EnterRule(_localctx, 118, RULE_annotationTypeElementRest);
-            try
-            {
+            try {
                 State = 805;
                 ErrorHandler.Sync(this);
-                switch (Interpreter.AdaptivePredict(TokenStream, 92, Context))
-                {
+                switch (Interpreter.AdaptivePredict(TokenStream, 92, Context)) {
                     case 1:
-                        EnterOuterAlt(_localctx, 1);
-                        {
+                        EnterOuterAlt(_localctx, 1); {
                             State = 785; typeType();
                             State = 786; annotationMethodOrConstantRest();
                             State = 787; Match(SEMI);
                         }
                         break;
                     case 2:
-                        EnterOuterAlt(_localctx, 2);
-                        {
+                        EnterOuterAlt(_localctx, 2); {
                             State = 789; classDeclaration();
                             State = 791;
                             ErrorHandler.Sync(this);
-                            switch (Interpreter.AdaptivePredict(TokenStream, 88, Context))
-                            {
-                                case 1:
-                                {
+                            switch (Interpreter.AdaptivePredict(TokenStream, 88, Context)) {
+                                case 1: {
                                     State = 790; Match(SEMI);
                                 }
                                 break;
@@ -6057,15 +5558,12 @@ namespace LINVAST.Imperative.Builders.Java
                         }
                         break;
                     case 3:
-                        EnterOuterAlt(_localctx, 3);
-                        {
+                        EnterOuterAlt(_localctx, 3); {
                             State = 793; interfaceDeclaration();
                             State = 795;
                             ErrorHandler.Sync(this);
-                            switch (Interpreter.AdaptivePredict(TokenStream, 89, Context))
-                            {
-                                case 1:
-                                {
+                            switch (Interpreter.AdaptivePredict(TokenStream, 89, Context)) {
+                                case 1: {
                                     State = 794; Match(SEMI);
                                 }
                                 break;
@@ -6073,15 +5571,12 @@ namespace LINVAST.Imperative.Builders.Java
                         }
                         break;
                     case 4:
-                        EnterOuterAlt(_localctx, 4);
-                        {
+                        EnterOuterAlt(_localctx, 4); {
                             State = 797; enumDeclaration();
                             State = 799;
                             ErrorHandler.Sync(this);
-                            switch (Interpreter.AdaptivePredict(TokenStream, 90, Context))
-                            {
-                                case 1:
-                                {
+                            switch (Interpreter.AdaptivePredict(TokenStream, 90, Context)) {
+                                case 1: {
                                     State = 798; Match(SEMI);
                                 }
                                 break;
@@ -6089,15 +5584,12 @@ namespace LINVAST.Imperative.Builders.Java
                         }
                         break;
                     case 5:
-                        EnterOuterAlt(_localctx, 5);
-                        {
+                        EnterOuterAlt(_localctx, 5); {
                             State = 801; annotationTypeDeclaration();
                             State = 803;
                             ErrorHandler.Sync(this);
-                            switch (Interpreter.AdaptivePredict(TokenStream, 91, Context))
-                            {
-                                case 1:
-                                {
+                            switch (Interpreter.AdaptivePredict(TokenStream, 91, Context)) {
+                                case 1: {
                                     State = 802; Match(SEMI);
                                 }
                                 break;
@@ -6105,15 +5597,11 @@ namespace LINVAST.Imperative.Builders.Java
                         }
                         break;
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -6162,34 +5650,26 @@ namespace LINVAST.Imperative.Builders.Java
         {
             AnnotationMethodOrConstantRestContext _localctx = new AnnotationMethodOrConstantRestContext(Context, State);
             EnterRule(_localctx, 120, RULE_annotationMethodOrConstantRest);
-            try
-            {
+            try {
                 State = 809;
                 ErrorHandler.Sync(this);
-                switch (Interpreter.AdaptivePredict(TokenStream, 93, Context))
-                {
+                switch (Interpreter.AdaptivePredict(TokenStream, 93, Context)) {
                     case 1:
-                        EnterOuterAlt(_localctx, 1);
-                        {
+                        EnterOuterAlt(_localctx, 1); {
                             State = 807; annotationMethodRest();
                         }
                         break;
                     case 2:
-                        EnterOuterAlt(_localctx, 2);
-                        {
+                        EnterOuterAlt(_localctx, 2); {
                             State = 808; annotationConstantRest();
                         }
                         break;
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -6237,8 +5717,7 @@ namespace LINVAST.Imperative.Builders.Java
             AnnotationMethodRestContext _localctx = new AnnotationMethodRestContext(Context, State);
             EnterRule(_localctx, 122, RULE_annotationMethodRest);
             int _la;
-            try
-            {
+            try {
                 EnterOuterAlt(_localctx, 1);
                 {
                     State = 811; Match(IDENTIFIER);
@@ -6247,23 +5726,18 @@ namespace LINVAST.Imperative.Builders.Java
                     State = 815;
                     ErrorHandler.Sync(this);
                     _la = TokenStream.LA(1);
-                    if (_la == DEFAULT)
-                    {
+                    if (_la == DEFAULT) {
                         {
                             State = 814; defaultValue();
                         }
                     }
 
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -6307,21 +5781,16 @@ namespace LINVAST.Imperative.Builders.Java
         {
             AnnotationConstantRestContext _localctx = new AnnotationConstantRestContext(Context, State);
             EnterRule(_localctx, 124, RULE_annotationConstantRest);
-            try
-            {
+            try {
                 EnterOuterAlt(_localctx, 1);
                 {
                     State = 817; variableDeclarators();
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -6366,22 +5835,17 @@ namespace LINVAST.Imperative.Builders.Java
         {
             DefaultValueContext _localctx = new DefaultValueContext(Context, State);
             EnterRule(_localctx, 126, RULE_defaultValue);
-            try
-            {
+            try {
                 EnterOuterAlt(_localctx, 1);
                 {
                     State = 819; Match(DEFAULT);
                     State = 820; elementValue();
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -6433,16 +5897,14 @@ namespace LINVAST.Imperative.Builders.Java
             BlockContext _localctx = new BlockContext(Context, State);
             EnterRule(_localctx, 128, RULE_block);
             int _la;
-            try
-            {
+            try {
                 EnterOuterAlt(_localctx, 1);
                 {
                     State = 822; Match(LBRACE);
                     State = 826;
                     ErrorHandler.Sync(this);
                     _la = TokenStream.LA(1);
-                    while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << ABSTRACT) | (1L << ASSERT) | (1L << BOOLEAN) | (1L << BREAK) | (1L << BYTE) | (1L << CHAR) | (1L << CLASS) | (1L << CONTINUE) | (1L << DO) | (1L << DOUBLE) | (1L << FINAL) | (1L << FLOAT) | (1L << FOR) | (1L << IF) | (1L << INT) | (1L << INTERFACE) | (1L << LONG) | (1L << NEW) | (1L << PRIVATE) | (1L << PROTECTED) | (1L << PUBLIC) | (1L << RETURN) | (1L << SHORT) | (1L << STATIC) | (1L << STRICTFP) | (1L << SUPER) | (1L << SWITCH) | (1L << SYNCHRONIZED) | (1L << THIS) | (1L << THROW) | (1L << TRY) | (1L << VOID) | (1L << WHILE) | (1L << DECIMAL_LITERAL) | (1L << HEX_LITERAL) | (1L << OCT_LITERAL) | (1L << BINARY_LITERAL) | (1L << FLOAT_LITERAL) | (1L << HEX_FLOAT_LITERAL) | (1L << BOOL_LITERAL) | (1L << CHAR_LITERAL) | (1L << STRING_LITERAL) | (1L << NULL_LITERAL) | (1L << LPAREN) | (1L << LBRACE))) != 0) || ((((_la - 67)) & ~0x3f) == 0 && ((1L << (_la - 67)) & ((1L << (SEMI - 67)) | (1L << (LT - 67)) | (1L << (BANG - 67)) | (1L << (TILDE - 67)) | (1L << (INC - 67)) | (1L << (DEC - 67)) | (1L << (ADD - 67)) | (1L << (SUB - 67)) | (1L << (AT - 67)) | (1L << (IDENTIFIER - 67)))) != 0))
-                    {
+                    while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << ABSTRACT) | (1L << ASSERT) | (1L << BOOLEAN) | (1L << BREAK) | (1L << BYTE) | (1L << CHAR) | (1L << CLASS) | (1L << CONTINUE) | (1L << DO) | (1L << DOUBLE) | (1L << FINAL) | (1L << FLOAT) | (1L << FOR) | (1L << IF) | (1L << INT) | (1L << INTERFACE) | (1L << LONG) | (1L << NEW) | (1L << PRIVATE) | (1L << PROTECTED) | (1L << PUBLIC) | (1L << RETURN) | (1L << SHORT) | (1L << STATIC) | (1L << STRICTFP) | (1L << SUPER) | (1L << SWITCH) | (1L << SYNCHRONIZED) | (1L << THIS) | (1L << THROW) | (1L << TRY) | (1L << VOID) | (1L << WHILE) | (1L << DECIMAL_LITERAL) | (1L << HEX_LITERAL) | (1L << OCT_LITERAL) | (1L << BINARY_LITERAL) | (1L << FLOAT_LITERAL) | (1L << HEX_FLOAT_LITERAL) | (1L << BOOL_LITERAL) | (1L << CHAR_LITERAL) | (1L << STRING_LITERAL) | (1L << NULL_LITERAL) | (1L << LPAREN) | (1L << LBRACE))) != 0) || ((((_la - 67)) & ~0x3f) == 0 && ((1L << (_la - 67)) & ((1L << (SEMI - 67)) | (1L << (LT - 67)) | (1L << (BANG - 67)) | (1L << (TILDE - 67)) | (1L << (INC - 67)) | (1L << (DEC - 67)) | (1L << (ADD - 67)) | (1L << (SUB - 67)) | (1L << (AT - 67)) | (1L << (IDENTIFIER - 67)))) != 0)) {
                         {
                             {
                                 State = 823; blockStatement();
@@ -6454,15 +5916,11 @@ namespace LINVAST.Imperative.Builders.Java
                     }
                     State = 829; Match(RBRACE);
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -6517,41 +5975,32 @@ namespace LINVAST.Imperative.Builders.Java
         {
             BlockStatementContext _localctx = new BlockStatementContext(Context, State);
             EnterRule(_localctx, 130, RULE_blockStatement);
-            try
-            {
+            try {
                 State = 836;
                 ErrorHandler.Sync(this);
-                switch (Interpreter.AdaptivePredict(TokenStream, 96, Context))
-                {
+                switch (Interpreter.AdaptivePredict(TokenStream, 96, Context)) {
                     case 1:
-                        EnterOuterAlt(_localctx, 1);
-                        {
+                        EnterOuterAlt(_localctx, 1); {
                             State = 831; localVariableDeclaration();
                             State = 832; Match(SEMI);
                         }
                         break;
                     case 2:
-                        EnterOuterAlt(_localctx, 2);
-                        {
+                        EnterOuterAlt(_localctx, 2); {
                             State = 834; statement();
                         }
                         break;
                     case 3:
-                        EnterOuterAlt(_localctx, 3);
-                        {
+                        EnterOuterAlt(_localctx, 3); {
                             State = 835; localTypeDeclaration();
                         }
                         break;
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -6610,18 +6059,15 @@ namespace LINVAST.Imperative.Builders.Java
         {
             LocalVariableDeclarationContext _localctx = new LocalVariableDeclarationContext(Context, State);
             EnterRule(_localctx, 132, RULE_localVariableDeclaration);
-            try
-            {
+            try {
                 int _alt;
                 EnterOuterAlt(_localctx, 1);
                 {
                     State = 841;
                     ErrorHandler.Sync(this);
                     _alt = Interpreter.AdaptivePredict(TokenStream, 97, Context);
-                    while (_alt != 2 && _alt != global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER)
-                    {
-                        if (_alt == 1)
-                        {
+                    while (_alt != 2 && _alt != global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER) {
+                        if (_alt == 1) {
                             {
                                 {
                                     State = 838; variableModifier();
@@ -6635,15 +6081,11 @@ namespace LINVAST.Imperative.Builders.Java
                     State = 844; typeType();
                     State = 845; variableDeclarators();
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -6704,12 +6146,10 @@ namespace LINVAST.Imperative.Builders.Java
             LocalTypeDeclarationContext _localctx = new LocalTypeDeclarationContext(Context, State);
             EnterRule(_localctx, 134, RULE_localTypeDeclaration);
             int _la;
-            try
-            {
+            try {
                 State = 858;
                 ErrorHandler.Sync(this);
-                switch (TokenStream.LA(1))
-                {
+                switch (TokenStream.LA(1)) {
                     case ABSTRACT:
                     case CLASS:
                     case FINAL:
@@ -6721,13 +6161,11 @@ namespace LINVAST.Imperative.Builders.Java
                     case STRICTFP:
                     case AT:
                     case IDENTIFIER:
-                        EnterOuterAlt(_localctx, 1);
-                        {
+                        EnterOuterAlt(_localctx, 1); {
                             State = 850;
                             ErrorHandler.Sync(this);
                             _la = TokenStream.LA(1);
-                            while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << ABSTRACT) | (1L << FINAL) | (1L << PRIVATE) | (1L << PROTECTED) | (1L << PUBLIC) | (1L << STATIC) | (1L << STRICTFP))) != 0) || _la == AT || _la == IDENTIFIER)
-                            {
+                            while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << ABSTRACT) | (1L << FINAL) | (1L << PRIVATE) | (1L << PROTECTED) | (1L << PUBLIC) | (1L << STATIC) | (1L << STRICTFP))) != 0) || _la == AT || _la == IDENTIFIER) {
                                 {
                                     {
                                         State = 847; classOrInterfaceModifier();
@@ -6739,15 +6177,12 @@ namespace LINVAST.Imperative.Builders.Java
                             }
                             State = 855;
                             ErrorHandler.Sync(this);
-                            switch (TokenStream.LA(1))
-                            {
-                                case CLASS:
-                                {
+                            switch (TokenStream.LA(1)) {
+                                case CLASS: {
                                     State = 853; classDeclaration();
                                 }
                                 break;
-                                case INTERFACE:
-                                {
+                                case INTERFACE: {
                                     State = 854; interfaceDeclaration();
                                 }
                                 break;
@@ -6757,23 +6192,18 @@ namespace LINVAST.Imperative.Builders.Java
                         }
                         break;
                     case SEMI:
-                        EnterOuterAlt(_localctx, 2);
-                        {
+                        EnterOuterAlt(_localctx, 2); {
                             State = 857; Match(SEMI);
                         }
                         break;
                     default:
                         throw new NoViableAltException(this);
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -6911,29 +6341,24 @@ namespace LINVAST.Imperative.Builders.Java
             StatementContext _localctx = new StatementContext(Context, State);
             EnterRule(_localctx, 136, RULE_statement);
             int _la;
-            try
-            {
+            try {
                 int _alt;
                 State = 964;
                 ErrorHandler.Sync(this);
-                switch (Interpreter.AdaptivePredict(TokenStream, 113, Context))
-                {
+                switch (Interpreter.AdaptivePredict(TokenStream, 113, Context)) {
                     case 1:
-                        EnterOuterAlt(_localctx, 1);
-                        {
+                        EnterOuterAlt(_localctx, 1); {
                             State = 860; _localctx.blockLabel = block();
                         }
                         break;
                     case 2:
-                        EnterOuterAlt(_localctx, 2);
-                        {
+                        EnterOuterAlt(_localctx, 2); {
                             State = 861; Match(ASSERT);
                             State = 862; expression(0);
                             State = 865;
                             ErrorHandler.Sync(this);
                             _la = TokenStream.LA(1);
-                            if (_la == COLON)
-                            {
+                            if (_la == COLON) {
                                 {
                                     State = 863; Match(COLON);
                                     State = 864; expression(0);
@@ -6944,17 +6369,14 @@ namespace LINVAST.Imperative.Builders.Java
                         }
                         break;
                     case 3:
-                        EnterOuterAlt(_localctx, 3);
-                        {
+                        EnterOuterAlt(_localctx, 3); {
                             State = 869; Match(IF);
                             State = 870; parExpression();
                             State = 871; statement();
                             State = 874;
                             ErrorHandler.Sync(this);
-                            switch (Interpreter.AdaptivePredict(TokenStream, 102, Context))
-                            {
-                                case 1:
-                                {
+                            switch (Interpreter.AdaptivePredict(TokenStream, 102, Context)) {
+                                case 1: {
                                     State = 872; Match(ELSE);
                                     State = 873; statement();
                                 }
@@ -6963,8 +6385,7 @@ namespace LINVAST.Imperative.Builders.Java
                         }
                         break;
                     case 4:
-                        EnterOuterAlt(_localctx, 4);
-                        {
+                        EnterOuterAlt(_localctx, 4); {
                             State = 876; Match(FOR);
                             State = 877; Match(LPAREN);
                             State = 878; forControl();
@@ -6973,16 +6394,14 @@ namespace LINVAST.Imperative.Builders.Java
                         }
                         break;
                     case 5:
-                        EnterOuterAlt(_localctx, 5);
-                        {
+                        EnterOuterAlt(_localctx, 5); {
                             State = 882; Match(WHILE);
                             State = 883; parExpression();
                             State = 884; statement();
                         }
                         break;
                     case 6:
-                        EnterOuterAlt(_localctx, 6);
-                        {
+                        EnterOuterAlt(_localctx, 6); {
                             State = 886; Match(DO);
                             State = 887; statement();
                             State = 888; Match(WHILE);
@@ -6991,21 +6410,17 @@ namespace LINVAST.Imperative.Builders.Java
                         }
                         break;
                     case 7:
-                        EnterOuterAlt(_localctx, 7);
-                        {
+                        EnterOuterAlt(_localctx, 7); {
                             State = 892; Match(TRY);
                             State = 893; block();
                             State = 903;
                             ErrorHandler.Sync(this);
-                            switch (TokenStream.LA(1))
-                            {
-                                case CATCH:
-                                {
+                            switch (TokenStream.LA(1)) {
+                                case CATCH: {
                                     State = 895;
                                     ErrorHandler.Sync(this);
                                     _la = TokenStream.LA(1);
-                                    do
-                                    {
+                                    do {
                                         {
                                             {
                                                 State = 894; catchClause();
@@ -7018,8 +6433,7 @@ namespace LINVAST.Imperative.Builders.Java
                                     State = 900;
                                     ErrorHandler.Sync(this);
                                     _la = TokenStream.LA(1);
-                                    if (_la == FINALLY)
-                                    {
+                                    if (_la == FINALLY) {
                                         {
                                             State = 899; finallyBlock();
                                         }
@@ -7027,8 +6441,7 @@ namespace LINVAST.Imperative.Builders.Java
 
                                 }
                                 break;
-                                case FINALLY:
-                                {
+                                case FINALLY: {
                                     State = 902; finallyBlock();
                                 }
                                 break;
@@ -7038,16 +6451,14 @@ namespace LINVAST.Imperative.Builders.Java
                         }
                         break;
                     case 8:
-                        EnterOuterAlt(_localctx, 8);
-                        {
+                        EnterOuterAlt(_localctx, 8); {
                             State = 905; Match(TRY);
                             State = 906; resourceSpecification();
                             State = 907; block();
                             State = 911;
                             ErrorHandler.Sync(this);
                             _la = TokenStream.LA(1);
-                            while (_la == CATCH)
-                            {
+                            while (_la == CATCH) {
                                 {
                                     {
                                         State = 908; catchClause();
@@ -7060,8 +6471,7 @@ namespace LINVAST.Imperative.Builders.Java
                             State = 915;
                             ErrorHandler.Sync(this);
                             _la = TokenStream.LA(1);
-                            if (_la == FINALLY)
-                            {
+                            if (_la == FINALLY) {
                                 {
                                     State = 914; finallyBlock();
                                 }
@@ -7070,18 +6480,15 @@ namespace LINVAST.Imperative.Builders.Java
                         }
                         break;
                     case 9:
-                        EnterOuterAlt(_localctx, 9);
-                        {
+                        EnterOuterAlt(_localctx, 9); {
                             State = 917; Match(SWITCH);
                             State = 918; parExpression();
                             State = 919; Match(LBRACE);
                             State = 923;
                             ErrorHandler.Sync(this);
                             _alt = Interpreter.AdaptivePredict(TokenStream, 108, Context);
-                            while (_alt != 2 && _alt != global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER)
-                            {
-                                if (_alt == 1)
-                                {
+                            while (_alt != 2 && _alt != global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER) {
+                                if (_alt == 1) {
                                     {
                                         {
                                             State = 920; switchBlockStatementGroup();
@@ -7095,8 +6502,7 @@ namespace LINVAST.Imperative.Builders.Java
                             State = 929;
                             ErrorHandler.Sync(this);
                             _la = TokenStream.LA(1);
-                            while (_la == CASE || _la == DEFAULT)
-                            {
+                            while (_la == CASE || _la == DEFAULT) {
                                 {
                                     {
                                         State = 926; switchLabel();
@@ -7110,22 +6516,19 @@ namespace LINVAST.Imperative.Builders.Java
                         }
                         break;
                     case 10:
-                        EnterOuterAlt(_localctx, 10);
-                        {
+                        EnterOuterAlt(_localctx, 10); {
                             State = 934; Match(SYNCHRONIZED);
                             State = 935; parExpression();
                             State = 936; block();
                         }
                         break;
                     case 11:
-                        EnterOuterAlt(_localctx, 11);
-                        {
+                        EnterOuterAlt(_localctx, 11); {
                             State = 938; Match(RETURN);
                             State = 940;
                             ErrorHandler.Sync(this);
                             _la = TokenStream.LA(1);
-                            if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << BOOLEAN) | (1L << BYTE) | (1L << CHAR) | (1L << DOUBLE) | (1L << FLOAT) | (1L << INT) | (1L << LONG) | (1L << NEW) | (1L << SHORT) | (1L << SUPER) | (1L << THIS) | (1L << VOID) | (1L << DECIMAL_LITERAL) | (1L << HEX_LITERAL) | (1L << OCT_LITERAL) | (1L << BINARY_LITERAL) | (1L << FLOAT_LITERAL) | (1L << HEX_FLOAT_LITERAL) | (1L << BOOL_LITERAL) | (1L << CHAR_LITERAL) | (1L << STRING_LITERAL) | (1L << NULL_LITERAL) | (1L << LPAREN))) != 0) || ((((_la - 72)) & ~0x3f) == 0 && ((1L << (_la - 72)) & ((1L << (LT - 72)) | (1L << (BANG - 72)) | (1L << (TILDE - 72)) | (1L << (INC - 72)) | (1L << (DEC - 72)) | (1L << (ADD - 72)) | (1L << (SUB - 72)) | (1L << (AT - 72)) | (1L << (IDENTIFIER - 72)))) != 0))
-                            {
+                            if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << BOOLEAN) | (1L << BYTE) | (1L << CHAR) | (1L << DOUBLE) | (1L << FLOAT) | (1L << INT) | (1L << LONG) | (1L << NEW) | (1L << SHORT) | (1L << SUPER) | (1L << THIS) | (1L << VOID) | (1L << DECIMAL_LITERAL) | (1L << HEX_LITERAL) | (1L << OCT_LITERAL) | (1L << BINARY_LITERAL) | (1L << FLOAT_LITERAL) | (1L << HEX_FLOAT_LITERAL) | (1L << BOOL_LITERAL) | (1L << CHAR_LITERAL) | (1L << STRING_LITERAL) | (1L << NULL_LITERAL) | (1L << LPAREN))) != 0) || ((((_la - 72)) & ~0x3f) == 0 && ((1L << (_la - 72)) & ((1L << (LT - 72)) | (1L << (BANG - 72)) | (1L << (TILDE - 72)) | (1L << (INC - 72)) | (1L << (DEC - 72)) | (1L << (ADD - 72)) | (1L << (SUB - 72)) | (1L << (AT - 72)) | (1L << (IDENTIFIER - 72)))) != 0)) {
                                 {
                                     State = 939; expression(0);
                                 }
@@ -7135,22 +6538,19 @@ namespace LINVAST.Imperative.Builders.Java
                         }
                         break;
                     case 12:
-                        EnterOuterAlt(_localctx, 12);
-                        {
+                        EnterOuterAlt(_localctx, 12); {
                             State = 943; Match(THROW);
                             State = 944; expression(0);
                             State = 945; Match(SEMI);
                         }
                         break;
                     case 13:
-                        EnterOuterAlt(_localctx, 13);
-                        {
+                        EnterOuterAlt(_localctx, 13); {
                             State = 947; Match(BREAK);
                             State = 949;
                             ErrorHandler.Sync(this);
                             _la = TokenStream.LA(1);
-                            if (_la == IDENTIFIER)
-                            {
+                            if (_la == IDENTIFIER) {
                                 {
                                     State = 948; Match(IDENTIFIER);
                                 }
@@ -7160,14 +6560,12 @@ namespace LINVAST.Imperative.Builders.Java
                         }
                         break;
                     case 14:
-                        EnterOuterAlt(_localctx, 14);
-                        {
+                        EnterOuterAlt(_localctx, 14); {
                             State = 952; Match(CONTINUE);
                             State = 954;
                             ErrorHandler.Sync(this);
                             _la = TokenStream.LA(1);
-                            if (_la == IDENTIFIER)
-                            {
+                            if (_la == IDENTIFIER) {
                                 {
                                     State = 953; Match(IDENTIFIER);
                                 }
@@ -7177,36 +6575,29 @@ namespace LINVAST.Imperative.Builders.Java
                         }
                         break;
                     case 15:
-                        EnterOuterAlt(_localctx, 15);
-                        {
+                        EnterOuterAlt(_localctx, 15); {
                             State = 957; Match(SEMI);
                         }
                         break;
                     case 16:
-                        EnterOuterAlt(_localctx, 16);
-                        {
+                        EnterOuterAlt(_localctx, 16); {
                             State = 958; _localctx.statementExpression = expression(0);
                             State = 959; Match(SEMI);
                         }
                         break;
                     case 17:
-                        EnterOuterAlt(_localctx, 17);
-                        {
+                        EnterOuterAlt(_localctx, 17); {
                             State = 961; _localctx.identifierLabel = Match(IDENTIFIER);
                             State = 962; Match(COLON);
                             State = 963; statement();
                         }
                         break;
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -7269,8 +6660,7 @@ namespace LINVAST.Imperative.Builders.Java
         {
             CatchClauseContext _localctx = new CatchClauseContext(Context, State);
             EnterRule(_localctx, 138, RULE_catchClause);
-            try
-            {
+            try {
                 int _alt;
                 EnterOuterAlt(_localctx, 1);
                 {
@@ -7279,10 +6669,8 @@ namespace LINVAST.Imperative.Builders.Java
                     State = 971;
                     ErrorHandler.Sync(this);
                     _alt = Interpreter.AdaptivePredict(TokenStream, 114, Context);
-                    while (_alt != 2 && _alt != global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER)
-                    {
-                        if (_alt == 1)
-                        {
+                    while (_alt != 2 && _alt != global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER) {
+                        if (_alt == 1) {
                             {
                                 {
                                     State = 968; variableModifier();
@@ -7298,15 +6686,11 @@ namespace LINVAST.Imperative.Builders.Java
                     State = 976; Match(RPAREN);
                     State = 977; block();
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -7362,16 +6746,14 @@ namespace LINVAST.Imperative.Builders.Java
             CatchTypeContext _localctx = new CatchTypeContext(Context, State);
             EnterRule(_localctx, 140, RULE_catchType);
             int _la;
-            try
-            {
+            try {
                 EnterOuterAlt(_localctx, 1);
                 {
                     State = 979; qualifiedName();
                     State = 984;
                     ErrorHandler.Sync(this);
                     _la = TokenStream.LA(1);
-                    while (_la == BITOR)
-                    {
+                    while (_la == BITOR) {
                         {
                             {
                                 State = 980; Match(BITOR);
@@ -7383,15 +6765,11 @@ namespace LINVAST.Imperative.Builders.Java
                         _la = TokenStream.LA(1);
                     }
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -7436,22 +6814,17 @@ namespace LINVAST.Imperative.Builders.Java
         {
             FinallyBlockContext _localctx = new FinallyBlockContext(Context, State);
             EnterRule(_localctx, 142, RULE_finallyBlock);
-            try
-            {
+            try {
                 EnterOuterAlt(_localctx, 1);
                 {
                     State = 987; Match(FINALLY);
                     State = 988; block();
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -7499,8 +6872,7 @@ namespace LINVAST.Imperative.Builders.Java
             ResourceSpecificationContext _localctx = new ResourceSpecificationContext(Context, State);
             EnterRule(_localctx, 144, RULE_resourceSpecification);
             int _la;
-            try
-            {
+            try {
                 EnterOuterAlt(_localctx, 1);
                 {
                     State = 990; Match(LPAREN);
@@ -7508,8 +6880,7 @@ namespace LINVAST.Imperative.Builders.Java
                     State = 993;
                     ErrorHandler.Sync(this);
                     _la = TokenStream.LA(1);
-                    if (_la == SEMI)
-                    {
+                    if (_la == SEMI) {
                         {
                             State = 992; Match(SEMI);
                         }
@@ -7517,15 +6888,11 @@ namespace LINVAST.Imperative.Builders.Java
 
                     State = 995; Match(RPAREN);
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -7580,8 +6947,7 @@ namespace LINVAST.Imperative.Builders.Java
         {
             ResourcesContext _localctx = new ResourcesContext(Context, State);
             EnterRule(_localctx, 146, RULE_resources);
-            try
-            {
+            try {
                 int _alt;
                 EnterOuterAlt(_localctx, 1);
                 {
@@ -7589,10 +6955,8 @@ namespace LINVAST.Imperative.Builders.Java
                     State = 1002;
                     ErrorHandler.Sync(this);
                     _alt = Interpreter.AdaptivePredict(TokenStream, 117, Context);
-                    while (_alt != 2 && _alt != global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER)
-                    {
-                        if (_alt == 1)
-                        {
+                    while (_alt != 2 && _alt != global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER) {
+                        if (_alt == 1) {
                             {
                                 {
                                     State = 998; Match(SEMI);
@@ -7605,15 +6969,11 @@ namespace LINVAST.Imperative.Builders.Java
                         _alt = Interpreter.AdaptivePredict(TokenStream, 117, Context);
                     }
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -7678,18 +7038,15 @@ namespace LINVAST.Imperative.Builders.Java
         {
             ResourceContext _localctx = new ResourceContext(Context, State);
             EnterRule(_localctx, 148, RULE_resource);
-            try
-            {
+            try {
                 int _alt;
                 EnterOuterAlt(_localctx, 1);
                 {
                     State = 1008;
                     ErrorHandler.Sync(this);
                     _alt = Interpreter.AdaptivePredict(TokenStream, 118, Context);
-                    while (_alt != 2 && _alt != global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER)
-                    {
-                        if (_alt == 1)
-                        {
+                    while (_alt != 2 && _alt != global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER) {
+                        if (_alt == 1) {
                             {
                                 {
                                     State = 1005; variableModifier();
@@ -7705,15 +7062,11 @@ namespace LINVAST.Imperative.Builders.Java
                     State = 1013; Match(ASSIGN);
                     State = 1014; expression(0);
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -7773,15 +7126,13 @@ namespace LINVAST.Imperative.Builders.Java
             SwitchBlockStatementGroupContext _localctx = new SwitchBlockStatementGroupContext(Context, State);
             EnterRule(_localctx, 150, RULE_switchBlockStatementGroup);
             int _la;
-            try
-            {
+            try {
                 EnterOuterAlt(_localctx, 1);
                 {
                     State = 1017;
                     ErrorHandler.Sync(this);
                     _la = TokenStream.LA(1);
-                    do
-                    {
+                    do {
                         {
                             {
                                 State = 1016; switchLabel();
@@ -7794,8 +7145,7 @@ namespace LINVAST.Imperative.Builders.Java
                     State = 1022;
                     ErrorHandler.Sync(this);
                     _la = TokenStream.LA(1);
-                    do
-                    {
+                    do {
                         {
                             {
                                 State = 1021; blockStatement();
@@ -7806,15 +7156,11 @@ namespace LINVAST.Imperative.Builders.Java
                         _la = TokenStream.LA(1);
                     } while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << ABSTRACT) | (1L << ASSERT) | (1L << BOOLEAN) | (1L << BREAK) | (1L << BYTE) | (1L << CHAR) | (1L << CLASS) | (1L << CONTINUE) | (1L << DO) | (1L << DOUBLE) | (1L << FINAL) | (1L << FLOAT) | (1L << FOR) | (1L << IF) | (1L << INT) | (1L << INTERFACE) | (1L << LONG) | (1L << NEW) | (1L << PRIVATE) | (1L << PROTECTED) | (1L << PUBLIC) | (1L << RETURN) | (1L << SHORT) | (1L << STATIC) | (1L << STRICTFP) | (1L << SUPER) | (1L << SWITCH) | (1L << SYNCHRONIZED) | (1L << THIS) | (1L << THROW) | (1L << TRY) | (1L << VOID) | (1L << WHILE) | (1L << DECIMAL_LITERAL) | (1L << HEX_LITERAL) | (1L << OCT_LITERAL) | (1L << BINARY_LITERAL) | (1L << FLOAT_LITERAL) | (1L << HEX_FLOAT_LITERAL) | (1L << BOOL_LITERAL) | (1L << CHAR_LITERAL) | (1L << STRING_LITERAL) | (1L << NULL_LITERAL) | (1L << LPAREN) | (1L << LBRACE))) != 0) || ((((_la - 67)) & ~0x3f) == 0 && ((1L << (_la - 67)) & ((1L << (SEMI - 67)) | (1L << (LT - 67)) | (1L << (BANG - 67)) | (1L << (TILDE - 67)) | (1L << (INC - 67)) | (1L << (DEC - 67)) | (1L << (ADD - 67)) | (1L << (SUB - 67)) | (1L << (AT - 67)) | (1L << (IDENTIFIER - 67)))) != 0));
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -7864,27 +7210,21 @@ namespace LINVAST.Imperative.Builders.Java
         {
             SwitchLabelContext _localctx = new SwitchLabelContext(Context, State);
             EnterRule(_localctx, 152, RULE_switchLabel);
-            try
-            {
+            try {
                 State = 1034;
                 ErrorHandler.Sync(this);
-                switch (TokenStream.LA(1))
-                {
+                switch (TokenStream.LA(1)) {
                     case CASE:
-                        EnterOuterAlt(_localctx, 1);
-                        {
+                        EnterOuterAlt(_localctx, 1); {
                             State = 1026; Match(CASE);
                             State = 1029;
                             ErrorHandler.Sync(this);
-                            switch (Interpreter.AdaptivePredict(TokenStream, 121, Context))
-                            {
-                                case 1:
-                                {
+                            switch (Interpreter.AdaptivePredict(TokenStream, 121, Context)) {
+                                case 1: {
                                     State = 1027; _localctx.constantExpression = expression(0);
                                 }
                                 break;
-                                case 2:
-                                {
+                                case 2: {
                                     State = 1028; _localctx.enumConstantName = Match(IDENTIFIER);
                                 }
                                 break;
@@ -7893,8 +7233,7 @@ namespace LINVAST.Imperative.Builders.Java
                         }
                         break;
                     case DEFAULT:
-                        EnterOuterAlt(_localctx, 2);
-                        {
+                        EnterOuterAlt(_localctx, 2); {
                             State = 1032; Match(DEFAULT);
                             State = 1033; Match(COLON);
                         }
@@ -7902,15 +7241,11 @@ namespace LINVAST.Imperative.Builders.Java
                     default:
                         throw new NoViableAltException(this);
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -7977,26 +7312,21 @@ namespace LINVAST.Imperative.Builders.Java
             ForControlContext _localctx = new ForControlContext(Context, State);
             EnterRule(_localctx, 154, RULE_forControl);
             int _la;
-            try
-            {
+            try {
                 State = 1048;
                 ErrorHandler.Sync(this);
-                switch (Interpreter.AdaptivePredict(TokenStream, 126, Context))
-                {
+                switch (Interpreter.AdaptivePredict(TokenStream, 126, Context)) {
                     case 1:
-                        EnterOuterAlt(_localctx, 1);
-                        {
+                        EnterOuterAlt(_localctx, 1); {
                             State = 1036; enhancedForControl();
                         }
                         break;
                     case 2:
-                        EnterOuterAlt(_localctx, 2);
-                        {
+                        EnterOuterAlt(_localctx, 2); {
                             State = 1038;
                             ErrorHandler.Sync(this);
                             _la = TokenStream.LA(1);
-                            if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << BOOLEAN) | (1L << BYTE) | (1L << CHAR) | (1L << DOUBLE) | (1L << FINAL) | (1L << FLOAT) | (1L << INT) | (1L << LONG) | (1L << NEW) | (1L << SHORT) | (1L << SUPER) | (1L << THIS) | (1L << VOID) | (1L << DECIMAL_LITERAL) | (1L << HEX_LITERAL) | (1L << OCT_LITERAL) | (1L << BINARY_LITERAL) | (1L << FLOAT_LITERAL) | (1L << HEX_FLOAT_LITERAL) | (1L << BOOL_LITERAL) | (1L << CHAR_LITERAL) | (1L << STRING_LITERAL) | (1L << NULL_LITERAL) | (1L << LPAREN))) != 0) || ((((_la - 72)) & ~0x3f) == 0 && ((1L << (_la - 72)) & ((1L << (LT - 72)) | (1L << (BANG - 72)) | (1L << (TILDE - 72)) | (1L << (INC - 72)) | (1L << (DEC - 72)) | (1L << (ADD - 72)) | (1L << (SUB - 72)) | (1L << (AT - 72)) | (1L << (IDENTIFIER - 72)))) != 0))
-                            {
+                            if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << BOOLEAN) | (1L << BYTE) | (1L << CHAR) | (1L << DOUBLE) | (1L << FINAL) | (1L << FLOAT) | (1L << INT) | (1L << LONG) | (1L << NEW) | (1L << SHORT) | (1L << SUPER) | (1L << THIS) | (1L << VOID) | (1L << DECIMAL_LITERAL) | (1L << HEX_LITERAL) | (1L << OCT_LITERAL) | (1L << BINARY_LITERAL) | (1L << FLOAT_LITERAL) | (1L << HEX_FLOAT_LITERAL) | (1L << BOOL_LITERAL) | (1L << CHAR_LITERAL) | (1L << STRING_LITERAL) | (1L << NULL_LITERAL) | (1L << LPAREN))) != 0) || ((((_la - 72)) & ~0x3f) == 0 && ((1L << (_la - 72)) & ((1L << (LT - 72)) | (1L << (BANG - 72)) | (1L << (TILDE - 72)) | (1L << (INC - 72)) | (1L << (DEC - 72)) | (1L << (ADD - 72)) | (1L << (SUB - 72)) | (1L << (AT - 72)) | (1L << (IDENTIFIER - 72)))) != 0)) {
                                 {
                                     State = 1037; forInit();
                                 }
@@ -8006,8 +7336,7 @@ namespace LINVAST.Imperative.Builders.Java
                             State = 1042;
                             ErrorHandler.Sync(this);
                             _la = TokenStream.LA(1);
-                            if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << BOOLEAN) | (1L << BYTE) | (1L << CHAR) | (1L << DOUBLE) | (1L << FLOAT) | (1L << INT) | (1L << LONG) | (1L << NEW) | (1L << SHORT) | (1L << SUPER) | (1L << THIS) | (1L << VOID) | (1L << DECIMAL_LITERAL) | (1L << HEX_LITERAL) | (1L << OCT_LITERAL) | (1L << BINARY_LITERAL) | (1L << FLOAT_LITERAL) | (1L << HEX_FLOAT_LITERAL) | (1L << BOOL_LITERAL) | (1L << CHAR_LITERAL) | (1L << STRING_LITERAL) | (1L << NULL_LITERAL) | (1L << LPAREN))) != 0) || ((((_la - 72)) & ~0x3f) == 0 && ((1L << (_la - 72)) & ((1L << (LT - 72)) | (1L << (BANG - 72)) | (1L << (TILDE - 72)) | (1L << (INC - 72)) | (1L << (DEC - 72)) | (1L << (ADD - 72)) | (1L << (SUB - 72)) | (1L << (AT - 72)) | (1L << (IDENTIFIER - 72)))) != 0))
-                            {
+                            if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << BOOLEAN) | (1L << BYTE) | (1L << CHAR) | (1L << DOUBLE) | (1L << FLOAT) | (1L << INT) | (1L << LONG) | (1L << NEW) | (1L << SHORT) | (1L << SUPER) | (1L << THIS) | (1L << VOID) | (1L << DECIMAL_LITERAL) | (1L << HEX_LITERAL) | (1L << OCT_LITERAL) | (1L << BINARY_LITERAL) | (1L << FLOAT_LITERAL) | (1L << HEX_FLOAT_LITERAL) | (1L << BOOL_LITERAL) | (1L << CHAR_LITERAL) | (1L << STRING_LITERAL) | (1L << NULL_LITERAL) | (1L << LPAREN))) != 0) || ((((_la - 72)) & ~0x3f) == 0 && ((1L << (_la - 72)) & ((1L << (LT - 72)) | (1L << (BANG - 72)) | (1L << (TILDE - 72)) | (1L << (INC - 72)) | (1L << (DEC - 72)) | (1L << (ADD - 72)) | (1L << (SUB - 72)) | (1L << (AT - 72)) | (1L << (IDENTIFIER - 72)))) != 0)) {
                                 {
                                     State = 1041; expression(0);
                                 }
@@ -8017,8 +7346,7 @@ namespace LINVAST.Imperative.Builders.Java
                             State = 1046;
                             ErrorHandler.Sync(this);
                             _la = TokenStream.LA(1);
-                            if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << BOOLEAN) | (1L << BYTE) | (1L << CHAR) | (1L << DOUBLE) | (1L << FLOAT) | (1L << INT) | (1L << LONG) | (1L << NEW) | (1L << SHORT) | (1L << SUPER) | (1L << THIS) | (1L << VOID) | (1L << DECIMAL_LITERAL) | (1L << HEX_LITERAL) | (1L << OCT_LITERAL) | (1L << BINARY_LITERAL) | (1L << FLOAT_LITERAL) | (1L << HEX_FLOAT_LITERAL) | (1L << BOOL_LITERAL) | (1L << CHAR_LITERAL) | (1L << STRING_LITERAL) | (1L << NULL_LITERAL) | (1L << LPAREN))) != 0) || ((((_la - 72)) & ~0x3f) == 0 && ((1L << (_la - 72)) & ((1L << (LT - 72)) | (1L << (BANG - 72)) | (1L << (TILDE - 72)) | (1L << (INC - 72)) | (1L << (DEC - 72)) | (1L << (ADD - 72)) | (1L << (SUB - 72)) | (1L << (AT - 72)) | (1L << (IDENTIFIER - 72)))) != 0))
-                            {
+                            if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << BOOLEAN) | (1L << BYTE) | (1L << CHAR) | (1L << DOUBLE) | (1L << FLOAT) | (1L << INT) | (1L << LONG) | (1L << NEW) | (1L << SHORT) | (1L << SUPER) | (1L << THIS) | (1L << VOID) | (1L << DECIMAL_LITERAL) | (1L << HEX_LITERAL) | (1L << OCT_LITERAL) | (1L << BINARY_LITERAL) | (1L << FLOAT_LITERAL) | (1L << HEX_FLOAT_LITERAL) | (1L << BOOL_LITERAL) | (1L << CHAR_LITERAL) | (1L << STRING_LITERAL) | (1L << NULL_LITERAL) | (1L << LPAREN))) != 0) || ((((_la - 72)) & ~0x3f) == 0 && ((1L << (_la - 72)) & ((1L << (LT - 72)) | (1L << (BANG - 72)) | (1L << (TILDE - 72)) | (1L << (INC - 72)) | (1L << (DEC - 72)) | (1L << (ADD - 72)) | (1L << (SUB - 72)) | (1L << (AT - 72)) | (1L << (IDENTIFIER - 72)))) != 0)) {
                                 {
                                     State = 1045; _localctx.forUpdate = expressionList();
                                 }
@@ -8027,15 +7355,11 @@ namespace LINVAST.Imperative.Builders.Java
                         }
                         break;
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -8084,34 +7408,26 @@ namespace LINVAST.Imperative.Builders.Java
         {
             ForInitContext _localctx = new ForInitContext(Context, State);
             EnterRule(_localctx, 156, RULE_forInit);
-            try
-            {
+            try {
                 State = 1052;
                 ErrorHandler.Sync(this);
-                switch (Interpreter.AdaptivePredict(TokenStream, 127, Context))
-                {
+                switch (Interpreter.AdaptivePredict(TokenStream, 127, Context)) {
                     case 1:
-                        EnterOuterAlt(_localctx, 1);
-                        {
+                        EnterOuterAlt(_localctx, 1); {
                             State = 1050; localVariableDeclaration();
                         }
                         break;
                     case 2:
-                        EnterOuterAlt(_localctx, 2);
-                        {
+                        EnterOuterAlt(_localctx, 2); {
                             State = 1051; expressionList();
                         }
                         break;
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -8176,18 +7492,15 @@ namespace LINVAST.Imperative.Builders.Java
         {
             EnhancedForControlContext _localctx = new EnhancedForControlContext(Context, State);
             EnterRule(_localctx, 158, RULE_enhancedForControl);
-            try
-            {
+            try {
                 int _alt;
                 EnterOuterAlt(_localctx, 1);
                 {
                     State = 1057;
                     ErrorHandler.Sync(this);
                     _alt = Interpreter.AdaptivePredict(TokenStream, 128, Context);
-                    while (_alt != 2 && _alt != global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER)
-                    {
-                        if (_alt == 1)
-                        {
+                    while (_alt != 2 && _alt != global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER) {
+                        if (_alt == 1) {
                             {
                                 {
                                     State = 1054; variableModifier();
@@ -8203,15 +7516,11 @@ namespace LINVAST.Imperative.Builders.Java
                     State = 1062; Match(COLON);
                     State = 1063; expression(0);
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -8257,23 +7566,18 @@ namespace LINVAST.Imperative.Builders.Java
         {
             ParExpressionContext _localctx = new ParExpressionContext(Context, State);
             EnterRule(_localctx, 160, RULE_parExpression);
-            try
-            {
+            try {
                 EnterOuterAlt(_localctx, 1);
                 {
                     State = 1065; Match(LPAREN);
                     State = 1066; expression(0);
                     State = 1067; Match(RPAREN);
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -8329,16 +7633,14 @@ namespace LINVAST.Imperative.Builders.Java
             ExpressionListContext _localctx = new ExpressionListContext(Context, State);
             EnterRule(_localctx, 162, RULE_expressionList);
             int _la;
-            try
-            {
+            try {
                 EnterOuterAlt(_localctx, 1);
                 {
                     State = 1069; expression(0);
                     State = 1074;
                     ErrorHandler.Sync(this);
                     _la = TokenStream.LA(1);
-                    while (_la == COMMA)
-                    {
+                    while (_la == COMMA) {
                         {
                             {
                                 State = 1070; Match(COMMA);
@@ -8350,15 +7652,11 @@ namespace LINVAST.Imperative.Builders.Java
                         _la = TokenStream.LA(1);
                     }
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -8408,22 +7706,18 @@ namespace LINVAST.Imperative.Builders.Java
             MethodCallContext _localctx = new MethodCallContext(Context, State);
             EnterRule(_localctx, 164, RULE_methodCall);
             int _la;
-            try
-            {
+            try {
                 State = 1095;
                 ErrorHandler.Sync(this);
-                switch (TokenStream.LA(1))
-                {
+                switch (TokenStream.LA(1)) {
                     case IDENTIFIER:
-                        EnterOuterAlt(_localctx, 1);
-                        {
+                        EnterOuterAlt(_localctx, 1); {
                             State = 1077; Match(IDENTIFIER);
                             State = 1078; Match(LPAREN);
                             State = 1080;
                             ErrorHandler.Sync(this);
                             _la = TokenStream.LA(1);
-                            if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << BOOLEAN) | (1L << BYTE) | (1L << CHAR) | (1L << DOUBLE) | (1L << FLOAT) | (1L << INT) | (1L << LONG) | (1L << NEW) | (1L << SHORT) | (1L << SUPER) | (1L << THIS) | (1L << VOID) | (1L << DECIMAL_LITERAL) | (1L << HEX_LITERAL) | (1L << OCT_LITERAL) | (1L << BINARY_LITERAL) | (1L << FLOAT_LITERAL) | (1L << HEX_FLOAT_LITERAL) | (1L << BOOL_LITERAL) | (1L << CHAR_LITERAL) | (1L << STRING_LITERAL) | (1L << NULL_LITERAL) | (1L << LPAREN))) != 0) || ((((_la - 72)) & ~0x3f) == 0 && ((1L << (_la - 72)) & ((1L << (LT - 72)) | (1L << (BANG - 72)) | (1L << (TILDE - 72)) | (1L << (INC - 72)) | (1L << (DEC - 72)) | (1L << (ADD - 72)) | (1L << (SUB - 72)) | (1L << (AT - 72)) | (1L << (IDENTIFIER - 72)))) != 0))
-                            {
+                            if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << BOOLEAN) | (1L << BYTE) | (1L << CHAR) | (1L << DOUBLE) | (1L << FLOAT) | (1L << INT) | (1L << LONG) | (1L << NEW) | (1L << SHORT) | (1L << SUPER) | (1L << THIS) | (1L << VOID) | (1L << DECIMAL_LITERAL) | (1L << HEX_LITERAL) | (1L << OCT_LITERAL) | (1L << BINARY_LITERAL) | (1L << FLOAT_LITERAL) | (1L << HEX_FLOAT_LITERAL) | (1L << BOOL_LITERAL) | (1L << CHAR_LITERAL) | (1L << STRING_LITERAL) | (1L << NULL_LITERAL) | (1L << LPAREN))) != 0) || ((((_la - 72)) & ~0x3f) == 0 && ((1L << (_la - 72)) & ((1L << (LT - 72)) | (1L << (BANG - 72)) | (1L << (TILDE - 72)) | (1L << (INC - 72)) | (1L << (DEC - 72)) | (1L << (ADD - 72)) | (1L << (SUB - 72)) | (1L << (AT - 72)) | (1L << (IDENTIFIER - 72)))) != 0)) {
                                 {
                                     State = 1079; expressionList();
                                 }
@@ -8433,15 +7727,13 @@ namespace LINVAST.Imperative.Builders.Java
                         }
                         break;
                     case THIS:
-                        EnterOuterAlt(_localctx, 2);
-                        {
+                        EnterOuterAlt(_localctx, 2); {
                             State = 1083; Match(THIS);
                             State = 1084; Match(LPAREN);
                             State = 1086;
                             ErrorHandler.Sync(this);
                             _la = TokenStream.LA(1);
-                            if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << BOOLEAN) | (1L << BYTE) | (1L << CHAR) | (1L << DOUBLE) | (1L << FLOAT) | (1L << INT) | (1L << LONG) | (1L << NEW) | (1L << SHORT) | (1L << SUPER) | (1L << THIS) | (1L << VOID) | (1L << DECIMAL_LITERAL) | (1L << HEX_LITERAL) | (1L << OCT_LITERAL) | (1L << BINARY_LITERAL) | (1L << FLOAT_LITERAL) | (1L << HEX_FLOAT_LITERAL) | (1L << BOOL_LITERAL) | (1L << CHAR_LITERAL) | (1L << STRING_LITERAL) | (1L << NULL_LITERAL) | (1L << LPAREN))) != 0) || ((((_la - 72)) & ~0x3f) == 0 && ((1L << (_la - 72)) & ((1L << (LT - 72)) | (1L << (BANG - 72)) | (1L << (TILDE - 72)) | (1L << (INC - 72)) | (1L << (DEC - 72)) | (1L << (ADD - 72)) | (1L << (SUB - 72)) | (1L << (AT - 72)) | (1L << (IDENTIFIER - 72)))) != 0))
-                            {
+                            if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << BOOLEAN) | (1L << BYTE) | (1L << CHAR) | (1L << DOUBLE) | (1L << FLOAT) | (1L << INT) | (1L << LONG) | (1L << NEW) | (1L << SHORT) | (1L << SUPER) | (1L << THIS) | (1L << VOID) | (1L << DECIMAL_LITERAL) | (1L << HEX_LITERAL) | (1L << OCT_LITERAL) | (1L << BINARY_LITERAL) | (1L << FLOAT_LITERAL) | (1L << HEX_FLOAT_LITERAL) | (1L << BOOL_LITERAL) | (1L << CHAR_LITERAL) | (1L << STRING_LITERAL) | (1L << NULL_LITERAL) | (1L << LPAREN))) != 0) || ((((_la - 72)) & ~0x3f) == 0 && ((1L << (_la - 72)) & ((1L << (LT - 72)) | (1L << (BANG - 72)) | (1L << (TILDE - 72)) | (1L << (INC - 72)) | (1L << (DEC - 72)) | (1L << (ADD - 72)) | (1L << (SUB - 72)) | (1L << (AT - 72)) | (1L << (IDENTIFIER - 72)))) != 0)) {
                                 {
                                     State = 1085; expressionList();
                                 }
@@ -8451,15 +7743,13 @@ namespace LINVAST.Imperative.Builders.Java
                         }
                         break;
                     case SUPER:
-                        EnterOuterAlt(_localctx, 3);
-                        {
+                        EnterOuterAlt(_localctx, 3); {
                             State = 1089; Match(SUPER);
                             State = 1090; Match(LPAREN);
                             State = 1092;
                             ErrorHandler.Sync(this);
                             _la = TokenStream.LA(1);
-                            if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << BOOLEAN) | (1L << BYTE) | (1L << CHAR) | (1L << DOUBLE) | (1L << FLOAT) | (1L << INT) | (1L << LONG) | (1L << NEW) | (1L << SHORT) | (1L << SUPER) | (1L << THIS) | (1L << VOID) | (1L << DECIMAL_LITERAL) | (1L << HEX_LITERAL) | (1L << OCT_LITERAL) | (1L << BINARY_LITERAL) | (1L << FLOAT_LITERAL) | (1L << HEX_FLOAT_LITERAL) | (1L << BOOL_LITERAL) | (1L << CHAR_LITERAL) | (1L << STRING_LITERAL) | (1L << NULL_LITERAL) | (1L << LPAREN))) != 0) || ((((_la - 72)) & ~0x3f) == 0 && ((1L << (_la - 72)) & ((1L << (LT - 72)) | (1L << (BANG - 72)) | (1L << (TILDE - 72)) | (1L << (INC - 72)) | (1L << (DEC - 72)) | (1L << (ADD - 72)) | (1L << (SUB - 72)) | (1L << (AT - 72)) | (1L << (IDENTIFIER - 72)))) != 0))
-                            {
+                            if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << BOOLEAN) | (1L << BYTE) | (1L << CHAR) | (1L << DOUBLE) | (1L << FLOAT) | (1L << INT) | (1L << LONG) | (1L << NEW) | (1L << SHORT) | (1L << SUPER) | (1L << THIS) | (1L << VOID) | (1L << DECIMAL_LITERAL) | (1L << HEX_LITERAL) | (1L << OCT_LITERAL) | (1L << BINARY_LITERAL) | (1L << FLOAT_LITERAL) | (1L << HEX_FLOAT_LITERAL) | (1L << BOOL_LITERAL) | (1L << CHAR_LITERAL) | (1L << STRING_LITERAL) | (1L << NULL_LITERAL) | (1L << LPAREN))) != 0) || ((((_la - 72)) & ~0x3f) == 0 && ((1L << (_la - 72)) & ((1L << (LT - 72)) | (1L << (BANG - 72)) | (1L << (TILDE - 72)) | (1L << (INC - 72)) | (1L << (DEC - 72)) | (1L << (ADD - 72)) | (1L << (SUB - 72)) | (1L << (AT - 72)) | (1L << (IDENTIFIER - 72)))) != 0)) {
                                 {
                                     State = 1091; expressionList();
                                 }
@@ -8471,15 +7761,11 @@ namespace LINVAST.Imperative.Builders.Java
                     default:
                         throw new NoViableAltException(this);
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -8661,41 +7947,33 @@ namespace LINVAST.Imperative.Builders.Java
             int _startState = 166;
             EnterRecursionRule(_localctx, 166, RULE_expression, _p);
             int _la;
-            try
-            {
+            try {
                 int _alt;
                 EnterOuterAlt(_localctx, 1);
                 {
                     State = 1134;
                     ErrorHandler.Sync(this);
-                    switch (Interpreter.AdaptivePredict(TokenStream, 138, Context))
-                    {
-                        case 1:
-                        {
+                    switch (Interpreter.AdaptivePredict(TokenStream, 138, Context)) {
+                        case 1: {
                             State = 1098; primary();
                         }
                         break;
-                        case 2:
-                        {
+                        case 2: {
                             State = 1099; methodCall();
                         }
                         break;
-                        case 3:
-                        {
+                        case 3: {
                             State = 1100; Match(NEW);
                             State = 1101; creator();
                         }
                         break;
-                        case 4:
-                        {
+                        case 4: {
                             State = 1102; Match(LPAREN);
                             State = 1106;
                             ErrorHandler.Sync(this);
                             _alt = Interpreter.AdaptivePredict(TokenStream, 134, Context);
-                            while (_alt != 2 && _alt != global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER)
-                            {
-                                if (_alt == 1)
-                                {
+                            while (_alt != 2 && _alt != global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER) {
+                                if (_alt == 1) {
                                     {
                                         {
                                             State = 1103; annotation();
@@ -8711,61 +7989,48 @@ namespace LINVAST.Imperative.Builders.Java
                             State = 1111; expression(21);
                         }
                         break;
-                        case 5:
-                        {
+                        case 5: {
                             State = 1113;
                             _localctx.prefix = TokenStream.LT(1);
                             _la = TokenStream.LA(1);
-                            if (!(((((_la - 83)) & ~0x3f) == 0 && ((1L << (_la - 83)) & ((1L << (INC - 83)) | (1L << (DEC - 83)) | (1L << (ADD - 83)) | (1L << (SUB - 83)))) != 0)))
-                            {
+                            if (!(((((_la - 83)) & ~0x3f) == 0 && ((1L << (_la - 83)) & ((1L << (INC - 83)) | (1L << (DEC - 83)) | (1L << (ADD - 83)) | (1L << (SUB - 83)))) != 0))) {
                                 _localctx.prefix = ErrorHandler.RecoverInline(this);
-                            }
-                            else
-                            {
+                            } else {
                                 ErrorHandler.ReportMatch(this);
                                 Consume();
                             }
                             State = 1114; expression(19);
                         }
                         break;
-                        case 6:
-                        {
+                        case 6: {
                             State = 1115;
                             _localctx.prefix = TokenStream.LT(1);
                             _la = TokenStream.LA(1);
-                            if (!(_la == BANG || _la == TILDE))
-                            {
+                            if (!(_la == BANG || _la == TILDE)) {
                                 _localctx.prefix = ErrorHandler.RecoverInline(this);
-                            }
-                            else
-                            {
+                            } else {
                                 ErrorHandler.ReportMatch(this);
                                 Consume();
                             }
                             State = 1116; expression(18);
                         }
                         break;
-                        case 7:
-                        {
+                        case 7: {
                             State = 1117; lambdaExpression();
                         }
                         break;
-                        case 8:
-                        {
+                        case 8: {
                             State = 1118; typeType();
                             State = 1119; Match(COLONCOLON);
                             State = 1125;
                             ErrorHandler.Sync(this);
-                            switch (TokenStream.LA(1))
-                            {
+                            switch (TokenStream.LA(1)) {
                                 case LT:
-                                case IDENTIFIER:
-                                {
+                                case IDENTIFIER: {
                                     State = 1121;
                                     ErrorHandler.Sync(this);
                                     _la = TokenStream.LA(1);
-                                    if (_la == LT)
-                                    {
+                                    if (_la == LT) {
                                         {
                                             State = 1120; typeArguments();
                                         }
@@ -8774,8 +8039,7 @@ namespace LINVAST.Imperative.Builders.Java
                                     State = 1123; Match(IDENTIFIER);
                                 }
                                 break;
-                                case NEW:
-                                {
+                                case NEW: {
                                     State = 1124; Match(NEW);
                                 }
                                 break;
@@ -8784,15 +8048,13 @@ namespace LINVAST.Imperative.Builders.Java
                             }
                         }
                         break;
-                        case 9:
-                        {
+                        case 9: {
                             State = 1127; classType();
                             State = 1128; Match(COLONCOLON);
                             State = 1130;
                             ErrorHandler.Sync(this);
                             _la = TokenStream.LA(1);
-                            if (_la == LT)
-                            {
+                            if (_la == LT) {
                                 {
                                     State = 1129; typeArguments();
                                 }
@@ -8806,20 +8068,16 @@ namespace LINVAST.Imperative.Builders.Java
                     State = 1216;
                     ErrorHandler.Sync(this);
                     _alt = Interpreter.AdaptivePredict(TokenStream, 144, Context);
-                    while (_alt != 2 && _alt != global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER)
-                    {
-                        if (_alt == 1)
-                        {
+                    while (_alt != 2 && _alt != global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER) {
+                        if (_alt == 1) {
                             if (ParseListeners != null)
                                 TriggerExitRuleEvent();
                             _prevctx = _localctx;
                             {
                                 State = 1214;
                                 ErrorHandler.Sync(this);
-                                switch (Interpreter.AdaptivePredict(TokenStream, 143, Context))
-                                {
-                                    case 1:
-                                    {
+                                switch (Interpreter.AdaptivePredict(TokenStream, 143, Context)) {
+                                    case 1: {
                                         _localctx = new ExpressionContext(_parentctx, _parentState);
                                         PushNewRecursionContext(_localctx, _startState, RULE_expression);
                                         State = 1136;
@@ -8827,20 +8085,16 @@ namespace LINVAST.Imperative.Builders.Java
                                         State = 1137;
                                         _localctx.bop = TokenStream.LT(1);
                                         _la = TokenStream.LA(1);
-                                        if (!(((((_la - 87)) & ~0x3f) == 0 && ((1L << (_la - 87)) & ((1L << (MUL - 87)) | (1L << (DIV - 87)) | (1L << (MOD - 87)))) != 0)))
-                                        {
+                                        if (!(((((_la - 87)) & ~0x3f) == 0 && ((1L << (_la - 87)) & ((1L << (MUL - 87)) | (1L << (DIV - 87)) | (1L << (MOD - 87)))) != 0))) {
                                             _localctx.bop = ErrorHandler.RecoverInline(this);
-                                        }
-                                        else
-                                        {
+                                        } else {
                                             ErrorHandler.ReportMatch(this);
                                             Consume();
                                         }
                                         State = 1138; expression(18);
                                     }
                                     break;
-                                    case 2:
-                                    {
+                                    case 2: {
                                         _localctx = new ExpressionContext(_parentctx, _parentState);
                                         PushNewRecursionContext(_localctx, _startState, RULE_expression);
                                         State = 1139;
@@ -8848,43 +8102,35 @@ namespace LINVAST.Imperative.Builders.Java
                                         State = 1140;
                                         _localctx.bop = TokenStream.LT(1);
                                         _la = TokenStream.LA(1);
-                                        if (!(_la == ADD || _la == SUB))
-                                        {
+                                        if (!(_la == ADD || _la == SUB)) {
                                             _localctx.bop = ErrorHandler.RecoverInline(this);
-                                        }
-                                        else
-                                        {
+                                        } else {
                                             ErrorHandler.ReportMatch(this);
                                             Consume();
                                         }
                                         State = 1141; expression(17);
                                     }
                                     break;
-                                    case 3:
-                                    {
+                                    case 3: {
                                         _localctx = new ExpressionContext(_parentctx, _parentState);
                                         PushNewRecursionContext(_localctx, _startState, RULE_expression);
                                         State = 1142;
                                         if (!(Precpred(Context, 15))) throw new FailedPredicateException(this, "Precpred(Context, 15)");
                                         State = 1150;
                                         ErrorHandler.Sync(this);
-                                        switch (Interpreter.AdaptivePredict(TokenStream, 139, Context))
-                                        {
-                                            case 1:
-                                            {
+                                        switch (Interpreter.AdaptivePredict(TokenStream, 139, Context)) {
+                                            case 1: {
                                                 State = 1143; Match(LT);
                                                 State = 1144; Match(LT);
                                             }
                                             break;
-                                            case 2:
-                                            {
+                                            case 2: {
                                                 State = 1145; Match(GT);
                                                 State = 1146; Match(GT);
                                                 State = 1147; Match(GT);
                                             }
                                             break;
-                                            case 3:
-                                            {
+                                            case 3: {
                                                 State = 1148; Match(GT);
                                                 State = 1149; Match(GT);
                                             }
@@ -8893,8 +8139,7 @@ namespace LINVAST.Imperative.Builders.Java
                                         State = 1152; expression(16);
                                     }
                                     break;
-                                    case 4:
-                                    {
+                                    case 4: {
                                         _localctx = new ExpressionContext(_parentctx, _parentState);
                                         PushNewRecursionContext(_localctx, _startState, RULE_expression);
                                         State = 1153;
@@ -8902,20 +8147,16 @@ namespace LINVAST.Imperative.Builders.Java
                                         State = 1154;
                                         _localctx.bop = TokenStream.LT(1);
                                         _la = TokenStream.LA(1);
-                                        if (!(((((_la - 71)) & ~0x3f) == 0 && ((1L << (_la - 71)) & ((1L << (GT - 71)) | (1L << (LT - 71)) | (1L << (LE - 71)) | (1L << (GE - 71)))) != 0)))
-                                        {
+                                        if (!(((((_la - 71)) & ~0x3f) == 0 && ((1L << (_la - 71)) & ((1L << (GT - 71)) | (1L << (LT - 71)) | (1L << (LE - 71)) | (1L << (GE - 71)))) != 0))) {
                                             _localctx.bop = ErrorHandler.RecoverInline(this);
-                                        }
-                                        else
-                                        {
+                                        } else {
                                             ErrorHandler.ReportMatch(this);
                                             Consume();
                                         }
                                         State = 1155; expression(15);
                                     }
                                     break;
-                                    case 5:
-                                    {
+                                    case 5: {
                                         _localctx = new ExpressionContext(_parentctx, _parentState);
                                         PushNewRecursionContext(_localctx, _startState, RULE_expression);
                                         State = 1156;
@@ -8923,20 +8164,16 @@ namespace LINVAST.Imperative.Builders.Java
                                         State = 1157;
                                         _localctx.bop = TokenStream.LT(1);
                                         _la = TokenStream.LA(1);
-                                        if (!(_la == EQUAL || _la == NOTEQUAL))
-                                        {
+                                        if (!(_la == EQUAL || _la == NOTEQUAL)) {
                                             _localctx.bop = ErrorHandler.RecoverInline(this);
-                                        }
-                                        else
-                                        {
+                                        } else {
                                             ErrorHandler.ReportMatch(this);
                                             Consume();
                                         }
                                         State = 1158; expression(13);
                                     }
                                     break;
-                                    case 6:
-                                    {
+                                    case 6: {
                                         _localctx = new ExpressionContext(_parentctx, _parentState);
                                         PushNewRecursionContext(_localctx, _startState, RULE_expression);
                                         State = 1159;
@@ -8945,8 +8182,7 @@ namespace LINVAST.Imperative.Builders.Java
                                         State = 1161; expression(12);
                                     }
                                     break;
-                                    case 7:
-                                    {
+                                    case 7: {
                                         _localctx = new ExpressionContext(_parentctx, _parentState);
                                         PushNewRecursionContext(_localctx, _startState, RULE_expression);
                                         State = 1162;
@@ -8955,8 +8191,7 @@ namespace LINVAST.Imperative.Builders.Java
                                         State = 1164; expression(11);
                                     }
                                     break;
-                                    case 8:
-                                    {
+                                    case 8: {
                                         _localctx = new ExpressionContext(_parentctx, _parentState);
                                         PushNewRecursionContext(_localctx, _startState, RULE_expression);
                                         State = 1165;
@@ -8965,8 +8200,7 @@ namespace LINVAST.Imperative.Builders.Java
                                         State = 1167; expression(10);
                                     }
                                     break;
-                                    case 9:
-                                    {
+                                    case 9: {
                                         _localctx = new ExpressionContext(_parentctx, _parentState);
                                         PushNewRecursionContext(_localctx, _startState, RULE_expression);
                                         State = 1168;
@@ -8975,8 +8209,7 @@ namespace LINVAST.Imperative.Builders.Java
                                         State = 1170; expression(9);
                                     }
                                     break;
-                                    case 10:
-                                    {
+                                    case 10: {
                                         _localctx = new ExpressionContext(_parentctx, _parentState);
                                         PushNewRecursionContext(_localctx, _startState, RULE_expression);
                                         State = 1171;
@@ -8985,8 +8218,7 @@ namespace LINVAST.Imperative.Builders.Java
                                         State = 1173; expression(8);
                                     }
                                     break;
-                                    case 11:
-                                    {
+                                    case 11: {
                                         _localctx = new ExpressionContext(_parentctx, _parentState);
                                         PushNewRecursionContext(_localctx, _startState, RULE_expression);
                                         State = 1174;
@@ -8997,8 +8229,7 @@ namespace LINVAST.Imperative.Builders.Java
                                         State = 1178; expression(6);
                                     }
                                     break;
-                                    case 12:
-                                    {
+                                    case 12: {
                                         _localctx = new ExpressionContext(_parentctx, _parentState);
                                         PushNewRecursionContext(_localctx, _startState, RULE_expression);
                                         State = 1180;
@@ -9006,20 +8237,16 @@ namespace LINVAST.Imperative.Builders.Java
                                         State = 1181;
                                         _localctx.bop = TokenStream.LT(1);
                                         _la = TokenStream.LA(1);
-                                        if (!(((((_la - 70)) & ~0x3f) == 0 && ((1L << (_la - 70)) & ((1L << (ASSIGN - 70)) | (1L << (ADD_ASSIGN - 70)) | (1L << (SUB_ASSIGN - 70)) | (1L << (MUL_ASSIGN - 70)) | (1L << (DIV_ASSIGN - 70)) | (1L << (AND_ASSIGN - 70)) | (1L << (OR_ASSIGN - 70)) | (1L << (XOR_ASSIGN - 70)) | (1L << (MOD_ASSIGN - 70)) | (1L << (LSHIFT_ASSIGN - 70)) | (1L << (RSHIFT_ASSIGN - 70)) | (1L << (URSHIFT_ASSIGN - 70)))) != 0)))
-                                        {
+                                        if (!(((((_la - 70)) & ~0x3f) == 0 && ((1L << (_la - 70)) & ((1L << (ASSIGN - 70)) | (1L << (ADD_ASSIGN - 70)) | (1L << (SUB_ASSIGN - 70)) | (1L << (MUL_ASSIGN - 70)) | (1L << (DIV_ASSIGN - 70)) | (1L << (AND_ASSIGN - 70)) | (1L << (OR_ASSIGN - 70)) | (1L << (XOR_ASSIGN - 70)) | (1L << (MOD_ASSIGN - 70)) | (1L << (LSHIFT_ASSIGN - 70)) | (1L << (RSHIFT_ASSIGN - 70)) | (1L << (URSHIFT_ASSIGN - 70)))) != 0))) {
                                             _localctx.bop = ErrorHandler.RecoverInline(this);
-                                        }
-                                        else
-                                        {
+                                        } else {
                                             ErrorHandler.ReportMatch(this);
                                             Consume();
                                         }
                                         State = 1182; expression(5);
                                     }
                                     break;
-                                    case 13:
-                                    {
+                                    case 13: {
                                         _localctx = new ExpressionContext(_parentctx, _parentState);
                                         PushNewRecursionContext(_localctx, _startState, RULE_expression);
                                         State = 1183;
@@ -9027,31 +8254,25 @@ namespace LINVAST.Imperative.Builders.Java
                                         State = 1184; _localctx.bop = Match(DOT);
                                         State = 1196;
                                         ErrorHandler.Sync(this);
-                                        switch (Interpreter.AdaptivePredict(TokenStream, 141, Context))
-                                        {
-                                            case 1:
-                                            {
+                                        switch (Interpreter.AdaptivePredict(TokenStream, 141, Context)) {
+                                            case 1: {
                                                 State = 1185; Match(IDENTIFIER);
                                             }
                                             break;
-                                            case 2:
-                                            {
+                                            case 2: {
                                                 State = 1186; methodCall();
                                             }
                                             break;
-                                            case 3:
-                                            {
+                                            case 3: {
                                                 State = 1187; Match(THIS);
                                             }
                                             break;
-                                            case 4:
-                                            {
+                                            case 4: {
                                                 State = 1188; Match(NEW);
                                                 State = 1190;
                                                 ErrorHandler.Sync(this);
                                                 _la = TokenStream.LA(1);
-                                                if (_la == LT)
-                                                {
+                                                if (_la == LT) {
                                                     {
                                                         State = 1189; nonWildcardTypeArguments();
                                                     }
@@ -9060,22 +8281,19 @@ namespace LINVAST.Imperative.Builders.Java
                                                 State = 1192; innerCreator();
                                             }
                                             break;
-                                            case 5:
-                                            {
+                                            case 5: {
                                                 State = 1193; Match(SUPER);
                                                 State = 1194; superSuffix();
                                             }
                                             break;
-                                            case 6:
-                                            {
+                                            case 6: {
                                                 State = 1195; explicitGenericInvocation();
                                             }
                                             break;
                                         }
                                     }
                                     break;
-                                    case 14:
-                                    {
+                                    case 14: {
                                         _localctx = new ExpressionContext(_parentctx, _parentState);
                                         PushNewRecursionContext(_localctx, _startState, RULE_expression);
                                         State = 1198;
@@ -9085,8 +8303,7 @@ namespace LINVAST.Imperative.Builders.Java
                                         State = 1201; Match(RBRACK);
                                     }
                                     break;
-                                    case 15:
-                                    {
+                                    case 15: {
                                         _localctx = new ExpressionContext(_parentctx, _parentState);
                                         PushNewRecursionContext(_localctx, _startState, RULE_expression);
                                         State = 1203;
@@ -9094,19 +8311,15 @@ namespace LINVAST.Imperative.Builders.Java
                                         State = 1204;
                                         _localctx.postfix = TokenStream.LT(1);
                                         _la = TokenStream.LA(1);
-                                        if (!(_la == INC || _la == DEC))
-                                        {
+                                        if (!(_la == INC || _la == DEC)) {
                                             _localctx.postfix = ErrorHandler.RecoverInline(this);
-                                        }
-                                        else
-                                        {
+                                        } else {
                                             ErrorHandler.ReportMatch(this);
                                             Consume();
                                         }
                                     }
                                     break;
-                                    case 16:
-                                    {
+                                    case 16: {
                                         _localctx = new ExpressionContext(_parentctx, _parentState);
                                         PushNewRecursionContext(_localctx, _startState, RULE_expression);
                                         State = 1205;
@@ -9115,8 +8328,7 @@ namespace LINVAST.Imperative.Builders.Java
                                         State = 1207; typeType();
                                     }
                                     break;
-                                    case 17:
-                                    {
+                                    case 17: {
                                         _localctx = new ExpressionContext(_parentctx, _parentState);
                                         PushNewRecursionContext(_localctx, _startState, RULE_expression);
                                         State = 1208;
@@ -9125,8 +8337,7 @@ namespace LINVAST.Imperative.Builders.Java
                                         State = 1211;
                                         ErrorHandler.Sync(this);
                                         _la = TokenStream.LA(1);
-                                        if (_la == LT)
-                                        {
+                                        if (_la == LT) {
                                             {
                                                 State = 1210; typeArguments();
                                             }
@@ -9143,15 +8354,11 @@ namespace LINVAST.Imperative.Builders.Java
                         _alt = Interpreter.AdaptivePredict(TokenStream, 144, Context);
                     }
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 UnrollRecursionContexts(_parentctx);
             }
             return _localctx;
@@ -9201,23 +8408,18 @@ namespace LINVAST.Imperative.Builders.Java
         {
             LambdaExpressionContext _localctx = new LambdaExpressionContext(Context, State);
             EnterRule(_localctx, 168, RULE_lambdaExpression);
-            try
-            {
+            try {
                 EnterOuterAlt(_localctx, 1);
                 {
                     State = 1219; lambdaParameters();
                     State = 1220; Match(ARROW);
                     State = 1221; lambdaBody();
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -9276,27 +8478,22 @@ namespace LINVAST.Imperative.Builders.Java
             LambdaParametersContext _localctx = new LambdaParametersContext(Context, State);
             EnterRule(_localctx, 170, RULE_lambdaParameters);
             int _la;
-            try
-            {
+            try {
                 State = 1239;
                 ErrorHandler.Sync(this);
-                switch (Interpreter.AdaptivePredict(TokenStream, 147, Context))
-                {
+                switch (Interpreter.AdaptivePredict(TokenStream, 147, Context)) {
                     case 1:
-                        EnterOuterAlt(_localctx, 1);
-                        {
+                        EnterOuterAlt(_localctx, 1); {
                             State = 1223; Match(IDENTIFIER);
                         }
                         break;
                     case 2:
-                        EnterOuterAlt(_localctx, 2);
-                        {
+                        EnterOuterAlt(_localctx, 2); {
                             State = 1224; Match(LPAREN);
                             State = 1226;
                             ErrorHandler.Sync(this);
                             _la = TokenStream.LA(1);
-                            if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << BOOLEAN) | (1L << BYTE) | (1L << CHAR) | (1L << DOUBLE) | (1L << FINAL) | (1L << FLOAT) | (1L << INT) | (1L << LONG) | (1L << SHORT))) != 0) || _la == AT || _la == IDENTIFIER)
-                            {
+                            if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << BOOLEAN) | (1L << BYTE) | (1L << CHAR) | (1L << DOUBLE) | (1L << FINAL) | (1L << FLOAT) | (1L << INT) | (1L << LONG) | (1L << SHORT))) != 0) || _la == AT || _la == IDENTIFIER) {
                                 {
                                     State = 1225; formalParameterList();
                                 }
@@ -9306,15 +8503,13 @@ namespace LINVAST.Imperative.Builders.Java
                         }
                         break;
                     case 3:
-                        EnterOuterAlt(_localctx, 3);
-                        {
+                        EnterOuterAlt(_localctx, 3); {
                             State = 1229; Match(LPAREN);
                             State = 1230; Match(IDENTIFIER);
                             State = 1235;
                             ErrorHandler.Sync(this);
                             _la = TokenStream.LA(1);
-                            while (_la == COMMA)
-                            {
+                            while (_la == COMMA) {
                                 {
                                     {
                                         State = 1231; Match(COMMA);
@@ -9329,15 +8524,11 @@ namespace LINVAST.Imperative.Builders.Java
                         }
                         break;
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -9386,12 +8577,10 @@ namespace LINVAST.Imperative.Builders.Java
         {
             LambdaBodyContext _localctx = new LambdaBodyContext(Context, State);
             EnterRule(_localctx, 172, RULE_lambdaBody);
-            try
-            {
+            try {
                 State = 1243;
                 ErrorHandler.Sync(this);
-                switch (TokenStream.LA(1))
-                {
+                switch (TokenStream.LA(1)) {
                     case BOOLEAN:
                     case BYTE:
                     case CHAR:
@@ -9424,29 +8613,23 @@ namespace LINVAST.Imperative.Builders.Java
                     case SUB:
                     case AT:
                     case IDENTIFIER:
-                        EnterOuterAlt(_localctx, 1);
-                        {
+                        EnterOuterAlt(_localctx, 1); {
                             State = 1241; expression(0);
                         }
                         break;
                     case LBRACE:
-                        EnterOuterAlt(_localctx, 2);
-                        {
+                        EnterOuterAlt(_localctx, 2); {
                             State = 1242; block();
                         }
                         break;
                     default:
                         throw new NoViableAltException(this);
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -9522,68 +8705,56 @@ namespace LINVAST.Imperative.Builders.Java
         {
             PrimaryContext _localctx = new PrimaryContext(Context, State);
             EnterRule(_localctx, 174, RULE_primary);
-            try
-            {
+            try {
                 State = 1263;
                 ErrorHandler.Sync(this);
-                switch (Interpreter.AdaptivePredict(TokenStream, 150, Context))
-                {
+                switch (Interpreter.AdaptivePredict(TokenStream, 150, Context)) {
                     case 1:
-                        EnterOuterAlt(_localctx, 1);
-                        {
+                        EnterOuterAlt(_localctx, 1); {
                             State = 1245; Match(LPAREN);
                             State = 1246; expression(0);
                             State = 1247; Match(RPAREN);
                         }
                         break;
                     case 2:
-                        EnterOuterAlt(_localctx, 2);
-                        {
+                        EnterOuterAlt(_localctx, 2); {
                             State = 1249; Match(THIS);
                         }
                         break;
                     case 3:
-                        EnterOuterAlt(_localctx, 3);
-                        {
+                        EnterOuterAlt(_localctx, 3); {
                             State = 1250; Match(SUPER);
                         }
                         break;
                     case 4:
-                        EnterOuterAlt(_localctx, 4);
-                        {
+                        EnterOuterAlt(_localctx, 4); {
                             State = 1251; literal();
                         }
                         break;
                     case 5:
-                        EnterOuterAlt(_localctx, 5);
-                        {
+                        EnterOuterAlt(_localctx, 5); {
                             State = 1252; Match(IDENTIFIER);
                         }
                         break;
                     case 6:
-                        EnterOuterAlt(_localctx, 6);
-                        {
+                        EnterOuterAlt(_localctx, 6); {
                             State = 1253; typeTypeOrVoid();
                             State = 1254; Match(DOT);
                             State = 1255; Match(CLASS);
                         }
                         break;
                     case 7:
-                        EnterOuterAlt(_localctx, 7);
-                        {
+                        EnterOuterAlt(_localctx, 7); {
                             State = 1257; nonWildcardTypeArguments();
                             State = 1261;
                             ErrorHandler.Sync(this);
-                            switch (TokenStream.LA(1))
-                            {
+                            switch (TokenStream.LA(1)) {
                                 case SUPER:
-                                case IDENTIFIER:
-                                {
+                                case IDENTIFIER: {
                                     State = 1258; explicitGenericInvocationSuffix();
                                 }
                                 break;
-                                case THIS:
-                                {
+                                case THIS: {
                                     State = 1259; Match(THIS);
                                     State = 1260; arguments();
                                 }
@@ -9594,15 +8765,11 @@ namespace LINVAST.Imperative.Builders.Java
                         }
                         break;
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -9664,17 +8831,14 @@ namespace LINVAST.Imperative.Builders.Java
             ClassTypeContext _localctx = new ClassTypeContext(Context, State);
             EnterRule(_localctx, 176, RULE_classType);
             int _la;
-            try
-            {
+            try {
                 int _alt;
                 EnterOuterAlt(_localctx, 1);
                 {
                     State = 1268;
                     ErrorHandler.Sync(this);
-                    switch (Interpreter.AdaptivePredict(TokenStream, 151, Context))
-                    {
-                        case 1:
-                        {
+                    switch (Interpreter.AdaptivePredict(TokenStream, 151, Context)) {
+                        case 1: {
                             State = 1265; classOrInterfaceType();
                             State = 1266; Match(DOT);
                         }
@@ -9683,10 +8847,8 @@ namespace LINVAST.Imperative.Builders.Java
                     State = 1273;
                     ErrorHandler.Sync(this);
                     _alt = Interpreter.AdaptivePredict(TokenStream, 152, Context);
-                    while (_alt != 2 && _alt != global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER)
-                    {
-                        if (_alt == 1)
-                        {
+                    while (_alt != 2 && _alt != global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER) {
+                        if (_alt == 1) {
                             {
                                 {
                                     State = 1270; annotation();
@@ -9701,23 +8863,18 @@ namespace LINVAST.Imperative.Builders.Java
                     State = 1278;
                     ErrorHandler.Sync(this);
                     _la = TokenStream.LA(1);
-                    if (_la == LT)
-                    {
+                    if (_la == LT) {
                         {
                             State = 1277; typeArguments();
                         }
                     }
 
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -9776,15 +8933,12 @@ namespace LINVAST.Imperative.Builders.Java
         {
             CreatorContext _localctx = new CreatorContext(Context, State);
             EnterRule(_localctx, 178, RULE_creator);
-            try
-            {
+            try {
                 State = 1289;
                 ErrorHandler.Sync(this);
-                switch (TokenStream.LA(1))
-                {
+                switch (TokenStream.LA(1)) {
                     case LT:
-                        EnterOuterAlt(_localctx, 1);
-                        {
+                        EnterOuterAlt(_localctx, 1); {
                             State = 1280; nonWildcardTypeArguments();
                             State = 1281; createdName();
                             State = 1282; classCreatorRest();
@@ -9799,20 +8953,16 @@ namespace LINVAST.Imperative.Builders.Java
                     case LONG:
                     case SHORT:
                     case IDENTIFIER:
-                        EnterOuterAlt(_localctx, 2);
-                        {
+                        EnterOuterAlt(_localctx, 2); {
                             State = 1284; createdName();
                             State = 1287;
                             ErrorHandler.Sync(this);
-                            switch (TokenStream.LA(1))
-                            {
-                                case LBRACK:
-                                {
+                            switch (TokenStream.LA(1)) {
+                                case LBRACK: {
                                     State = 1285; arrayCreatorRest();
                                 }
                                 break;
-                                case LPAREN:
-                                {
+                                case LPAREN: {
                                     State = 1286; classCreatorRest();
                                 }
                                 break;
@@ -9824,15 +8974,11 @@ namespace LINVAST.Imperative.Builders.Java
                     default:
                         throw new NoViableAltException(this);
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -9899,21 +9045,17 @@ namespace LINVAST.Imperative.Builders.Java
             CreatedNameContext _localctx = new CreatedNameContext(Context, State);
             EnterRule(_localctx, 180, RULE_createdName);
             int _la;
-            try
-            {
+            try {
                 State = 1306;
                 ErrorHandler.Sync(this);
-                switch (TokenStream.LA(1))
-                {
+                switch (TokenStream.LA(1)) {
                     case IDENTIFIER:
-                        EnterOuterAlt(_localctx, 1);
-                        {
+                        EnterOuterAlt(_localctx, 1); {
                             State = 1291; Match(IDENTIFIER);
                             State = 1293;
                             ErrorHandler.Sync(this);
                             _la = TokenStream.LA(1);
-                            if (_la == LT)
-                            {
+                            if (_la == LT) {
                                 {
                                     State = 1292; typeArgumentsOrDiamond();
                                 }
@@ -9922,8 +9064,7 @@ namespace LINVAST.Imperative.Builders.Java
                             State = 1302;
                             ErrorHandler.Sync(this);
                             _la = TokenStream.LA(1);
-                            while (_la == DOT)
-                            {
+                            while (_la == DOT) {
                                 {
                                     {
                                         State = 1295; Match(DOT);
@@ -9931,8 +9072,7 @@ namespace LINVAST.Imperative.Builders.Java
                                         State = 1298;
                                         ErrorHandler.Sync(this);
                                         _la = TokenStream.LA(1);
-                                        if (_la == LT)
-                                        {
+                                        if (_la == LT) {
                                             {
                                                 State = 1297; typeArgumentsOrDiamond();
                                             }
@@ -9954,23 +9094,18 @@ namespace LINVAST.Imperative.Builders.Java
                     case INT:
                     case LONG:
                     case SHORT:
-                        EnterOuterAlt(_localctx, 2);
-                        {
+                        EnterOuterAlt(_localctx, 2); {
                             State = 1305; primitiveType();
                         }
                         break;
                     default:
                         throw new NoViableAltException(this);
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -10021,16 +9156,14 @@ namespace LINVAST.Imperative.Builders.Java
             InnerCreatorContext _localctx = new InnerCreatorContext(Context, State);
             EnterRule(_localctx, 182, RULE_innerCreator);
             int _la;
-            try
-            {
+            try {
                 EnterOuterAlt(_localctx, 1);
                 {
                     State = 1308; Match(IDENTIFIER);
                     State = 1310;
                     ErrorHandler.Sync(this);
                     _la = TokenStream.LA(1);
-                    if (_la == LT)
-                    {
+                    if (_la == LT) {
                         {
                             State = 1309; nonWildcardTypeArgumentsOrDiamond();
                         }
@@ -10038,15 +9171,11 @@ namespace LINVAST.Imperative.Builders.Java
 
                     State = 1312; classCreatorRest();
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -10113,24 +9242,20 @@ namespace LINVAST.Imperative.Builders.Java
             ArrayCreatorRestContext _localctx = new ArrayCreatorRestContext(Context, State);
             EnterRule(_localctx, 184, RULE_arrayCreatorRest);
             int _la;
-            try
-            {
+            try {
                 int _alt;
                 EnterOuterAlt(_localctx, 1);
                 {
                     State = 1314; Match(LBRACK);
                     State = 1342;
                     ErrorHandler.Sync(this);
-                    switch (TokenStream.LA(1))
-                    {
-                        case RBRACK:
-                        {
+                    switch (TokenStream.LA(1)) {
+                        case RBRACK: {
                             State = 1315; Match(RBRACK);
                             State = 1320;
                             ErrorHandler.Sync(this);
                             _la = TokenStream.LA(1);
-                            while (_la == LBRACK)
-                            {
+                            while (_la == LBRACK) {
                                 {
                                     {
                                         State = 1316; Match(LBRACK);
@@ -10175,17 +9300,14 @@ namespace LINVAST.Imperative.Builders.Java
                         case ADD:
                         case SUB:
                         case AT:
-                        case IDENTIFIER:
-                        {
+                        case IDENTIFIER: {
                             State = 1324; expression(0);
                             State = 1325; Match(RBRACK);
                             State = 1332;
                             ErrorHandler.Sync(this);
                             _alt = Interpreter.AdaptivePredict(TokenStream, 162, Context);
-                            while (_alt != 2 && _alt != global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER)
-                            {
-                                if (_alt == 1)
-                                {
+                            while (_alt != 2 && _alt != global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER) {
+                                if (_alt == 1) {
                                     {
                                         {
                                             State = 1326; Match(LBRACK);
@@ -10201,10 +9323,8 @@ namespace LINVAST.Imperative.Builders.Java
                             State = 1339;
                             ErrorHandler.Sync(this);
                             _alt = Interpreter.AdaptivePredict(TokenStream, 163, Context);
-                            while (_alt != 2 && _alt != global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER)
-                            {
-                                if (_alt == 1)
-                                {
+                            while (_alt != 2 && _alt != global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER) {
+                                if (_alt == 1) {
                                     {
                                         {
                                             State = 1335; Match(LBRACK);
@@ -10222,15 +9342,11 @@ namespace LINVAST.Imperative.Builders.Java
                             throw new NoViableAltException(this);
                     }
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -10279,31 +9395,24 @@ namespace LINVAST.Imperative.Builders.Java
         {
             ClassCreatorRestContext _localctx = new ClassCreatorRestContext(Context, State);
             EnterRule(_localctx, 186, RULE_classCreatorRest);
-            try
-            {
+            try {
                 EnterOuterAlt(_localctx, 1);
                 {
                     State = 1344; arguments();
                     State = 1346;
                     ErrorHandler.Sync(this);
-                    switch (Interpreter.AdaptivePredict(TokenStream, 165, Context))
-                    {
-                        case 1:
-                        {
+                    switch (Interpreter.AdaptivePredict(TokenStream, 165, Context)) {
+                        case 1: {
                             State = 1345; classBody();
                         }
                         break;
                     }
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -10352,22 +9461,17 @@ namespace LINVAST.Imperative.Builders.Java
         {
             ExplicitGenericInvocationContext _localctx = new ExplicitGenericInvocationContext(Context, State);
             EnterRule(_localctx, 188, RULE_explicitGenericInvocation);
-            try
-            {
+            try {
                 EnterOuterAlt(_localctx, 1);
                 {
                     State = 1348; nonWildcardTypeArguments();
                     State = 1349; explicitGenericInvocationSuffix();
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -10413,35 +9517,27 @@ namespace LINVAST.Imperative.Builders.Java
         {
             TypeArgumentsOrDiamondContext _localctx = new TypeArgumentsOrDiamondContext(Context, State);
             EnterRule(_localctx, 190, RULE_typeArgumentsOrDiamond);
-            try
-            {
+            try {
                 State = 1354;
                 ErrorHandler.Sync(this);
-                switch (Interpreter.AdaptivePredict(TokenStream, 166, Context))
-                {
+                switch (Interpreter.AdaptivePredict(TokenStream, 166, Context)) {
                     case 1:
-                        EnterOuterAlt(_localctx, 1);
-                        {
+                        EnterOuterAlt(_localctx, 1); {
                             State = 1351; Match(LT);
                             State = 1352; Match(GT);
                         }
                         break;
                     case 2:
-                        EnterOuterAlt(_localctx, 2);
-                        {
+                        EnterOuterAlt(_localctx, 2); {
                             State = 1353; typeArguments();
                         }
                         break;
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -10487,35 +9583,27 @@ namespace LINVAST.Imperative.Builders.Java
         {
             NonWildcardTypeArgumentsOrDiamondContext _localctx = new NonWildcardTypeArgumentsOrDiamondContext(Context, State);
             EnterRule(_localctx, 192, RULE_nonWildcardTypeArgumentsOrDiamond);
-            try
-            {
+            try {
                 State = 1359;
                 ErrorHandler.Sync(this);
-                switch (Interpreter.AdaptivePredict(TokenStream, 167, Context))
-                {
+                switch (Interpreter.AdaptivePredict(TokenStream, 167, Context)) {
                     case 1:
-                        EnterOuterAlt(_localctx, 1);
-                        {
+                        EnterOuterAlt(_localctx, 1); {
                             State = 1356; Match(LT);
                             State = 1357; Match(GT);
                         }
                         break;
                     case 2:
-                        EnterOuterAlt(_localctx, 2);
-                        {
+                        EnterOuterAlt(_localctx, 2); {
                             State = 1358; nonWildcardTypeArguments();
                         }
                         break;
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -10561,23 +9649,18 @@ namespace LINVAST.Imperative.Builders.Java
         {
             NonWildcardTypeArgumentsContext _localctx = new NonWildcardTypeArgumentsContext(Context, State);
             EnterRule(_localctx, 194, RULE_nonWildcardTypeArguments);
-            try
-            {
+            try {
                 EnterOuterAlt(_localctx, 1);
                 {
                     State = 1361; Match(LT);
                     State = 1362; typeList();
                     State = 1363; Match(GT);
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -10633,16 +9716,14 @@ namespace LINVAST.Imperative.Builders.Java
             TypeListContext _localctx = new TypeListContext(Context, State);
             EnterRule(_localctx, 196, RULE_typeList);
             int _la;
-            try
-            {
+            try {
                 EnterOuterAlt(_localctx, 1);
                 {
                     State = 1365; typeType();
                     State = 1370;
                     ErrorHandler.Sync(this);
                     _la = TokenStream.LA(1);
-                    while (_la == COMMA)
-                    {
+                    while (_la == COMMA) {
                         {
                             {
                                 State = 1366; Match(COMMA);
@@ -10654,15 +9735,11 @@ namespace LINVAST.Imperative.Builders.Java
                         _la = TokenStream.LA(1);
                     }
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -10734,18 +9811,15 @@ namespace LINVAST.Imperative.Builders.Java
             TypeTypeContext _localctx = new TypeTypeContext(Context, State);
             EnterRule(_localctx, 198, RULE_typeType);
             int _la;
-            try
-            {
+            try {
                 int _alt;
                 EnterOuterAlt(_localctx, 1);
                 {
                     State = 1376;
                     ErrorHandler.Sync(this);
                     _alt = Interpreter.AdaptivePredict(TokenStream, 169, Context);
-                    while (_alt != 2 && _alt != global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER)
-                    {
-                        if (_alt == 1)
-                        {
+                    while (_alt != 2 && _alt != global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER) {
+                        if (_alt == 1) {
                             {
                                 {
                                     State = 1373; annotation();
@@ -10758,10 +9832,8 @@ namespace LINVAST.Imperative.Builders.Java
                     }
                     State = 1381;
                     ErrorHandler.Sync(this);
-                    switch (TokenStream.LA(1))
-                    {
-                        case IDENTIFIER:
-                        {
+                    switch (TokenStream.LA(1)) {
+                        case IDENTIFIER: {
                             State = 1379; classOrInterfaceType();
                         }
                         break;
@@ -10772,8 +9844,7 @@ namespace LINVAST.Imperative.Builders.Java
                         case FLOAT:
                         case INT:
                         case LONG:
-                        case SHORT:
-                        {
+                        case SHORT: {
                             State = 1380; primitiveType();
                         }
                         break;
@@ -10783,17 +9854,14 @@ namespace LINVAST.Imperative.Builders.Java
                     State = 1393;
                     ErrorHandler.Sync(this);
                     _alt = Interpreter.AdaptivePredict(TokenStream, 172, Context);
-                    while (_alt != 2 && _alt != global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER)
-                    {
-                        if (_alt == 1)
-                        {
+                    while (_alt != 2 && _alt != global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER) {
+                        if (_alt == 1) {
                             {
                                 {
                                     State = 1386;
                                     ErrorHandler.Sync(this);
                                     _la = TokenStream.LA(1);
-                                    while (_la == AT || _la == IDENTIFIER)
-                                    {
+                                    while (_la == AT || _la == IDENTIFIER) {
                                         {
                                             {
                                                 State = 1383; annotation();
@@ -10813,15 +9881,11 @@ namespace LINVAST.Imperative.Builders.Java
                         _alt = Interpreter.AdaptivePredict(TokenStream, 172, Context);
                     }
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -10869,31 +9933,23 @@ namespace LINVAST.Imperative.Builders.Java
             PrimitiveTypeContext _localctx = new PrimitiveTypeContext(Context, State);
             EnterRule(_localctx, 200, RULE_primitiveType);
             int _la;
-            try
-            {
+            try {
                 EnterOuterAlt(_localctx, 1);
                 {
                     State = 1396;
                     _la = TokenStream.LA(1);
-                    if (!((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << BOOLEAN) | (1L << BYTE) | (1L << CHAR) | (1L << DOUBLE) | (1L << FLOAT) | (1L << INT) | (1L << LONG) | (1L << SHORT))) != 0)))
-                    {
+                    if (!((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << BOOLEAN) | (1L << BYTE) | (1L << CHAR) | (1L << DOUBLE) | (1L << FLOAT) | (1L << INT) | (1L << LONG) | (1L << SHORT))) != 0))) {
                         ErrorHandler.RecoverInline(this);
-                    }
-                    else
-                    {
+                    } else {
                         ErrorHandler.ReportMatch(this);
                         Consume();
                     }
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -10951,8 +10007,7 @@ namespace LINVAST.Imperative.Builders.Java
             TypeArgumentsContext _localctx = new TypeArgumentsContext(Context, State);
             EnterRule(_localctx, 202, RULE_typeArguments);
             int _la;
-            try
-            {
+            try {
                 EnterOuterAlt(_localctx, 1);
                 {
                     State = 1398; Match(LT);
@@ -10960,8 +10015,7 @@ namespace LINVAST.Imperative.Builders.Java
                     State = 1404;
                     ErrorHandler.Sync(this);
                     _la = TokenStream.LA(1);
-                    while (_la == COMMA)
-                    {
+                    while (_la == COMMA) {
                         {
                             {
                                 State = 1400; Match(COMMA);
@@ -10974,15 +10028,11 @@ namespace LINVAST.Imperative.Builders.Java
                     }
                     State = 1407; Match(GT);
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -11028,29 +10078,23 @@ namespace LINVAST.Imperative.Builders.Java
         {
             SuperSuffixContext _localctx = new SuperSuffixContext(Context, State);
             EnterRule(_localctx, 204, RULE_superSuffix);
-            try
-            {
+            try {
                 State = 1415;
                 ErrorHandler.Sync(this);
-                switch (TokenStream.LA(1))
-                {
+                switch (TokenStream.LA(1)) {
                     case LPAREN:
-                        EnterOuterAlt(_localctx, 1);
-                        {
+                        EnterOuterAlt(_localctx, 1); {
                             State = 1409; arguments();
                         }
                         break;
                     case DOT:
-                        EnterOuterAlt(_localctx, 2);
-                        {
+                        EnterOuterAlt(_localctx, 2); {
                             State = 1410; Match(DOT);
                             State = 1411; Match(IDENTIFIER);
                             State = 1413;
                             ErrorHandler.Sync(this);
-                            switch (Interpreter.AdaptivePredict(TokenStream, 174, Context))
-                            {
-                                case 1:
-                                {
+                            switch (Interpreter.AdaptivePredict(TokenStream, 174, Context)) {
+                                case 1: {
                                     State = 1412; arguments();
                                 }
                                 break;
@@ -11060,15 +10104,11 @@ namespace LINVAST.Imperative.Builders.Java
                     default:
                         throw new NoViableAltException(this);
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -11119,22 +10159,18 @@ namespace LINVAST.Imperative.Builders.Java
         {
             ExplicitGenericInvocationSuffixContext _localctx = new ExplicitGenericInvocationSuffixContext(Context, State);
             EnterRule(_localctx, 206, RULE_explicitGenericInvocationSuffix);
-            try
-            {
+            try {
                 State = 1421;
                 ErrorHandler.Sync(this);
-                switch (TokenStream.LA(1))
-                {
+                switch (TokenStream.LA(1)) {
                     case SUPER:
-                        EnterOuterAlt(_localctx, 1);
-                        {
+                        EnterOuterAlt(_localctx, 1); {
                             State = 1417; Match(SUPER);
                             State = 1418; superSuffix();
                         }
                         break;
                     case IDENTIFIER:
-                        EnterOuterAlt(_localctx, 2);
-                        {
+                        EnterOuterAlt(_localctx, 2); {
                             State = 1419; Match(IDENTIFIER);
                             State = 1420; arguments();
                         }
@@ -11142,15 +10178,11 @@ namespace LINVAST.Imperative.Builders.Java
                     default:
                         throw new NoViableAltException(this);
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -11197,16 +10229,14 @@ namespace LINVAST.Imperative.Builders.Java
             ArgumentsContext _localctx = new ArgumentsContext(Context, State);
             EnterRule(_localctx, 208, RULE_arguments);
             int _la;
-            try
-            {
+            try {
                 EnterOuterAlt(_localctx, 1);
                 {
                     State = 1423; Match(LPAREN);
                     State = 1425;
                     ErrorHandler.Sync(this);
                     _la = TokenStream.LA(1);
-                    if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << BOOLEAN) | (1L << BYTE) | (1L << CHAR) | (1L << DOUBLE) | (1L << FLOAT) | (1L << INT) | (1L << LONG) | (1L << NEW) | (1L << SHORT) | (1L << SUPER) | (1L << THIS) | (1L << VOID) | (1L << DECIMAL_LITERAL) | (1L << HEX_LITERAL) | (1L << OCT_LITERAL) | (1L << BINARY_LITERAL) | (1L << FLOAT_LITERAL) | (1L << HEX_FLOAT_LITERAL) | (1L << BOOL_LITERAL) | (1L << CHAR_LITERAL) | (1L << STRING_LITERAL) | (1L << NULL_LITERAL) | (1L << LPAREN))) != 0) || ((((_la - 72)) & ~0x3f) == 0 && ((1L << (_la - 72)) & ((1L << (LT - 72)) | (1L << (BANG - 72)) | (1L << (TILDE - 72)) | (1L << (INC - 72)) | (1L << (DEC - 72)) | (1L << (ADD - 72)) | (1L << (SUB - 72)) | (1L << (AT - 72)) | (1L << (IDENTIFIER - 72)))) != 0))
-                    {
+                    if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << BOOLEAN) | (1L << BYTE) | (1L << CHAR) | (1L << DOUBLE) | (1L << FLOAT) | (1L << INT) | (1L << LONG) | (1L << NEW) | (1L << SHORT) | (1L << SUPER) | (1L << THIS) | (1L << VOID) | (1L << DECIMAL_LITERAL) | (1L << HEX_LITERAL) | (1L << OCT_LITERAL) | (1L << BINARY_LITERAL) | (1L << FLOAT_LITERAL) | (1L << HEX_FLOAT_LITERAL) | (1L << BOOL_LITERAL) | (1L << CHAR_LITERAL) | (1L << STRING_LITERAL) | (1L << NULL_LITERAL) | (1L << LPAREN))) != 0) || ((((_la - 72)) & ~0x3f) == 0 && ((1L << (_la - 72)) & ((1L << (LT - 72)) | (1L << (BANG - 72)) | (1L << (TILDE - 72)) | (1L << (INC - 72)) | (1L << (DEC - 72)) | (1L << (ADD - 72)) | (1L << (SUB - 72)) | (1L << (AT - 72)) | (1L << (IDENTIFIER - 72)))) != 0)) {
                         {
                             State = 1424; expressionList();
                         }
@@ -11214,15 +10244,11 @@ namespace LINVAST.Imperative.Builders.Java
 
                     State = 1427; Match(RPAREN);
                 }
-            }
-            catch (RecognitionException re)
-            {
+            } catch (RecognitionException re) {
                 _localctx.exception = re;
                 ErrorHandler.ReportError(this, re);
                 ErrorHandler.Recover(this, re);
-            }
-            finally
-            {
+            } finally {
                 ExitRule();
             }
             return _localctx;
@@ -11230,16 +10256,14 @@ namespace LINVAST.Imperative.Builders.Java
 
         public override bool Sempred(RuleContext _localctx, int ruleIndex, int predIndex)
         {
-            switch (ruleIndex)
-            {
+            switch (ruleIndex) {
                 case 83: return expression_sempred((ExpressionContext)_localctx, predIndex);
             }
             return true;
         }
         private bool expression_sempred(ExpressionContext _localctx, int predIndex)
         {
-            switch (predIndex)
-            {
+            switch (predIndex) {
                 case 0: return Precpred(Context, 17);
                 case 1: return Precpred(Context, 16);
                 case 2: return Precpred(Context, 15);

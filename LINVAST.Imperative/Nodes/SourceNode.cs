@@ -15,7 +15,7 @@ namespace LINVAST.Imperative.Nodes
             : base(1, children) { }
 
         public SourceNode(string name, IEnumerable<ASTNode> children)
-            : base(1, children) 
+            : base(1, children)
         {
             this.Name = name;
         }

@@ -1,10 +1,14 @@
-﻿using LINVAST.Imperative.Nodes;
+﻿using LINVAST.Exceptions;
+using LINVAST.Imperative.Nodes;
 using LINVAST.Nodes;
 
 namespace LINVAST.Imperative.Visitors
 {
     public abstract class BaseASTVisitor<TResult>
     {
+        private const int MAX_ITER = 1000;
+        private int repeatCount = 0;
+
         public virtual TResult VisitChildren(ASTNode node)
         {
             TResult result = this.DefaultResult;
@@ -17,7 +21,14 @@ namespace LINVAST.Imperative.Visitors
             return result;
         }
 
-        public virtual TResult Visit(ASTNode node) => this.Visit((dynamic)node);
+        public virtual TResult Visit(ASTNode node)
+        {
+            repeatCount++;
+            if (repeatCount > MAX_ITER)
+                throw new EvaluationException($"Evaluator reached {MAX_ITER} iterations. Perhaps a specialization for this node type does not exist?");
+            return this.Visit((dynamic)node);
+        }
+
         public virtual TResult Visit(ArithmExprNode node) => this.VisitChildren(node);
         public virtual TResult Visit(ArithmOpNode node) => this.VisitChildren(node);
         public virtual TResult Visit(ArrAccessExprNode node) => this.VisitChildren(node);
@@ -27,6 +38,7 @@ namespace LINVAST.Imperative.Visitors
         public virtual TResult Visit(AssignOpNode node) => this.VisitChildren(node);
         public virtual TResult Visit(BinaryLogicOpNode node) => this.VisitChildren(node);
         public virtual TResult Visit(BlockStatNode node) => this.VisitChildren(node);
+        public virtual TResult Visit(CondExprNode node) => this.VisitChildren(node);
         public virtual TResult Visit(DeclSpecsNode node) => this.VisitChildren(node);
         public virtual TResult Visit(DeclStatNode node) => this.VisitChildren(node);
         public virtual TResult Visit(DeclListNode node) => this.VisitChildren(node);

@@ -96,15 +96,15 @@ namespace LINVAST.Imperative.Builders.C
             ExprNode condition = this.Visit(ctx.expression()).As<ExprNode>();
             it = new WhileStatNode(ctx.Start.Line, condition, statement);
 
-            return ctx.Do() is { } 
-                ? throw new NotImplementedException("do-while") 
+            return ctx.Do() is { }
+                ? throw new NotImplementedException("do-while")
                 : it;
 
             void GetForExpressions(ForConditionContext fctx, out ExprNode? cond, out ExprNode? inc)
             {
                 cond = null;
                 inc = null;
-                
+
                 int colonCount = 0;
                 foreach (IParseTree child in fctx.children) {
                     if (child is ITerminalNode)

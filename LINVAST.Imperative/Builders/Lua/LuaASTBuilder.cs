@@ -123,7 +123,7 @@ namespace LINVAST.Imperative.Builders.Lua
 
 
                         static IdNode CreateTmpIdentifier(IdNode id)
-                            => new IdNode(id.Line, $"tmp__{id.Identifier}");
+                            => new(id.Line, $"tmp__{id.Identifier}");
 
                         static DeclNode CreateTmpDeclarator(AssignExprNode expr)
                             => CreateDeclarator(CreateTmpIdentifier(expr.LeftOperand.As<IdNode>()), expr.RightOperand);
@@ -173,7 +173,7 @@ namespace LINVAST.Imperative.Builders.Lua
 
             bool IsDeclared(IdNode node)
                 => declaredVars.Contains(node.Identifier);
-                //=> nodes.Any(n => n is DeclarationStatementNode decl && decl.DeclaratorList.Declarations.Any(d => d.IdentifierNode.Equals(node)));
+            //=> nodes.Any(n => n is DeclarationStatementNode decl && decl.DeclaratorList.Declarations.Any(d => d.IdentifierNode.Equals(node)));
 
             static DeclNode CreateDeclarator(IdNode identifier, ExprNode initializer, bool ignoreInitializer = false)
             {

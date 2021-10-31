@@ -2,7 +2,6 @@
 using LINVAST.Exceptions;
 using LINVAST.Imperative.Nodes;
 using LINVAST.Imperative.Nodes.Common;
-using LINVAST.Nodes;
 
 namespace LINVAST.Imperative.Visitors
 {
@@ -24,6 +23,18 @@ namespace LINVAST.Imperative.Visitors
         }
 
 
+        public override object? Visit(CondExprNode node)
+        {
+            object? cond = this.Visit(node.Condition);
+            object? @then = this.Visit(node.ThenExpression);
+            object? @else = this.Visit(node.ElseExpression);
+
+            if (cond is null || cond is not bool booleanCondition)
+                throw new EvaluationException("Failed to evaluate ternary conditional operator condition");
+
+            return booleanCondition ? @then : @else;
+        }
+
         public override object? Visit(ArithmExprNode node)
         {
             (object? l, object? r) = this.VisitBinaryOperands(node);
@@ -36,7 +47,7 @@ namespace LINVAST.Imperative.Visitors
         {
             (object? l, object? r) = this.VisitBinaryOperands(node);
             if (l is null || r is null || l is NullLitExprNode || r is NullLitExprNode)
-                    throw new EvaluationException("Null reference in expression");
+                throw new EvaluationException("Null reference in expression");
             if (l is bool || r is bool)
                 return node.Operator.As<RelOpNode>().ApplyTo(Convert.ToBoolean(l), Convert.ToBoolean(r));
             return node.Operator.As<RelOpNode>().ApplyTo(l, r);

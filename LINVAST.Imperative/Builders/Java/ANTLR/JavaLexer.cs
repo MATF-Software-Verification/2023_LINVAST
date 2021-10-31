@@ -24,7 +24,6 @@ namespace LINVAST.Imperative.Builders.Java
 
     using System;
     using System.IO;
-    using System.Text;
     using Antlr4.Runtime;
     using Antlr4.Runtime.Atn;
     using Antlr4.Runtime.Misc;
@@ -128,10 +127,8 @@ namespace LINVAST.Imperative.Builders.Java
         public static readonly IVocabulary DefaultVocabulary = new Vocabulary(_LiteralNames, _SymbolicNames);
 
         [NotNull]
-        public override IVocabulary Vocabulary
-        {
-            get
-            {
+        public override IVocabulary Vocabulary {
+            get {
                 return DefaultVocabulary;
             }
         }
@@ -149,8 +146,7 @@ namespace LINVAST.Imperative.Builders.Java
         static JavaLexer()
         {
             decisionToDFA = new DFA[_ATN.NumberOfDecisions];
-            for (int i = 0; i < _ATN.NumberOfDecisions; i++)
-            {
+            for (int i = 0; i < _ATN.NumberOfDecisions; i++) {
                 decisionToDFA[i] = new DFA(_ATN.GetDecisionState(i), i);
             }
         }

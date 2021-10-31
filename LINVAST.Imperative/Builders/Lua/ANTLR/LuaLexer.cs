@@ -24,14 +24,13 @@ namespace LINVAST.Imperative.Builders.Lua
 
     using System;
     using System.IO;
-    using System.Text;
     using Antlr4.Runtime;
     using Antlr4.Runtime.Atn;
     using Antlr4.Runtime.Misc;
     using DFA = Antlr4.Runtime.Dfa.DFA;
 
     [System.CodeDom.Compiler.GeneratedCode("ANTLR", "4.7.1")]
-    
+
     public partial class LuaLexer : Lexer
     {
         protected static DFA[] decisionToDFA;

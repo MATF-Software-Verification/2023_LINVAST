@@ -253,12 +253,12 @@ namespace LINVAST.Tests.Nodes
                 1,
                 new DeclSpecsNode(2, "public static", "void"),
                 new FuncDeclNode(
-                    2, 
-                    new IdNode(2, "f"), 
+                    2,
+                    new IdNode(2, "f"),
                     new FuncParamsNode(
                         2,
                         new FuncParamNode(
-                            3, 
+                            3,
                             new DeclSpecsNode(3, "const", "time_t"),
                             new ArrDeclNode(3, new IdNode(3, "arr"))
                         )
@@ -452,9 +452,9 @@ namespace LINVAST.Tests.Nodes
             ASTNode ast1 = new ArithmExprNode(
                 1,
                 new ArithmExprNode(
-                    2, 
+                    2,
                     new LitExprNode(2, 3),
-                    ArithmOpNode.FromSymbol(2, "+"), 
+                    ArithmOpNode.FromSymbol(2, "+"),
                     new LitExprNode(2, 3)
                 ),
                 ArithmOpNode.FromSymbol(2, "-"),
@@ -623,7 +623,7 @@ namespace LINVAST.Tests.Nodes
             );
             AssertNodes(ast1, ast2, eq: false);
         }
-        
+
 
         private static void AssertNodes(ASTNode ast1, ASTNode ast2, bool eq = true)
         {

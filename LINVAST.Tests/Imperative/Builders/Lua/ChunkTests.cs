@@ -24,7 +24,7 @@ namespace LINVAST.Tests.Imperative.Builders.Lua
         }
 
 
-        protected override ASTNode GenerateAST(string src) 
+        protected override ASTNode GenerateAST(string src)
             => new LuaASTBuilder().BuildFromSource(src);
     }
 }
