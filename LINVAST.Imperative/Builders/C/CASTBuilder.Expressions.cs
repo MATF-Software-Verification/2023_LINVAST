@@ -236,17 +236,17 @@ namespace LINVAST.Imperative.Builders.C
                 if (name.Equals("null", StringComparison.InvariantCultureIgnoreCase))
                     return new NullLitExprNode(ctx.Start.Line);
                 return new IdNode(ctx.Start.Line, name);
-            } 
-            
+            }
+
             if (ctx.Constant() is { })
                 return LitExprNode.FromString(ctx.Start.Line, ctx.Constant().GetText());
-            
+
             if (ctx.expression() is { })
                 return this.Visit(ctx.expression());
-            
+
             if (ctx.StringLiteral() is { })
                 return new LitExprNode(ctx.Start.Line, string.Join("", ctx.StringLiteral().Select(t => t.GetText()[1..^1])));
-            
+
             throw new NotImplementedException("__*");
         }
 

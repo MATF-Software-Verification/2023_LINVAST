@@ -27,7 +27,7 @@ namespace LINVAST.Imperative.Nodes
     public sealed class UnaryOpNode : OpNode
     {
         public static UnaryOpNode FromSymbol(int line, string symbol)
-            => new UnaryOpNode(line, symbol, UnaryOperations.UnaryFromSymbol(symbol));
+            => new(line, symbol, UnaryOperations.UnaryFromSymbol(symbol));
 
 
         [JsonIgnore]
@@ -57,10 +57,10 @@ namespace LINVAST.Imperative.Nodes
     public sealed class ArithmOpNode : BinaryOpNode
     {
         public static ArithmOpNode FromSymbol(int line, string symbol)
-            => new ArithmOpNode(line, symbol, BinaryOperations.ArithmeticFromSymbol(symbol));
+            => new(line, symbol, BinaryOperations.ArithmeticFromSymbol(symbol));
 
         public static ArithmOpNode FromBitwiseSymbol(int line, string symbol)
-            => new ArithmOpNode(line, symbol, BinaryOperations.BitwiseBinaryFromSymbol(symbol));
+            => new(line, symbol, BinaryOperations.BitwiseBinaryFromSymbol(symbol));
 
 
         public ArithmOpNode(int line, string symbol, Func<object, object, object> logic)
@@ -70,7 +70,7 @@ namespace LINVAST.Imperative.Nodes
     public sealed class RelOpNode : BinaryOpNode
     {
         public static RelOpNode FromSymbol(int line, string symbol)
-            => new RelOpNode(line, symbol, BinaryOperations.RelationalFromSymbol(symbol));
+            => new(line, symbol, BinaryOperations.RelationalFromSymbol(symbol));
 
 
         public RelOpNode(int line, string symbol, Func<object, object, bool> logic)
@@ -80,9 +80,9 @@ namespace LINVAST.Imperative.Nodes
     public sealed class BinaryLogicOpNode : BinaryOpNode
     {
         public static BinaryLogicOpNode FromSymbol(int line, string symbol)
-            => new BinaryLogicOpNode(line, symbol, BinaryOperations.LogicFromSymbol(symbol));
-        
-        
+            => new(line, symbol, BinaryOperations.LogicFromSymbol(symbol));
+
+
         public BinaryLogicOpNode(int line, string symbol, Func<bool, bool, bool> logic)
             : base(line, symbol, (x, y) => logic(Convert.ToBoolean(x), Convert.ToBoolean(y))) { }
     }

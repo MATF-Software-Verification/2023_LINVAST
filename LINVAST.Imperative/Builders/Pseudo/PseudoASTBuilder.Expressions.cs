@@ -11,7 +11,7 @@ namespace LINVAST.Imperative.Builders.Pseudo
     {
         public override ASTNode VisitExp([NotNull] ExpContext ctx)
         {
-            if (ctx.literal() is { } || ctx.var() is { } || ctx.cexp() is { }) 
+            if (ctx.literal() is { } || ctx.var() is { } || ctx.cexp() is { })
                 return this.Visit(ctx.children.Single());
 
             if (ctx.aop() is { })

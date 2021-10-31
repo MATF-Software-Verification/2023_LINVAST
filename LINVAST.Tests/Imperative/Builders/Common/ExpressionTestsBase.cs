@@ -41,7 +41,7 @@ namespace LINVAST.Tests.Imperative.Builders.Common
             return expr;
         }
 
-        protected void AssertLiteralSuffix(string code, string suffix, object value, Type type)
+        protected void AssertLiteralSuffix(string code, string? suffix, object value, Type type)
         {
             LitExprNode literal = this.GenerateAST(code).As<LitExprNode>();
             Assert.That(literal, Is.Not.Null);

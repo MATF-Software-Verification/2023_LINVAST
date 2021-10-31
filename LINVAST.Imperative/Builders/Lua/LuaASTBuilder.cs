@@ -123,7 +123,7 @@ namespace LINVAST.Imperative.Builders.Lua
 
 
                         static IdNode CreateTmpIdentifier(IdNode id)
-                            => new IdNode(id.Line, $"tmp__{id.Identifier}");
+                            => new(id.Line, $"tmp__{id.Identifier}");
 
                         static DeclNode CreateTmpDeclarator(AssignExprNode expr)
                             => CreateDeclarator(CreateTmpIdentifier(expr.LeftOperand.As<IdNode>()), expr.RightOperand);
@@ -136,7 +136,7 @@ namespace LINVAST.Imperative.Builders.Lua
                     } else {
                         nodes.Add(new BlockStatNode(block.Line, this.AddDeclarations(block.Children, declaredVars)));
                     }
-                } else if (stat is FuncDefNode fdef) {
+                } else if (stat is FuncNode fdef) {
                     var @params = new List<string>();
                     if (fdef.Parameters is { })
                         @params.AddRange(fdef.Parameters.Select(p => p.Declarator.Identifier));
@@ -144,8 +144,13 @@ namespace LINVAST.Imperative.Builders.Lua
 
                     foreach (string p in @params)
                         declaredVars.Add(p);
+                    if (fdef.Definition is null)
+                        throw new SyntaxErrorException($"Function {fdef.Identifier} lacking defition in line {fdef.Line}");
                     var alteredDefinition = new BlockStatNode(fdef.Definition.Line, this.AddDeclarations(fdef.Definition.Children, declaredVars));
-                    nodes.Add(new FuncDefNode(fdef.Line, fdef.Specifiers, fdef.Declarator, alteredDefinition));
+                    FuncDeclNode alteredDeclarator = fdef.ParametersNode is { }
+                        ? new FuncDeclNode(fdef.Declarator.Line, fdef.Declarator.IdentifierNode, fdef.ParametersNode, fdef.Definition)
+                        : new FuncDeclNode(fdef.Declarator.Line, fdef.Declarator.IdentifierNode, fdef.Definition);
+                    nodes.Add(new FuncNode(fdef.Line, fdef.Specifiers, fdef.Declarator));
                     foreach (string p in @params)
                         declaredVars.Remove(p);
                 } else if (stat is IfStatNode @if) {
@@ -168,7 +173,7 @@ namespace LINVAST.Imperative.Builders.Lua
 
             bool IsDeclared(IdNode node)
                 => declaredVars.Contains(node.Identifier);
-                //=> nodes.Any(n => n is DeclarationStatementNode decl && decl.DeclaratorList.Declarations.Any(d => d.IdentifierNode.Equals(node)));
+            //=> nodes.Any(n => n is DeclarationStatementNode decl && decl.DeclaratorList.Declarations.Any(d => d.IdentifierNode.Equals(node)));
 
             static DeclNode CreateDeclarator(IdNode identifier, ExprNode initializer, bool ignoreInitializer = false)
             {

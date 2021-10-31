@@ -20,11 +20,11 @@ namespace LINVAST.Tests.Imperative.Builders.Lua
         public void FunctionTest()
         {
             SourceNode tu = this.AssertTranslationUnit(@"function two() return 2 end");
-            Assert.That(tu.Children.Single(), Is.InstanceOf<FuncDefNode>());
+            Assert.That(tu.Children.Single(), Is.InstanceOf<FuncNode>());
         }
 
 
-        protected override ASTNode GenerateAST(string src) 
+        protected override ASTNode GenerateAST(string src)
             => new LuaASTBuilder().BuildFromSource(src);
     }
 }

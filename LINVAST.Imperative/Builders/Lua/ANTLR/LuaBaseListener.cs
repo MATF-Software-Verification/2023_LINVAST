@@ -26,7 +26,6 @@ namespace LINVAST.Imperative.Builders.Lua
     using Antlr4.Runtime.Misc;
     using IErrorNode = Antlr4.Runtime.Tree.IErrorNode;
     using ITerminalNode = Antlr4.Runtime.Tree.ITerminalNode;
-    using IToken = Antlr4.Runtime.IToken;
     using ParserRuleContext = Antlr4.Runtime.ParserRuleContext;
 
     /// <summary>
@@ -35,7 +34,7 @@ namespace LINVAST.Imperative.Builders.Lua
     /// of the available methods.
     /// </summary>
     [System.CodeDom.Compiler.GeneratedCode("ANTLR", "4.7.1")]
-    
+
     public partial class LuaBaseListener : ILuaListener
     {
         /// <summary>

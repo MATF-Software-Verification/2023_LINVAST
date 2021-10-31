@@ -442,7 +442,7 @@ namespace LINVAST.Imperative.Nodes.Common
             else
                 throw new EvaluationException("Cannot compare non-primitive types");
         }
-        
+
         public static bool GreaterThanPrimitive(object x, object y)
         {
             ThrowIfNotPrimitiveTypes(x, y);

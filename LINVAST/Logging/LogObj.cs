@@ -11,7 +11,7 @@ namespace LINVAST.Logging
         {
             Log.Write(
                 level,
-                "[{Depth}:{ContextType}] [{SourceInterval}] | children: {ChildrenCount} | {Code}", 
+                "[{Depth}:{ContextType}] [{SourceInterval}] | children: {ChildrenCount} | {Code}",
                 ctx.Depth(),
                 ctx.GetType().Name,
                 ctx.SourceInterval,
@@ -22,9 +22,9 @@ namespace LINVAST.Logging
 
         public static void Visit(ParserRuleContext? ctx, LogEventLevel level = LogEventLevel.Debug)
         {
-            if (ctx is null) 
+            if (ctx is null)
                 return;
-            
+
             Log.Write(
                 level,
                 "Visiting [L{Line}:C{Column}:D{Depth}:{ContextType}] | children: {ChildrenCount} | {CodeInit} ...",

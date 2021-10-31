@@ -1,7 +1,7 @@
-﻿using NUnit.Framework;
+﻿using LINVAST.Imperative.Builders.Lua;
 using LINVAST.Nodes;
 using LINVAST.Tests.Imperative.Builders.Common;
-using LINVAST.Imperative.Builders.Lua;
+using NUnit.Framework;
 
 namespace LINVAST.Tests.Imperative.Builders.Lua
 {

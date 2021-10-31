@@ -28,12 +28,14 @@ namespace LINVAST.Imperative.Nodes.Common
                 access = AccessModifiers.Public;
 
             QualifierFlags qualifiers = QualifierFlags.None;
-            if (split.Contains("const"))
+            if (split.Contains("const") || split.Contains("final"))
                 qualifiers |= QualifierFlags.Const;
             if (split.Contains("static"))
                 qualifiers |= QualifierFlags.Static;
             if (split.Contains("volatile"))
                 qualifiers |= QualifierFlags.Volatile;
+            if (split.Contains("default"))
+                qualifiers |= QualifierFlags.Default;
 
             return new Modifiers(access, qualifiers);
         }
@@ -60,15 +62,17 @@ namespace LINVAST.Imperative.Nodes.Common
                 case AccessModifiers.Public: sb.Append("public "); break;
             }
             if (this.QualifierFlags.HasFlag(QualifierFlags.Static))
-               sb.Append("static ");
+                sb.Append("static ");
             if (this.QualifierFlags.HasFlag(QualifierFlags.Const))
-               sb.Append("const ");
+                sb.Append("const ");
             if (this.QualifierFlags.HasFlag(QualifierFlags.Volatile))
-               sb.Append("volatile ");
+                sb.Append("volatile ");
+            if (this.QualifierFlags.HasFlag(QualifierFlags.Default))
+                sb.Append("default ");
             return sb.ToString().Trim();
         }
 
-        public override bool Equals(object? obj) 
+        public override bool Equals(object? obj)
             => this.Equals(obj as Modifiers);
 
         public bool Equals([AllowNull] Modifiers other)
@@ -81,6 +85,8 @@ namespace LINVAST.Imperative.Nodes.Common
 
             return this.AccessModifiers.Equals(other.AccessModifiers) && this.QualifierFlags.Equals(other.QualifierFlags);
         }
+
+        public override int GetHashCode() => (this.AccessModifiers, this.QualifierFlags).GetHashCode();
     }
 
     public enum AccessModifiers
@@ -95,5 +101,6 @@ namespace LINVAST.Imperative.Nodes.Common
         Static = 1,
         Const = 2,
         Volatile = 4,
+        Default = 8,
     }
 }

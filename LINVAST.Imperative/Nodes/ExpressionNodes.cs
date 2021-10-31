@@ -143,13 +143,18 @@ namespace LINVAST.Imperative.Nodes
             => base.Equals(other) && this.Identifier.Equals(other.As<IdNode>().Identifier);
     }
 
-    public sealed class FuncCallExprNode : ExprNode
+    public class FuncCallExprNode : ExprNode
     {
         [JsonIgnore]
         public string Identifier => this.Children[0].As<IdNode>().Identifier;
 
         [JsonIgnore]
-        public ExprListNode? Arguments => this.Children.ElementAtOrDefault(1)?.As<ExprListNode>();
+        public TypeNameListNode? TemplateArguments => this.Children.ElementAtOrDefault(1)?.As<TypeNameListNode>();
+
+        [JsonIgnore]
+        public ExprListNode? Arguments
+            => this.Children.Count > 2 ? this.Children[2].As<ExprListNode>()
+                                       : this.Children.ElementAtOrDefault(1) as ExprListNode;
 
 
         public FuncCallExprNode(int line, IdNode identifier)
@@ -158,8 +163,29 @@ namespace LINVAST.Imperative.Nodes
         public FuncCallExprNode(int line, IdNode identifier, ExprListNode args)
             : base(line, identifier, args) { }
 
+        public FuncCallExprNode(int line, IdNode identifier, TypeNameListNode templateArgs)
+            : base(line, identifier, templateArgs) { }
 
-        public override string GetText() => $"{this.Identifier}({this.Arguments?.GetText() ?? ""})";
+        public FuncCallExprNode(int line, IdNode identifier, TypeNameListNode templateArgs, ExprListNode args)
+            : base(line, identifier, templateArgs, args) { }
+
+
+        public override string GetText() => $"{this.Identifier}<{(this.TemplateArguments?.GetText() ?? "")}>({this.Arguments?.GetText() ?? ""})";
+    }
+
+    public sealed class ConsExprNode : FuncCallExprNode
+    {
+        public ConsExprNode(int line, IdNode identifier)
+            : base(line, identifier) { }
+
+        public ConsExprNode(int line, IdNode identifier, ExprListNode args)
+            : base(line, identifier, args) { }
+
+        public ConsExprNode(int line, IdNode identifier, TypeNameListNode templateArgs)
+            : base(line, identifier, templateArgs) { }
+
+        public ConsExprNode(int line, IdNode identifier, TypeNameListNode templateArgs, ExprListNode args)
+            : base(line, identifier, templateArgs, args) { }
     }
 
     public sealed class ArrAccessExprNode : ExprNode
@@ -273,7 +299,7 @@ namespace LINVAST.Imperative.Nodes
         public ExprNode ThenExpression => this.Children[1].As<ExprNode>();
 
         [JsonIgnore]
-        public ExprNode ElseExpression => this.Children[1].As<ExprNode>();
+        public ExprNode ElseExpression => this.Children[2].As<ExprNode>();
 
 
         public CondExprNode(int line, ExprNode cond, ExprNode @then, ExprNode @else)

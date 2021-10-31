@@ -13,7 +13,7 @@ namespace LINVAST.Tests.Imperative.Builders.C
         public void BasicTest()
         {
             SourceNode sc = this.AssertTranslationUnit(@"void f() { }");
-            Assert.That(sc.Children.Single(), Is.InstanceOf<FuncDefNode>());
+            Assert.That(sc.Children.Single(), Is.InstanceOf<FuncNode>());
         }
 
         [Test]
@@ -29,7 +29,7 @@ namespace LINVAST.Tests.Imperative.Builders.C
                     return 3.5f;
                 }
             ");
-            Assert.That(sc.Children, Is.All.InstanceOf<FuncDefNode>());
+            Assert.That(sc.Children, Is.All.InstanceOf<FuncNode>());
         }
 
         [Test]
@@ -47,9 +47,9 @@ namespace LINVAST.Tests.Imperative.Builders.C
                     return 3.5f;
                 }
             ");
-            Assert.That(sc.Children.ElementAt(0), Is.InstanceOf<FuncDefNode>());
+            Assert.That(sc.Children.ElementAt(0), Is.InstanceOf<FuncNode>());
             Assert.That(sc.Children.ElementAt(1), Is.InstanceOf<DeclStatNode>());
-            Assert.That(sc.Children.ElementAt(2), Is.InstanceOf<FuncDefNode>());
+            Assert.That(sc.Children.ElementAt(2), Is.InstanceOf<FuncNode>());
         }
 
         [Test]

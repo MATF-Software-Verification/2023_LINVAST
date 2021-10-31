@@ -6,7 +6,7 @@ namespace LINVAST.Builders
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
     public sealed class ASTBuilderAttribute : Attribute
     {
-        private static readonly HashSet<string> _fileExtensions = new HashSet<string>();
+        private static readonly HashSet<string> _fileExtensions = new();
 
 
         public string FileExtension { get; }

@@ -10,13 +10,14 @@ namespace LINVAST.Tests.Visitors
 {
     internal sealed class ExpressionEvaluatorTests
     {
-        private readonly Dictionary<string, Expr> symbols = new Dictionary<string, Expr> {
-            { "one" , 1 },
-            { "two" , 2 },
-            { "twoo" , Expr.Variable("two") },
-            { "four" , Expr.Parse("twoo + 2") },
-            { "cycle1" , Expr.Variable("cycle1") },
-            { "cycle2" , Expr.Variable("cycle2") },
+        private readonly Dictionary<string, Expr> symbols = new()
+        {
+            { "one", 1 },
+            { "two", 2 },
+            { "twoo", Expr.Variable("two") },
+            { "four", Expr.Parse("twoo + 2") },
+            { "cycle1", Expr.Variable("cycle1") },
+            { "cycle2", Expr.Variable("cycle2") },
         };
 
 

@@ -43,7 +43,7 @@ namespace LINVAST.Tests.Visitors
                 ),
                 Expr.Parse("1 + x")
             );
-            
+
             this.AssertParse(
                 new ArithmExprNode(1,
                     new IdNode(1, "x"),
@@ -56,7 +56,7 @@ namespace LINVAST.Tests.Visitors
                 ),
                 Expr.Parse("-1 + 2*x")
             );
-            
+
             this.AssertWildcardParse(
                 new ArithmExprNode(1,
                     new IdNode(1, "x"),
@@ -119,7 +119,7 @@ namespace LINVAST.Tests.Visitors
             Assert.That(wildcardExpr, Is.EqualTo(expected.ToString()));
         }
 
-        private Expr Parse(ASTNode node) 
+        private Expr Parse(ASTNode node)
             => new SymbolicExpressionBuilder(node).Parse();
     }
 }
