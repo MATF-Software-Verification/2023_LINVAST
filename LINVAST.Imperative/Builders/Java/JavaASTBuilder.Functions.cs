@@ -16,19 +16,34 @@ namespace LINVAST.Imperative.Builders.Java
     {
         public override ASTNode VisitMethodCall([NotNull] MethodCallContext ctx)
         {
-            if (ctx.IDENTIFIER() is { } && ctx.RPAREN() is { } && ctx.expressionList() is { } && ctx.RPAREN() is { }) {
-                ExprListNode param = this.Visit(ctx.expressionList()).As<ExprListNode>();
-                return new FuncCallExprNode(ctx.Start.Line, new IdNode(ctx.Start.Line, ctx.IDENTIFIER().GetText()), new TypeNameListNode(ctx.Start.Line), param);
+            if (ctx.IDENTIFIER() is { } && ctx.RPAREN() is { } && ctx.RPAREN() is { }) {
+                if (ctx.expressionList() is { }) {
+                    ExprListNode param = this.Visit(ctx.expressionList()).As<ExprListNode>();
+                    return new FuncCallExprNode(ctx.Start.Line, new IdNode(ctx.Start.Line, ctx.IDENTIFIER().GetText()), new TypeNameListNode(ctx.Start.Line), param);
+                }
+                else {
+                    return new FuncCallExprNode(ctx.Start.Line, new IdNode(ctx.Start.Line, ctx.IDENTIFIER().GetText()));
+                }
             }
 
-            if (ctx.THIS() is { } && ctx.RPAREN() is { } && ctx.expressionList() is { } && ctx.RPAREN() is { }) {
-                ExprListNode param = this.Visit(ctx.expressionList()).As<ExprListNode>();
-                return new FuncCallExprNode(ctx.Start.Line, new IdNode(ctx.Start.Line, ctx.THIS().ToString()), new TypeNameListNode(ctx.Start.Line), param);
+            if (ctx.THIS() is { } && ctx.RPAREN() is { } && ctx.RPAREN() is { }) {
+                if (ctx.expressionList() is { }) {
+                    ExprListNode param = this.Visit(ctx.expressionList()).As<ExprListNode>();
+                    return new FuncCallExprNode(ctx.Start.Line, new IdNode(ctx.Start.Line, ctx.THIS().GetText()), new TypeNameListNode(ctx.Start.Line), param);
+                }
+                else {
+                    return new FuncCallExprNode(ctx.Start.Line, new IdNode(ctx.Start.Line, ctx.THIS().GetText()));
+                }
             }
 
-            if (ctx.SUPER() is { } && ctx.RPAREN() is { } && ctx.expressionList() is { } && ctx.RPAREN() is { }) {
-                ExprListNode param = this.Visit(ctx.expressionList()).As<ExprListNode>();
-                return new FuncCallExprNode(ctx.Start.Line, new IdNode(ctx.Start.Line, ctx.SUPER().ToString()), new TypeNameListNode(ctx.Start.Line), param);
+            if (ctx.SUPER() is { } && ctx.RPAREN() is { }  && ctx.RPAREN() is { }) {
+                if (ctx.expressionList() is { }) {
+                    ExprListNode param = this.Visit(ctx.expressionList()).As<ExprListNode>();
+                    return new FuncCallExprNode(ctx.Start.Line, new IdNode(ctx.Start.Line, ctx.SUPER().GetText()), new TypeNameListNode(ctx.Start.Line), param);
+                }
+                else {
+                    return new FuncCallExprNode(ctx.Start.Line, new IdNode(ctx.Start.Line, ctx.SUPER().GetText()));
+                }
             }
 
             throw new SyntaxErrorException("Unknown construct");
@@ -39,6 +54,7 @@ namespace LINVAST.Imperative.Builders.Java
             if (ctx.nonWildcardTypeArguments() is { } && ctx.explicitGenericInvocationSuffix() is { }) {
                 TypeNameListNode typeArgs = this.Visit(ctx.nonWildcardTypeArguments()).As<TypeNameListNode>();
                 FuncCallExprNode suffix = this.Visit(ctx.explicitGenericInvocationSuffix()).As<FuncCallExprNode>();
+
                 if (suffix.Arguments is null) {
                     return new FuncCallExprNode(ctx.Start.Line, new IdNode(ctx.Start.Line, suffix.Identifier), typeArgs);
                 }

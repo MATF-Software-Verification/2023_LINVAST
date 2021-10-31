@@ -38,12 +38,24 @@ namespace LINVAST.Imperative.Builders.Java
                 return this.Visit(ctx.creator()).As<ExprNode>();
             }
 
-            if (ctx.ADD() is { } && ctx.expression().Length == 2) {
-                return new ArithmExprNode(ctx.Start.Line, this.Visit(ctx.expression(0)).As<ExprNode>(), ArithmOpNode.FromSymbol(ctx.Start.Line, ctx.ADD().GetText()), this.Visit(ctx.expression(1)).As<ExprNode>());
+            if (ctx.ADD() is { }) {
+                if (ctx.expression().Length == 2) {
+                    return new ArithmExprNode(ctx.Start.Line, this.Visit(ctx.expression(0)).As<ExprNode>(), ArithmOpNode.FromSymbol(ctx.Start.Line, ctx.ADD().GetText()), this.Visit(ctx.expression(1)).As<ExprNode>());
+                }
+
+                if (ctx.expression().Length == 1) {
+                    return new UnaryExprNode(ctx.Start.Line, UnaryOpNode.FromSymbol(ctx.Start.Line, ctx.ADD().GetText()), this.Visit(ctx.expression(0)).As<ExprNode>());
+                }
             }
 
-            if (ctx.SUB() is { } && ctx.expression().Length == 2) {
-                return new ArithmExprNode(ctx.Start.Line, this.Visit(ctx.expression(0)).As<ExprNode>(), ArithmOpNode.FromSymbol(ctx.Start.Line, ctx.SUB().GetText()), this.Visit(ctx.expression(1)).As<ExprNode>());
+            if (ctx.SUB() is { }) {
+                if (ctx.expression().Length == 2) {
+                    return new ArithmExprNode(ctx.Start.Line, this.Visit(ctx.expression(0)).As<ExprNode>(), ArithmOpNode.FromSymbol(ctx.Start.Line, ctx.SUB().GetText()), this.Visit(ctx.expression(1)).As<ExprNode>());
+                }
+
+                if (ctx.expression().Length == 1) {
+                    return new UnaryExprNode(ctx.Start.Line, UnaryOpNode.FromSymbol(ctx.Start.Line, ctx.SUB().GetText()), this.Visit(ctx.expression(0)).As<ExprNode>());
+                }
             }
 
             if (ctx.INC() is { } && ctx.expression().Length == 1) {
@@ -372,7 +384,7 @@ namespace LINVAST.Imperative.Builders.Java
             }
 
             if (ctx.CHAR_LITERAL() is { }) {
-                return new LitExprNode(ctx.Start.Line, char.Parse(ctx.CHAR_LITERAL().GetText()));
+                return LitExprNode.FromString(ctx.Start.Line, ctx.CHAR_LITERAL().GetText());
             }
 
             if (ctx.STRING_LITERAL() is { }) {
@@ -380,7 +392,7 @@ namespace LINVAST.Imperative.Builders.Java
             }
 
             if (ctx.BOOL_LITERAL() is { }) {
-                return new LitExprNode(ctx.Start.Line, bool.Parse(ctx.BOOL_LITERAL().GetText()));
+                return LitExprNode.FromString(ctx.Start.Line, ctx.BOOL_LITERAL().GetText());
             }
 
             if (ctx.NULL_LITERAL() is { }) {
@@ -393,19 +405,19 @@ namespace LINVAST.Imperative.Builders.Java
         public override ASTNode VisitIntegerLiteral([NotNull] IntegerLiteralContext ctx)
         {
             if (ctx.DECIMAL_LITERAL() is { }) {
-                return new LitExprNode(ctx.Start.Line, Convert.ToInt32(ctx.DECIMAL_LITERAL().GetText()));
+                return LitExprNode.FromString(ctx.Start.Line, ctx.DECIMAL_LITERAL().GetText());
             }
 
             if (ctx.HEX_LITERAL() is { }) {
-                return new LitExprNode(ctx.Start.Line, Convert.ToInt32(ctx.HEX_LITERAL().GetText()));
+                return LitExprNode.FromString(ctx.Start.Line, ctx.HEX_LITERAL().GetText());
             }
 
             if (ctx.OCT_LITERAL() is { }) {
-                return new LitExprNode(ctx.Start.Line, Convert.ToInt32(ctx.OCT_LITERAL().GetText()));
+                return LitExprNode.FromString(ctx.Start.Line, ctx.OCT_LITERAL().GetText());
             }
 
             if (ctx.OCT_LITERAL() is { }) {
-                return new LitExprNode(ctx.Start.Line, Convert.ToInt32(ctx.OCT_LITERAL().GetText()));
+                return LitExprNode.FromString(ctx.Start.Line, ctx.OCT_LITERAL().GetText());
             }
 
             throw new SyntaxErrorException("Unknown construct");
@@ -414,11 +426,11 @@ namespace LINVAST.Imperative.Builders.Java
         public override ASTNode VisitFloatLiteral([NotNull] FloatLiteralContext ctx)
         {
             if (ctx.FLOAT_LITERAL() is { }) {
-                return new LitExprNode(ctx.Start.Line, Convert.ToDouble(ctx.FLOAT_LITERAL().GetText()));
+                return LitExprNode.FromString(ctx.Start.Line, ctx.FLOAT_LITERAL().GetText());
             }
 
             if (ctx.HEX_FLOAT_LITERAL() is { }) {
-                return new LitExprNode(ctx.Start.Line, Convert.ToDouble(ctx.HEX_FLOAT_LITERAL().GetText()));
+                return LitExprNode.FromString(ctx.Start.Line, ctx.HEX_FLOAT_LITERAL().GetText());
             }
 
             throw new SyntaxErrorException("Unknown construct");
