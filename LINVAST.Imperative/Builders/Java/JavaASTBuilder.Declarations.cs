@@ -511,10 +511,6 @@ namespace LINVAST.Imperative.Builders.Java
 
         public override ASTNode VisitFormalParameters([NotNull] FormalParametersContext ctx)
             => new FuncParamsNode(ctx.Start.Line);
-
-        public override ASTNode VisitVariableInitializer([NotNull] VariableInitializerContext ctx)
-            => new NullLitExprNode(ctx.Start.Line);
-
         #endregion
 
     }
