@@ -57,17 +57,23 @@ OpNode op = expr.Operator;
 ExprNode right = expr.RightOperand;
 
 // Check specific node types
-if (expr is AssignExprNode)
-	var simplifiedExpr = expr.SimplifyComplexAssignment();
+if (expr is AssignExprNode aexpr) {
+	var simplifiedExpr = aexpr.SimplifyComplexAssignment();
+	// ...
+}
 
 // Use provided visitors to perform logic
 using LINVAST.Imperative.Visitors;
 var res = ConstantExpressionEvaluator.TryEvaluateAs<int>(expr);
 
-// Or implement own visitor...
+// Or implement your own custom visitor...
 class MyVisitor<int> : BaseASTVisitor<int>
 {
-	public override int Visit(ExprNode node) { ... }
+	public override int Visit(ExprNode node) { 
+		// ... 
+	}
+	
+	// ...
 }
 ```
 
