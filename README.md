@@ -7,8 +7,8 @@
 [![NuGet](https://img.shields.io/nuget/vpre/LINVAST.Imperative.svg?label=NuGet:%20LINVAST.Imperative)](https://nuget.org/packages/LINVAST.Imperative)
 [![Stable release](https://img.shields.io/github/release/LINVAST/CLI.svg?label=linvast-cli)](https://github.com/LINVAST/CLI/releases)
 
-LINVAST is a set of libraries which provide common AST API for many programming languages by abstracting [ANTLR](https://www.antlr.org/) parse trees. Currently, the main focus of the project is the imperative programming paradigm, with supported languages:
-- `C`
+LINVAST is a set of libraries that provide a common language-invariant AST API for different programming languages by abstracting [ANTLR](https://www.antlr.org/) parse trees. Currently, the main focus of the project is the imperative programming paradigm, with supported languages:
+- `C` (almost complete support)
 - `Java` (partial support, currently in development)
 - `Lua` (partial support, pending development)
 
