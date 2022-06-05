@@ -1,5 +1,4 @@
 # LINVAST - Language-INVariant AST library
-[![Build status](https://ci.appveyor.com/api/projects/status/ktva6gd4thhx02nf?svg=true)](https://ci.appveyor.com/project/ivan-ristovic/linvast)
 [![Issues](https://img.shields.io/github/issues/LINVAST/LINVAST.svg)](https://github.com/LINVAST/LINVAST/issues)
 [![Stable release](https://img.shields.io/github/release/LINVAST/LINVAST.svg?label=stable)](https://github.com/LINVAST/LINVAST/releases)
 [![Latest release](https://img.shields.io/github/tag-pre/LINVAST/LINVAST.svg?label=latest)](https://github.com/LINVAST/LINVAST/releases)
