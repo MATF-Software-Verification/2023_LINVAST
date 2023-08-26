@@ -5,8 +5,6 @@ namespace LINVAST.Imperative.Builders.Go
 {
     public sealed partial class GoASTBuilder : GoParserBaseVisitor<ASTNode>, IASTBuilder<GoParser>
     {
-        public override ASTNode VisitArguments(GoParser.ArgumentsContext context) => base.VisitArguments(context);
-
         public override ASTNode VisitParameters(GoParser.ParametersContext context) => base.VisitParameters(context);
         
         public override ASTNode VisitParameterDecl(GoParser.ParameterDeclContext context) => base.VisitParameterDecl(context);
