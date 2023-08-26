@@ -26,6 +26,8 @@ namespace LINVAST.Imperative.Builders.Go
         public override ASTNode VisitFunctionType(GoParser.FunctionTypeContext context) => base.VisitFunctionType(context);
 
         public override ASTNode VisitInterfaceType(GoParser.InterfaceTypeContext context) => base.VisitInterfaceType(context);
+        
+        public override ASTNode VisitMethodSpec(GoParser.MethodSpecContext context) => base.VisitMethodSpec(context);
 
         public override ASTNode VisitSliceType(GoParser.SliceTypeContext context) => base.VisitSliceType(context);
 

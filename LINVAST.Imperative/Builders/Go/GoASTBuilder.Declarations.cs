@@ -1,4 +1,6 @@
-﻿using LINVAST.Builders;
+﻿using System.Linq;
+using LINVAST.Builders;
+using LINVAST.Imperative.Nodes;
 using LINVAST.Nodes;
 
 namespace LINVAST.Imperative.Builders.Go
@@ -23,7 +25,9 @@ namespace LINVAST.Imperative.Builders.Go
 
         public override ASTNode VisitConstSpec(GoParser.ConstSpecContext context) => base.VisitConstSpec(context);
 
-        public override ASTNode VisitIdentifierList(GoParser.IdentifierListContext context) => base.VisitIdentifierList(context);
+        public override ASTNode VisitIdentifierList(GoParser.IdentifierListContext context) =>
+            new DeclListNode(context.Start.Line, context.IDENTIFIER().Select(i =>
+                new VarDeclNode(context.Start.Line, new IdNode(context.Start.Line, i.GetText()))));
 
         public override ASTNode VisitVarSpec(GoParser.VarSpecContext context) => base.VisitVarSpec(context);
 

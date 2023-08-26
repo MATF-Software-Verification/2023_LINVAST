@@ -141,6 +141,9 @@ namespace LINVAST.Imperative.Builders.Go
             // this can't really fit into LitExprNode, due to TypeCode limitations
             throw new NotImplementedException("Method expressions are unsupported");
 
+        public override ASTNode VisitReceiverType(GoParser.ReceiverTypeContext context) => 
+            throw new NotImplementedException("Method expressions (receiver type) are unsupported");
+
         public override ASTNode VisitLiteral(GoParser.LiteralContext context) =>
             this.Visit(context.children.Single()).As<LitExprNode>();
 
