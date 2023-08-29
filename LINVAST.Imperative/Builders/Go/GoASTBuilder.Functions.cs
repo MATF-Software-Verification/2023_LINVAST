@@ -62,9 +62,10 @@ namespace LINVAST.Imperative.Builders.Go
                 { new (context.Start.Line, paramDeclSpec, new VarDeclNode(context.Start.Line, 
                     new IdNode(context.Start.Line, ""))) };
             } else {
-                DeclListNode decls = this.Visit(context.identifierList()).As<DeclListNode>();
-                @params = decls.Declarators
-                    .Select(d => new FuncParamNode(context.Start.Line, paramDeclSpec, d))
+                IdListNode decls = this.Visit(context.identifierList()).As<IdListNode>();
+                @params = decls.Identifiers
+                    .Select(d => new FuncParamNode(context.Start.Line, paramDeclSpec, 
+                        new VarDeclNode(context.Start.Line, d)))
                     .ToArray();
             }
 
