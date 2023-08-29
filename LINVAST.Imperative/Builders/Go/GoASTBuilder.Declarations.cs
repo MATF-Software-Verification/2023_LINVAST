@@ -1,4 +1,6 @@
-﻿using LINVAST.Builders;
+
+using System.Linq;
+using LINVAST.Builders;
 using LINVAST.Imperative.Nodes;
 using LINVAST.Nodes;
 using System;

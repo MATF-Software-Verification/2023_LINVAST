@@ -98,6 +98,9 @@ namespace LINVAST.Imperative.Builders.Go
             TypeNode elem = this.Visit(context.elementType()).As<TypeNode>();
 
             throw new NotImplementedException("Map");
+        public override ASTNode VisitInterfaceType(GoParser.InterfaceTypeContext context) => base.VisitInterfaceType(context);
+        
+        public override ASTNode VisitMethodSpec(GoParser.MethodSpecContext context) => base.VisitMethodSpec(context);
 
         }*/
         //public override ASTNode VisitChannelType(GoParser.ChannelTypeContext context) => this.Visit(context.elementType()).As<TypeNode>();
