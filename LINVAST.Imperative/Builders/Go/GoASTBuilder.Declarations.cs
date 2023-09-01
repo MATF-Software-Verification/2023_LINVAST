@@ -61,7 +61,7 @@ namespace LINVAST.Imperative.Builders.Go
             if (context.type_() is not null) {
                 type = new DeclSpecsNode(context.Start.Line, context.type_().GetText());
             } else {
-                type = new DeclSpecsNode(context.Start.Line, "");
+                type = new DeclSpecsNode(context.Start.Line, ".");
             }
 
             if (context.expressionList() is not null) {
