@@ -208,6 +208,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitSourceFile(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitSourceFile(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -308,6 +314,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitPackageClause(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitPackageClause(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -365,6 +377,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitImportDecl(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitImportDecl(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -451,6 +469,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitImportSpec(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitImportSpec(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -513,6 +537,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitImportPath(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitImportPath(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -562,6 +592,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitDeclaration(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitDeclaration(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -639,6 +675,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitConstDecl(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitConstDecl(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -726,6 +768,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitConstSpec(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitConstSpec(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -797,6 +845,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitIdentifierList(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitIdentifierList(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -866,6 +920,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitExpressionList(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitExpressionList(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -940,6 +1000,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitTypeDecl(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitTypeDecl(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -1022,6 +1088,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitTypeSpec(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitTypeSpec(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -1083,6 +1155,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitFunctionDecl(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitFunctionDecl(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -1148,6 +1226,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitMethodDecl(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitMethodDecl(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -1207,6 +1291,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitReceiver(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitReceiver(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -1262,6 +1352,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitVarDecl(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitVarDecl(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -1349,6 +1445,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitVarSpec(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitVarSpec(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -1435,6 +1537,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitBlock(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitBlock(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -1507,6 +1615,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitStatementList(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitStatementList(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -1652,6 +1766,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitStatement(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitStatement(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -1811,6 +1931,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitSimpleStmt(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitSimpleStmt(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -1888,6 +2014,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitExpressionStmt(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitExpressionStmt(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -1936,6 +2068,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitSendStmt(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitSendStmt(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -1985,6 +2123,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitIncDecStmt(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitIncDecStmt(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -2044,6 +2188,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitAssignment(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitAssignment(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -2100,6 +2250,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitAssign_op(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitAssign_op(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -2165,6 +2321,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitShortVarDecl(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitShortVarDecl(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -2211,6 +2373,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitEmptyStmt(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitEmptyStmt(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -2264,6 +2432,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitLabeledStmt(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitLabeledStmt(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -2320,6 +2494,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitReturnStmt(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitReturnStmt(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -2372,6 +2552,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitBreakStmt(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitBreakStmt(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -2424,6 +2610,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitContinueStmt(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitContinueStmt(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -2476,6 +2668,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitGotoStmt(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitGotoStmt(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -2519,6 +2717,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitFallthroughStmt(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitFallthroughStmt(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -2563,6 +2767,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitDeferStmt(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitDeferStmt(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -2625,6 +2835,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitIfStmt(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitIfStmt(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -2729,6 +2945,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitSwitchStmt(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitSwitchStmt(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -2800,6 +3022,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitExprSwitchStmt(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitExprSwitchStmt(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -2910,6 +3138,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitExprCaseClause(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitExprCaseClause(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -2967,6 +3201,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitExprSwitchCase(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitExprSwitchCase(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -3042,6 +3282,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitTypeSwitchStmt(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitTypeSwitchStmt(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -3138,6 +3384,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitTypeSwitchGuard(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitTypeSwitchGuard(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -3205,6 +3457,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitTypeCaseClause(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitTypeCaseClause(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -3262,6 +3520,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitTypeSwitchCase(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitTypeSwitchCase(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -3333,6 +3597,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitTypeList(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitTypeList(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -3449,6 +3719,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitSelectStmt(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitSelectStmt(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -3515,6 +3791,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitCommClause(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitCommClause(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -3575,6 +3857,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitCommCase(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitCommCase(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -3658,6 +3946,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitRecvStmt(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitRecvStmt(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -3731,6 +4025,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitForStmt(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitForStmt(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -3829,6 +4129,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitForClause(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitForClause(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -3914,6 +4220,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitRangeClause(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitRangeClause(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -3980,6 +4292,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitGoStmt(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitGoStmt(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -4033,6 +4351,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitType_(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitType_(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -4110,6 +4434,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitTypeName(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitTypeName(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -4187,6 +4517,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitTypeLit(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitTypeLit(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -4290,6 +4626,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitArrayType(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitArrayType(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -4339,6 +4681,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitArrayLength(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitArrayLength(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -4382,6 +4730,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitElementType(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitElementType(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -4426,6 +4780,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitPointerType(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitPointerType(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -4489,6 +4849,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitInterfaceType(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitInterfaceType(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -4569,6 +4935,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitSliceType(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitSliceType(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -4622,6 +4994,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitMapType(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitMapType(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -4675,6 +5053,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitChannelType(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitChannelType(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -4748,6 +5132,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitMethodSpec(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitMethodSpec(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -4811,6 +5201,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitFunctionType(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitFunctionType(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -4859,6 +5255,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitSignature(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitSignature(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -4920,6 +5322,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitResult(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitResult(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -4985,6 +5393,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitParameters(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitParameters(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -5074,6 +5488,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitParameterDecl(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitParameterDecl(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -5169,6 +5589,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitExpression(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitExpression(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -5373,6 +5799,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitPrimaryExpr(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitPrimaryExpr(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -5509,6 +5941,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitConversion(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitConversion(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -5574,6 +6012,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitNonNamedType(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitNonNamedType(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -5651,6 +6095,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitOperand(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitOperand(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -5724,6 +6174,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitLiteral(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitLiteral(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -5806,6 +6262,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitBasicLit(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitBasicLit(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -5887,6 +6349,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitInteger(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitInteger(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -5936,6 +6404,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitOperandName(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitOperandName(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -5981,6 +6455,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitQualifiedIdent(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitQualifiedIdent(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -6031,6 +6511,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitCompositeLit(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitCompositeLit(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -6094,6 +6580,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitLiteralType(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitLiteralType(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -6187,6 +6679,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitLiteralValue(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitLiteralValue(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -6260,6 +6758,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitElementList(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitElementList(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -6326,6 +6830,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitKeyedElement(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitKeyedElement(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -6384,6 +6894,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitKey(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitKey(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -6469,6 +6985,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitElement(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitElement(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -6563,6 +7085,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitStructType(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitStructType(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -6637,6 +7165,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitFieldDecl(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitFieldDecl(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -6705,6 +7239,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitString_(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitString_(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -6757,6 +7297,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitEmbeddedField(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitEmbeddedField(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -6815,6 +7361,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitFunctionLit(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitFunctionLit(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -6864,6 +7416,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitIndex(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitIndex(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -6920,6 +7478,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitSlice_(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitSlice_(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -7021,6 +7585,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitTypeAssertion(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitTypeAssertion(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -7080,6 +7650,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitArguments(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitArguments(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -7184,6 +7760,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitMethodExpr(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitMethodExpr(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -7231,6 +7813,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitReceiverType(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitReceiverType(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
@@ -7274,6 +7862,12 @@ public partial class GoParser : GoParserBase {
 			IGoParserListener typedListener = listener as IGoParserListener;
 			if (typedListener != null) typedListener.ExitEos(this);
 		}
+        public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor)
+        {
+            IGoParserVisitor<TResult> typedVisitor = visitor as IGoParserVisitor<TResult>;
+            if (typedVisitor != null) return typedVisitor.VisitEos(this);
+            else return visitor.VisitChildren(this);
+        }
 	}
 
 	[RuleVersion(0)]
