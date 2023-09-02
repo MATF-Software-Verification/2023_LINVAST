@@ -118,7 +118,7 @@ namespace LINVAST.Imperative.Builders.Go
                 // todo this doesn't look right: function can be an expression (e.g. f.p[i].x(), not only an identifier)
                 IdNode fn = new IdNode(context.Start.Line, context.primaryExpr().GetText());
                 ExprListNode args = this.Visit(context.arguments()).As<ExprListNode>();
-                return new FuncCallExprNode(context.Start.Line, fn, args);
+                return !args.Expressions.Any() ? new FuncCallExprNode(context.Start.Line, fn) : new FuncCallExprNode(context.Start.Line, fn, args);
             }
 
             throw new NotSupportedException("Invalid primary expression: " + context);
@@ -220,7 +220,10 @@ namespace LINVAST.Imperative.Builders.Go
         {
             if (context.RUNE_LIT() is not null) {
                 string unescaped = Regex.Unescape(context.RUNE_LIT().Symbol.Text);
-                if (unescaped.Length > 1) {
+                if (unescaped.Length == 3 && unescaped[0] == '\'' && unescaped[2] == '\'') {
+                    unescaped = unescaped[1].ToString();
+                }
+                if (unescaped.Length != 1) {
                     throw new NotSupportedException("Unsupported rune literal: " + context.RUNE_LIT());
                 }
 
@@ -251,7 +254,14 @@ namespace LINVAST.Imperative.Builders.Go
             throw new NotSupportedException("Unsupported integer literal: " + context);
         }
 
-        public override ASTNode VisitString_(GoParser.String_Context context) => new LitExprNode(context.Start.Line, context.GetText());
+        public override ASTNode VisitString_(GoParser.String_Context context)
+        {
+            if (context.GetText()[0] != '"' || context.GetText().Last() != '"') {
+                throw new Exceptions.SyntaxErrorException("String literal without quotes");
+            }
+            return new LitExprNode(context.Start.Line, 
+                context.GetText()[1..(context.GetText().Length-1)]);
+        } 
 
         public override ASTNode VisitSlice_(GoParser.Slice_Context context) =>
             throw new NotImplementedException("Slices are unsupported");
