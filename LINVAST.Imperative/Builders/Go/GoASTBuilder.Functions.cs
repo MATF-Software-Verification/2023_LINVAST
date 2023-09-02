@@ -24,6 +24,11 @@ namespace LINVAST.Imperative.Builders.Go
                     new FuncDeclNode(context.Start.Line, funcName));
             }
 
+            if (signature.ParametersNode is not null && body is not null) {
+                return new FuncNode(context.Start.Line, declSpecs,
+                    new FuncDeclNode(context.Start.Line, funcName, signature.ParametersNode, body));
+            }
+
             if (signature.ParametersNode is not null) {
                 return new FuncNode(context.Start.Line, declSpecs,
                     new FuncDeclNode(context.Start.Line, funcName, signature.ParametersNode));
@@ -34,8 +39,7 @@ namespace LINVAST.Imperative.Builders.Go
                     new FuncDeclNode(context.Start.Line, funcName, body));
             }
 
-            return new FuncNode(context.Start.Line, declSpecs,
-                new FuncDeclNode(context.Start.Line, funcName, signature.ParametersNode, body));
+            throw new Exception("Unreachable code was reached!");
         }
 
         public override ASTNode VisitParameters(GoParser.ParametersContext context)
@@ -89,11 +93,11 @@ namespace LINVAST.Imperative.Builders.Go
                     throw new NotImplementedException("Parameters as return value of a function are not supported");
                 }
 
-                TypeNameNode retType = this.Visit(resultContext.type_()).As<TypeNameNode>(); // todo check if this is proper type node
+                TypeNameNode retType = this.Visit(resultContext.type_()).As<TypeNameNode>();
 
                 retTypeNode = new DeclSpecsNode(context.Start.Line, retType);
             } else {
-                retTypeNode = new DeclSpecsNode(context.Start.Line);
+                retTypeNode = new DeclSpecsNode(context.Start.Line, "void");
             }
 
             FuncParamsNode @params = this.Visit(context.parameters()).As<FuncParamsNode>();
