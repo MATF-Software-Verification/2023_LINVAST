@@ -1,4 +1,6 @@
-﻿using LINVAST.Nodes;
+﻿using System;
+using Antlr4.Runtime;
+using LINVAST.Nodes;
 using NUnit.Framework;
 
 namespace LINVAST.Tests.Imperative.Builders
@@ -7,6 +9,7 @@ namespace LINVAST.Tests.Imperative.Builders
     {
         protected abstract ASTNode GenerateAST(string src);
 
+        protected virtual ASTNode GenerateAST(string src, Func<Parser, ParserRuleContext> entryPoint) => GenerateAST(src);
 
         protected void AssertChildrenParentProperties(ASTNode node)
         {

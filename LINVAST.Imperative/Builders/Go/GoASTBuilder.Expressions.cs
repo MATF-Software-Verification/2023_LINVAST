@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -30,9 +31,12 @@ namespace LINVAST.Imperative.Builders.Go
                 return new UnaryExprNode(context.Start.Line, op, expr);
             }
 
+            if (context.expression().Length != 2) {
+                throw new SyntaxErrorException("Binary expression requires exactly two operands");
+            }
             
             ExprNode lhs = this.Visit(context.expression()[0]).As<ExprNode>();
-            ExprNode rhs = this.Visit(context.expression()[0]).As<ExprNode>();
+            ExprNode rhs = this.Visit(context.expression()[1]).As<ExprNode>();
             
             if (context.mul_op is not null) {
                 ArithmOpNode op;

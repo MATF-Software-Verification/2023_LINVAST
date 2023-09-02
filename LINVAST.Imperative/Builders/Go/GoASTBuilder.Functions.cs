@@ -60,7 +60,7 @@ namespace LINVAST.Imperative.Builders.Go
             if (context.identifierList() is null) {
                 @params = new FuncParamNode[]
                 { new (context.Start.Line, paramDeclSpec, new VarDeclNode(context.Start.Line, 
-                    new IdNode(context.Start.Line, ""))) };
+                    new IdNode(context.Start.Line, "."))) };
             } else {
                 IdListNode decls = this.Visit(context.identifierList()).As<IdListNode>();
                 @params = decls.Identifiers
@@ -98,7 +98,7 @@ namespace LINVAST.Imperative.Builders.Go
 
             FuncParamsNode @params = this.Visit(context.parameters()).As<FuncParamsNode>();
             var funcDecl = new FuncDeclNode(context.Start.Line, 
-                new IdNode(context.Start.Line, ""), @params);
+                new IdNode(context.Start.Line, "."), @params);
 
             return new FuncNode(context.Start.Line, retTypeNode, funcDecl);
         }
