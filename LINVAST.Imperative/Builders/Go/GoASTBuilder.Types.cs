@@ -32,7 +32,6 @@ namespace LINVAST.Imperative.Builders.Go
 
         public override ASTNode VisitTypeLit(GoParser.TypeLitContext context) => this.Visit(context.children.Single());
 
-        //TODO
         public override ASTNode VisitTypeList(GoParser.TypeListContext context)
         {
             if (context.type_() is not null) {
@@ -52,27 +51,7 @@ namespace LINVAST.Imperative.Builders.Go
         }
 
         public override ASTNode VisitArrayLength(GoParser.ArrayLengthContext context) => this.Visit(context.expression()).As<ExprNode>();
-
-
-        /*public override ASTNode VisitArrayType(GoParser.ArrayTypeContext context)
-        {
-            ExprStatNode length = this.Visit(context.arrayLength()).As<ExprStatNode>();
-            TypeNode elem = this.Visit(context.elementType()).As<TypeNode>();
-            throw new NotImplementedException("arrayType");
-        }*/
-
-
-        /*public override ASTNode VisitStructType(GoParser.StructTypeContext context)
-        {
-            throw new Exception("struct");
-
-        }*/
-
-        /*public override ASTNode VisitPointerType(GoParser.PointerTypeContext context)
-        {
-            return this.Visit(context.type_()).As<TypeNode>();
-        }*/
-
+        
         public override ASTNode VisitResult(GoParser.ResultContext context)
         {
             if (context.parameters() is not null) {
@@ -80,49 +59,28 @@ namespace LINVAST.Imperative.Builders.Go
             }
             return this.Visit(context.type_());
         }
-
-        //public override ASTNode VisitFunctionType(GoParser.FunctionTypeContext context) => this.Visit(context.signature());
-
-        /*public override ASTNode VisitInterfaceType(GoParser.InterfaceTypeContext context)
-        {
-
-            //return new InterfaceNode(context.Start.Line, )
-            throw new NotImplementedException("interfaceType");
-        }*/
-
-        //public override ASTNode VisitSliceType(GoParser.SliceTypeContext context) => this.Visit(context.elementType()).As<TypeNode>();
-
-        /*public override ASTNode VisitMapType(GoParser.MapTypeContext context)
-        {
-            TypeNode type = this.Visit(context.type_()).As<TypeNode>();
-            TypeNode elem = this.Visit(context.elementType()).As<TypeNode>();
-
-            throw new NotImplementedException("Map");
-        public override ASTNode VisitInterfaceType(GoParser.InterfaceTypeContext context) => base.VisitInterfaceType(context);
         
-        public override ASTNode VisitMethodSpec(GoParser.MethodSpecContext context) => base.VisitMethodSpec(context);
+        public override ASTNode VisitSliceType(GoParser.SliceTypeContext context) => this.Visit(context.elementType()).As<TypeNode>();
 
-        }*/
-        //public override ASTNode VisitChannelType(GoParser.ChannelTypeContext context) => this.Visit(context.elementType()).As<TypeNode>();
+        public override ASTNode VisitFunctionType(GoParser.FunctionTypeContext context) => this.Visit(context.signature());
 
-        /*public override ASTNode VisitConversion(GoParser.ConversionContext context)
-        {
-            TypeNode type = this.Visit(context.nonNamedType()).As<TypeNameNode>();
-            throw new NotImplementedException("conversion");
-        }*/
+        public override ASTNode VisitInterfaceType(GoParser.InterfaceTypeContext context) => throw new NotImplementedException("Interface type");
+        
+        public override ASTNode VisitArrayType(GoParser.ArrayTypeContext context) => throw new NotImplementedException("Array type");
+        
+        public override ASTNode VisitStructType(GoParser.StructTypeContext context) => throw new NotImplementedException("Struct type");
 
-        //jok
-        //public override ASTNode VisitEmbeddedField(GoParser.EmbeddedFieldContext context) => base.VisitEmbeddedField(context);
-        //public override ASTNode VisitFieldDecl(GoParser.FieldDeclContext context) => base.VisitFieldDecl(context);
+        public override ASTNode VisitPointerType(GoParser.PointerTypeContext context) => throw new NotImplementedException("Pointer type");
 
-        /*public override ASTNode VisitTypeSpec(GoParser.TypeSpecContext context)
-        {
+        public override ASTNode VisitMethodSpec(GoParser.MethodSpecContext context) => throw new NotImplementedException("Method type");
 
-            string name = context.IDENTIFIER().GetText();
-            this.Visit(context.type_()).As<TypeNode>();
+        public override ASTNode VisitMapType(GoParser.MapTypeContext context) => throw new NotImplementedException("Map type");
+      
+        public override ASTNode VisitChannelType(GoParser.ChannelTypeContext context) => throw new NotImplementedException("Channel type");
 
-            throw new NotImplementedException("typespec");
-
-        }*/
+        public override ASTNode VisitConversion(GoParser.ConversionContext context) => throw new NotImplementedException("Conversion");
+        
+        public override ASTNode VisitEmbeddedField(GoParser.EmbeddedFieldContext context) => throw new NotImplementedException("Embedded field");
+        public override ASTNode VisitFieldDecl(GoParser.FieldDeclContext context) => throw new NotImplementedException("Field decl");
     }
 }

@@ -33,6 +33,9 @@ namespace LINVAST.Tests.Imperative.Builders.Go
             // this.AssertThrows<SyntaxErrorException>("var x int = .3, 2..", p => ((GoParser)p).varDecl());
             this.AssertThrows<SyntaxErrorException>("var x int = ..3", p => ((GoParser)p).varDecl());
             this.AssertThrows<SyntaxErrorException>("var x int = ()", p => ((GoParser)p).varDecl());
+            this.AssertThrows<SyntaxErrorException>("\"math\"", p => ((GoParser)p).importDecl());
+            this.AssertThrows<SyntaxErrorException>("import", p => ((GoParser)p).importDecl());
+            this.AssertThrows<SyntaxErrorException>("import * \"math\" ", p => ((GoParser)p).importDecl());
         }
 
         [Test]

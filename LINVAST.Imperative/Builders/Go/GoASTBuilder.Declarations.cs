@@ -5,7 +5,10 @@ using LINVAST.Imperative.Nodes;
 using LINVAST.Nodes;
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Data;
+using LINVAST.Exceptions;
+using LINVAST.Imperative.Nodes.Common;
+using SyntaxErrorException = LINVAST.Exceptions.SyntaxErrorException;
 
 
 namespace LINVAST.Imperative.Builders.Go
@@ -30,14 +33,14 @@ namespace LINVAST.Imperative.Builders.Go
             }
 
             if (context.DOT() is not null) {
-                return new ImportNode(context.Start.Line, ". " + importPath.Directive);
+                return new ImportNode(context.Start.Line, importPath.Directive, "");
             }
 
             if (context.IDENTIFIER() is not null) {
-                return new ImportNode(context.Start.Line, context.IDENTIFIER().GetText() + " " + importPath.Directive);
+                return new ImportNode(context.Start.Line, importPath.Directive, context.IDENTIFIER().GetText());
             }
 
-            throw new NotSupportedException("Invalid import");
+            throw new SyntaxErrorException("Invalid import");
         }
 
         public override ASTNode VisitImportPath(GoParser.ImportPathContext context) => new IdNode(context.Start.Line, context.string_().GetText());
@@ -46,9 +49,9 @@ namespace LINVAST.Imperative.Builders.Go
         {
             if (context.varSpec().Count() == 1) {
                 return this.Visit(context.varSpec().First()).As<DeclStatNode>();
-            } else {
-                return new BlockStatNode(context.Start.Line, context.varSpec().Select(vs => this.Visit(vs).As<DeclStatNode>()));
             }
+
+            return new BlockStatNode(context.Start.Line, context.varSpec().Select(vs => this.Visit(vs).As<DeclStatNode>()));
         }
 
         public override ASTNode VisitVarSpec(GoParser.VarSpecContext context)
@@ -61,10 +64,21 @@ namespace LINVAST.Imperative.Builders.Go
             if (context.type_() is not null) {
                 type = new DeclSpecsNode(context.Start.Line, context.type_().GetText());
             } else {
-                type = new DeclSpecsNode(context.Start.Line, ".");
+                if (context.expressionList().children.Count > 1) {
+                    throw new NotImplementedException("Not implemented.");
+                }
+                ExprNode t = this.Visit(context.expressionList().children.First()).As<ExprNode>();
+                TypeCode exprType;
+                if (t is not LitExprNode) {
+                    throw new NotImplementedException("Not implemented.");
+                } 
+                
+                exprType = t.As<LitExprNode>().TypeCode;
+                type = new DeclSpecsNode(context.Start.Line, exprType.ToString());
             }
 
             if (context.expressionList() is not null) {
+                
                 ExprListNode exprList = this.Visit(context.expressionList()).As<ExprListNode>();
 
                 idExprList = idListNodes.Identifiers.Zip(exprList.Expressions, (i, e) => new VarDeclNode(context.Start.Line, i, e));
@@ -80,9 +94,24 @@ namespace LINVAST.Imperative.Builders.Go
         {
             IdListNode idListNodes = this.Visit(context.identifierList()).As<IdListNode>();
             ExprListNode exprList = this.Visit(context.expressionList()).As<ExprListNode>();
+            DeclSpecsNode type;
 
+            if (exprList.Children.Count > 1) {
+                throw new NotImplementedException("Not implemented.");
+            }
+
+            ExprNode t = this.Visit(context.expressionList().children.First()).As<ExprNode>();
+            TypeCode exprType;
+            if (t is not LitExprNode) {
+                throw new NotImplementedException("Not implemented.");
+            } 
+                
+            exprType = t.As<LitExprNode>().TypeCode;
+            type = new DeclSpecsNode(context.Start.Line, exprType.ToString());
+            
             IEnumerable<VarDeclNode> idExprList = idListNodes.Identifiers.Zip(exprList.Expressions, (i, e) => new VarDeclNode(context.Start.Line, i, e));
-            return new DeclListNode(context.Start.Line, idExprList);
+            DeclListNode declList = new DeclListNode(context.Start.Line, idExprList);
+            return new DeclStatNode(context.Start.Line, type,declList);
         }
 
         public override ASTNode VisitConstSpec(GoParser.ConstSpecContext context)
@@ -95,15 +124,27 @@ namespace LINVAST.Imperative.Builders.Go
             if (context.type_() is not null) {
                 type = new DeclSpecsNode(context.Start.Line, "const", context.type_().GetText());
             } else {
-                type = new DeclSpecsNode(context.Start.Line, "const", "");
+                if (context.expressionList() is not null) {
+                    if (context.expressionList().children.Count > 1) {
+                        throw new NotImplementedException("Not implemented.");
+                    }
+                    ExprNode t = this.Visit(context.expressionList().children.First()).As<ExprNode>();
+                    TypeCode exprType;
+                    if (t is not LitExprNode) {
+                        throw new NotImplementedException("Not implemented.");
+                    } 
+                
+                    exprType = t.As<LitExprNode>().TypeCode;
+                    type = new DeclSpecsNode(context.Start.Line, "const", exprType.ToString());   
+                } else 
+                    throw new NotImplementedException("Not implemented.");
             }
 
             if (context.expressionList() is not null) {
                 ExprListNode exprList = this.Visit(context.expressionList()).As<ExprListNode>();
                 idExprList = idListNodes.Identifiers.Zip(exprList.Expressions, (i, e) => new VarDeclNode(context.Start.Line, i, e));
-            } else {
+            } else 
                 idExprList = idListNodes.Identifiers.Select(i => new VarDeclNode(context.Start.Line, i));
-            }
 
             d = new DeclListNode(context.Start.Line, idExprList);
             return new DeclStatNode(context.Start.Line, type, d);
@@ -113,11 +154,13 @@ namespace LINVAST.Imperative.Builders.Go
         {
             if (context.constSpec().Count() == 1) {
                 return this.Visit(context.constSpec().First()).As<DeclStatNode>();
-            } else {
-                return new BlockStatNode(context.Start.Line, context.constSpec().Select(cs => this.Visit(cs).As<DeclStatNode>()));
-            }
+            } 
+            
+            return new BlockStatNode(context.Start.Line, context.constSpec().Select(cs => this.Visit(cs).As<DeclStatNode>()));
         }
-
+        
         public override ASTNode VisitTypeDecl(GoParser.TypeDeclContext context) => base.VisitTypeDecl(context);
+
+        public override ASTNode VisitTypeSpec(GoParser.TypeSpecContext context) => base.VisitTypeSpec(context);
     }
 }
